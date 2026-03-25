@@ -12,8 +12,8 @@
    - Quality Assurance / Accreditation
    ============================================================= */
 
-import { useEffect, useRef } from "react";
 import { Link } from "wouter";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Layout from "@/components/Layout";
 import { getPageHref, getSectionHref } from "@/lib/sitePaths";
 import { Mail, Phone, MapPin, ChevronRight, Play, Award, Shield, Star } from "lucide-react";
@@ -23,19 +23,6 @@ const WORSHIP_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3Kuu
 const ABOUT_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_about-h8LQ2WdpUtKKBt2ht8xpKJ.webp";
 const SPORT_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_sport-ZXz2kRCQJivyVVXye2Jj9C.webp";
 const ACADEMICS_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_academics-7LM8P4R7XuAXXLEZPm62aA.webp";
-
-function useScrollAnimation() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
-      { threshold: 0.1 }
-    );
-    ref.current?.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-  return ref;
-}
 
 const testimonials = [
   {
