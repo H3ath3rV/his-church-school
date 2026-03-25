@@ -11,7 +11,6 @@ import Layout from "@/components/Layout";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const HERO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_academics-7LM8P4R7XuAXXLEZPm62aA.webp";
-const ABOUT_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_about-h8LQ2WdpUtKKBt2ht8xpKJ.webp";
 
 export default function Academic() {
   const pageRef = useScrollAnimation();
@@ -35,7 +34,7 @@ export default function Academic() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
               <div className="fade-up">
                 <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-xl">
-                  <img src={ABOUT_URL} alt="Academic Curriculum" className="w-full h-full object-cover" />
+                  <img src={HERO_URL} alt="Academic Curriculum" className="w-full h-full object-cover" />
                 </div>
               </div>
               <div className="fade-up">
