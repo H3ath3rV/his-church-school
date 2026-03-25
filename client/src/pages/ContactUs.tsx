@@ -102,9 +102,9 @@ export default function ContactUs() {
                     <select
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full border border-gray-200 rounded px-4 py-2.5 text-sm font-body text-[#051040]/60 focus:outline-none focus:border-[#051040] transition-colors bg-white"
+                      className={`w-full border border-gray-200 rounded px-4 py-2.5 text-sm font-body focus:outline-none focus:border-[#051040] transition-colors bg-white ${formData.subject === "" ? "text-[#051040]/40" : "text-[#051040]"}`}
                     >
-                      <option value="">SUBJECT</option>
+                      <option value="" disabled className="text-[#051040]/40">SUBJECT</option>
                       <option value="Enrolment Enquiry">Enrolment Enquiry</option>
                       <option value="Fee Structure Request">Fee Structure Request</option>
                       <option value="Application Form Request">Application Form Request</option>
