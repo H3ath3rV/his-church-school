@@ -1,0 +1,256 @@
+/* =============================================================
+   HCS Contact Us Page
+   Design per wireframe PDF:
+   - Hero image
+   - Two-column: ASK US form (left) | FAQ accordion (right)
+   - Contact details below form: email, phone, address
+   - Three pill buttons: APPLICATION FORMS | FEE STRUCTURE | SCHOOL FEE POLICY
+   - Map + contact details
+   ============================================================= */
+
+import { useEffect, useRef, useState } from "react";
+import Layout from "@/components/Layout";
+import { Mail, Phone, MapPin, ChevronDown, Send } from "lucide-react";
+
+const HERO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_hero-f6ZbGbULQZM24gUgfEXMzK.webp";
+
+function useScrollAnimation() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
+      { threshold: 0.1 }
+    );
+    ref.current?.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
+
+const faqs = [
+  { q: "How do I enrol my child at His Church School?", a: "Contact our school secretary by phone or email to request an application form. Once completed, submit it along with the required supporting documents to the school office." },
+  { q: "What grades does His Church School offer?", a: "His Church School is a combined school offering education from Grade 1 (Primary Phase) through to Grade 12 (FET Phase). We provide a complete educational journey from primary school to matric." },
+  { q: "Is His Church School a Christian school?", a: "Yes. His Church School is a private Christian school that is a ministry of His Church. Our school is founded on Biblical principles and our goal is to please God in everything we do." },
+  { q: "What curriculum does the school follow?", a: "His Church School follows the CAPS (Curriculum and Assessment Policy Statement) curriculum from Grade 1 to Grade 12. Our NSC examinations are set and managed by SACAI and accredited by Umalusi." },
+  { q: "Does the school offer sport and extra-mural activities?", a: "Yes. His Church School offers a variety of sports including swimming, athletics, soccer, netball, cross country, chess, and pickleball. We also offer leadership courses, firefighting training, and first aid certification." },
+  { q: "What are the school hours?", a: "Please contact the school secretary for current school hours and term dates. Our secretary will be happy to assist you with all scheduling information." },
+  { q: "How do I find out about school fees?", a: "School fee information is available on request. Please contact the school secretary by email or phone, or click the Fee Structure button below to request a copy of the current fee schedule." },
+  { q: "Is the school accredited?", a: "Yes. His Church School is accredited by Umalusi (Accreditation No. 19 SCH01 00763) and is a recognised SACAI examination centre authorised to run NSC examinations for both our own and external candidates." },
+];
+
+export default function ContactUs() {
+  const pageRef = useScrollAnimation();
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [formData, setFormData] = useState({ fullName: "", surname: "", email: "", phone: "", subject: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const mailtoLink = `mailto:secretary@hcschool.co.za?subject=${encodeURIComponent(formData.subject || "Website Enquiry")}&body=${encodeURIComponent(`Full Name: ${formData.fullName} ${formData.surname}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`)}`;
+    window.location.href = mailtoLink;
+    setSubmitted(true);
+  };
+
+  return (
+    <Layout>
+      <div ref={pageRef}>
+
+        {/* Hero */}
+        <section className="relative h-64 md:h-80 flex items-end overflow-hidden">
+          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${HERO_URL})` }} />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#051040] via-[#051040]/50 to-transparent" />
+          <div className="relative z-10 max-w-7xl mx-auto px-4 pb-10 w-full">
+            <h1 className="font-display text-5xl md:text-7xl font-black text-white">Contact Us</h1>
+          </div>
+        </section>
+
+        {/* ── Two-column: ASK US + FAQ ── */}
+        <section className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+              {/* ASK US form */}
+              <div className="bg-white rounded-xl shadow-md border border-gray-100 p-8 fade-up">
+                <h2 className="font-display text-3xl font-black text-[#051040] text-center mb-6">Ask Us</h2>
+
+                {submitted ? (
+                  <div className="text-center py-10">
+                    <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                      <Send size={24} className="text-green-600" />
+                    </div>
+                    <h3 className="font-display text-xl font-black text-[#051040] mb-2">Message Sent!</h3>
+                    <p className="text-[#051040]/60 font-body text-sm">Your email client should have opened. We'll get back to you as soon as possible.</p>
+                    <button onClick={() => setSubmitted(false)} className="mt-6 px-6 py-2 bg-[#051040] text-white font-label text-xs font-bold rounded-full tracking-wide">
+                      Send Another
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-3">
+                    <input
+                      type="text" placeholder="FULL NAME" required
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                      className="w-full border border-gray-200 rounded px-4 py-2.5 text-sm font-body text-[#051040] placeholder:text-[#051040]/40 placeholder:text-xs placeholder:tracking-wide focus:outline-none focus:border-[#051040] transition-colors"
+                    />
+                    <input
+                      type="text" placeholder="SURNAME" required
+                      value={formData.surname}
+                      onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
+                      className="w-full border border-gray-200 rounded px-4 py-2.5 text-sm font-body text-[#051040] placeholder:text-[#051040]/40 placeholder:text-xs placeholder:tracking-wide focus:outline-none focus:border-[#051040] transition-colors"
+                    />
+                    <input
+                      type="email" placeholder="EMAIL ADDRESS" required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full border border-gray-200 rounded px-4 py-2.5 text-sm font-body text-[#051040] placeholder:text-[#051040]/40 placeholder:text-xs placeholder:tracking-wide focus:outline-none focus:border-[#051040] transition-colors"
+                    />
+                    <input
+                      type="tel" placeholder="CONTACT NUMBER"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full border border-gray-200 rounded px-4 py-2.5 text-sm font-body text-[#051040] placeholder:text-[#051040]/40 placeholder:text-xs placeholder:tracking-wide focus:outline-none focus:border-[#051040] transition-colors"
+                    />
+                    <select
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      className="w-full border border-gray-200 rounded px-4 py-2.5 text-sm font-body text-[#051040]/60 focus:outline-none focus:border-[#051040] transition-colors bg-white"
+                    >
+                      <option value="">SUBJECT</option>
+                      <option value="Enrolment Enquiry">Enrolment Enquiry</option>
+                      <option value="Fee Structure Request">Fee Structure Request</option>
+                      <option value="Application Form Request">Application Form Request</option>
+                      <option value="General Enquiry">General Enquiry</option>
+                      <option value="Sport Enquiry">Sport Enquiry</option>
+                      <option value="Academic Enquiry">Academic Enquiry</option>
+                    </select>
+                    <textarea
+                      placeholder="MESSAGE" rows={5} required
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className="w-full border border-gray-200 rounded px-4 py-2.5 text-sm font-body text-[#051040] placeholder:text-[#051040]/40 placeholder:text-xs placeholder:tracking-wide focus:outline-none focus:border-[#051040] transition-colors resize-none"
+                    />
+
+                    {/* Contact details below form */}
+                    <div className="space-y-1.5 pt-1 pb-2">
+                      <div className="flex items-center gap-2 text-xs font-body text-[#051040]/60">
+                        <Mail size={12} className="text-[#051040]" />
+                        <span>secretary@hcschool.co.za</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs font-body text-[#051040]/60">
+                        <Phone size={12} className="text-[#051040]" />
+                        <span>031 701 6211</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs font-body text-[#051040]/60">
+                        <MapPin size={12} className="text-[#051040]" />
+                        <span>13 Drake Road, Pinetown, 3610</span>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end">
+                      <button type="submit"
+                        className="px-8 py-2.5 bg-[#051040] text-white font-label text-xs font-bold rounded-full tracking-widest hover:bg-[#051040]/85 transition-colors uppercase">
+                        Send
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+
+              {/* FAQ accordion */}
+              <div className="bg-white rounded-xl shadow-md border border-gray-100 p-8 fade-up">
+                <h2 className="font-display text-3xl font-black text-[#051040] text-center mb-6">FAQ</h2>
+                <div className="space-y-2">
+                  {faqs.map((faq, i) => (
+                    <div key={i} className="border border-gray-200 rounded-lg overflow-hidden">
+                      <button
+                        onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                        className="w-full flex items-center justify-between px-4 py-3 text-left bg-white hover:bg-gray-50 transition-colors"
+                      >
+                        <span className="font-label text-xs font-semibold text-[#051040] tracking-wide pr-4 leading-snug">
+                          {faq.q}
+                        </span>
+                        <ChevronDown size={16} className={`text-[#051040]/50 shrink-0 transition-transform ${openFaq === i ? "rotate-180" : ""}`} />
+                      </button>
+                      {openFaq === i && (
+                        <div className="px-4 pb-4 bg-gray-50 border-t border-gray-100">
+                          <p className="text-[#051040]/70 font-body text-sm leading-relaxed pt-3">{faq.a}</p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Three pill buttons ── */}
+        <section className="py-10 bg-[#f8f8f8] border-t border-gray-100">
+          <div className="max-w-3xl mx-auto px-4">
+            <div className="flex flex-wrap justify-center gap-4 fade-up">
+              <a
+                href="mailto:secretary@hcschool.co.za?subject=Application Form Request"
+                className="px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full tracking-widest hover:bg-[#051040]/85 transition-colors uppercase"
+              >
+                Application Forms
+              </a>
+              <a
+                href="mailto:secretary@hcschool.co.za?subject=Fee Structure Request"
+                className="px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full tracking-widest hover:bg-[#051040]/85 transition-colors uppercase"
+              >
+                Fee Structure
+              </a>
+              <a
+                href="mailto:secretary@hcschool.co.za?subject=School Fee Policy Request"
+                className="px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full tracking-widest hover:bg-[#051040]/85 transition-colors uppercase"
+              >
+                School Fee Policy
+              </a>
+            </div>
+            <p className="text-center text-[#051040]/40 font-body text-xs mt-4 fade-up">
+              Clicking any button will open an email to our school secretary with the relevant subject line.
+            </p>
+          </div>
+        </section>
+
+        {/* ── Map ── */}
+        <section className="py-16 bg-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="font-display text-3xl font-black text-[#051040] text-center mb-8 fade-up">Find Us</h2>
+            <div className="rounded-xl overflow-hidden shadow-md border border-gray-100 fade-up">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3460.5!2d30.8567!3d-29.8167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDQ5JzAwLjAiUyAzMMKwNTEnMjQuMCJF!5e0!3m2!1sen!2sza!4v1234567890"
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="His Church School Location"
+              />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+              {[
+                { icon: <Mail size={20} />, label: "Email", value: "secretary@hcschool.co.za", href: "mailto:secretary@hcschool.co.za" },
+                { icon: <Phone size={20} />, label: "Phone", value: "031 701 6211", href: "tel:+27317016211" },
+                { icon: <MapPin size={20} />, label: "Address", value: "13 Drake Road, Pinetown, KZN 3610", href: "https://maps.google.com/?q=13+Drake+Road+Pinetown" },
+              ].map((item) => (
+                <a key={item.label} href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer"
+                  className="flex items-start gap-3 p-5 bg-[#f8f8f8] rounded-xl border border-gray-100 hover:bg-gray-100 transition-colors fade-up">
+                  <div className="w-10 h-10 rounded-full bg-[#051040] flex items-center justify-center text-[#C9A84C] shrink-0">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <p className="font-label text-xs font-bold text-[#051040] tracking-wide uppercase mb-0.5">{item.label}</p>
+                    <p className="font-body text-sm text-[#051040]/70">{item.value}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </Layout>
+  );
+}
