@@ -210,6 +210,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {/* Mobile menu */}
         {mobileOpen && (
           <div className="lg:hidden bg-white border-t border-gray-100 max-h-[80vh] overflow-y-auto">
+            <Link
+              href={getPageHref("home")}
+              onClick={(event) => handlePrimaryNavClick(event, getPageHref("home"))}
+              className="flex items-center gap-2 px-6 py-4 font-label text-xs font-bold text-[#051040] tracking-wider border-b border-gray-50"
+            >
+              <Home size={14} /> HOME
+            </Link>
             {navItems.map((item) => (
               <div key={item.label}>
                 <button
@@ -250,7 +257,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-1">{children}</main>
 
       {/* Photo gallery strip */}
-      <div className="grid grid-cols-5 h-32 md:h-44">
+      <div className="grid grid-cols-3 md:grid-cols-5 h-32 md:h-44">
         {GALLERY_STRIP.map((src, i) => (
           <div key={i} className="overflow-hidden">
             <img
@@ -276,7 +283,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <footer className="bg-[#051040] text-white py-8">
         <div className="max-w-7xl mx-auto px-4">
           {/* Top row: logo left, badge right */}
-          <div className="flex items-center justify-between gap-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Left: header logo reused in footer */}
             <Link href={getPageHref("home")} className="flex items-center gap-3 shrink-0">
               <img src={CREST_URL} alt="HCS Crest" className="h-16 w-auto opacity-30" />
