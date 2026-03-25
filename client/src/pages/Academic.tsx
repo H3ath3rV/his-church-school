@@ -7,24 +7,11 @@
    - Accreditation detail
    ============================================================= */
 
-import { useEffect, useRef } from "react";
 import Layout from "@/components/Layout";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const HERO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_academics-7LM8P4R7XuAXXLEZPm62aA.webp";
 const ABOUT_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_about-h8LQ2WdpUtKKBt2ht8xpKJ.webp";
-
-function useScrollAnimation() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
-      { threshold: 0.1 }
-    );
-    ref.current?.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-  return ref;
-}
 
 export default function Academic() {
   const pageRef = useScrollAnimation();
@@ -175,3 +162,4 @@ export default function Academic() {
     </Layout>
   );
 }
+
