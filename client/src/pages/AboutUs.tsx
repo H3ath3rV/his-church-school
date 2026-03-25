@@ -288,22 +288,25 @@ export default function AboutUs() {
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${HERO_URL})` }} />
           <div className="absolute inset-0 bg-gradient-to-t from-[#051040] via-[#051040]/50 to-transparent" />
           <div className="relative z-10 max-w-7xl mx-auto px-4 pb-10 w-full">
+            <p className="font-label text-xs font-semibold text-[#C9A84C] tracking-[0.2em] uppercase mb-3">His Church School</p>
             <h1 className="font-display text-5xl md:text-7xl font-black text-white">About Us</h1>
           </div>
         </section>
 
         {/* History */}
-        <section id="history" className="py-16 bg-white scroll-mt-20">
+        <section id="history" className="py-20 bg-white scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
               <div className="fade-up">
-                <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-xl">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
                   <img src={WORSHIP_URL} alt="History of HCS" className="w-full h-full object-cover" />
                 </div>
               </div>
               <div className="fade-up">
-                <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-5">History</h2>
-                <div className="space-y-4 mt-6 text-[#051040]/70 font-body leading-relaxed">
+                <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">Since 1994</p>
+                <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">History</h2>
+                <div className="w-12 h-0.5 bg-[#C9A84C] mb-6" />
+                <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
                   <p>His Church School (formerly known as City of Life Academy) was founded in 1994 by Fiona Desfontaine, with the purpose of supplying a Christian School for children from His Church (formerly known as City of Life). The first principal was Mrs. Cheryl van der Merwe. The school has since grown and currently caters for students from Grade 1 to Grade 12.</p>
                   <p>The first learning centre was hosted in what is affectionately known as "The Fish Bowl" — a small single room leading off the foyer. Later the upper floor of His Church was developed into premises for the school.</p>
                   <p>In 1997, the school faced the possibility of closing down due to a decision by the Municipal Council and local community. The school lost a number of students in the process. When it had been officially declared that it was to retain its right to exist, His Church School had to start the slow process of regaining students.</p>
@@ -319,10 +322,12 @@ export default function AboutUs() {
           </div>
         </section>
 
-        {/* Vision — sand/beige background per wireframe */}
-        <section id="vision" className="py-16 bg-[#EBDAC8] scroll-mt-20">
+        {/* Vision */}
+        <section id="vision" className="py-20 bg-[#EBDAC8] scroll-mt-20">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-6 fade-up">Vision</h2>
+            <p className="font-label text-xs font-semibold text-[#051040]/50 tracking-[0.2em] uppercase mb-3 fade-up">Our Purpose</p>
+            <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2 fade-up">Vision</h2>
+            <div className="w-12 h-0.5 bg-[#051040]/30 mx-auto mt-4 mb-6 fade-up" />
             <p className="font-display text-xl font-black text-[#051040] italic mb-6 fade-up">"Our Goal Is To Please Him"</p>
             <p className="text-[#051040]/80 font-body leading-relaxed mb-4 fade-up">
               His Church School desires to establish Godly foundations for each child's life and to educate children, so that they will impact their generation for Eternity. We want to see God clothe the children with His armour and prepare them for war, empowered by the Holy Spirit.
@@ -339,10 +344,12 @@ export default function AboutUs() {
         </section>
 
         {/* Mission */}
-        <section id="mission" className="py-16 bg-white scroll-mt-20">
+        <section id="mission" className="py-20 bg-white scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-10">
+            <div className="text-center mb-12">
+              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3 fade-up">Our Calling</p>
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">Mission Statement</h2>
+              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 fade-up" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
@@ -374,9 +381,10 @@ export default function AboutUs() {
                   ],
                 },
               ].map((pillar) => (
-                <div key={pillar.number} className="fade-up bg-white rounded-xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition-shadow">
+                <div key={pillar.number} className="fade-up bg-white rounded-2xl border border-gray-100 shadow-sm p-7 hover:shadow-md transition-shadow">
                   <div className="font-display text-4xl font-black text-gray-300 mb-3">{pillar.number}</div>
-                  <h3 className="font-display text-xl font-black text-[#051040] mb-4">{pillar.title}</h3>
+                  <h3 className="font-display text-xl font-black text-[#051040] mb-2">{pillar.title}</h3>
+                  <div className="w-8 h-0.5 bg-[#C9A84C] mb-4" />
                   <ul className="space-y-3">
                     {pillar.points.map((point, i) => (
                       <li key={i} className="flex items-start gap-3 text-[#051040]/70 font-body text-sm leading-relaxed">
@@ -580,11 +588,13 @@ export default function AboutUs() {
         </section>
 
         {/* Staff Biographies */}
-        <section id="staff" className="py-16 bg-white scroll-mt-20">
+        <section id="staff" className="py-20 bg-white scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-10">
+            <div className="text-center mb-12">
+              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3 fade-up">Meet the Team</p>
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">Our Staff</h2>
-              <p className="text-[#051040]/50 font-body text-sm mt-2 fade-up">Click on a card to learn more about each staff member</p>
+              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-3 fade-up" />
+              <p className="text-[#051040]/50 font-body text-sm fade-up">Click on a card to learn more about each staff member</p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {staffMembers.map((member, i) => (
@@ -596,11 +606,13 @@ export default function AboutUs() {
           </div>
         </section>
 
-        {/* Policies — pill buttons per wireframe */}
+        {/* Policies */}
         <section id="policies" className="py-16 bg-[#f8f8f8] scroll-mt-20">
           <div className="max-w-4xl mx-auto px-4">
             <div className="text-center mb-8">
+              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3 fade-up">Documents</p>
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">School Policies</h2>
+              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up" />
             </div>
             {/* Three pill buttons */}
             <div className="flex flex-wrap justify-center gap-4 mb-8 fade-up">

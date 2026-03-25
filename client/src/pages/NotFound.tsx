@@ -1,50 +1,36 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+/* =============================================================
+   HCS 404 Not Found Page — Platinum Polish
+   Uses site Layout, Playfair Display + Inter, brand colours
+   ============================================================= */
+
+import { Link } from "wouter";
+import Layout from "@/components/Layout";
 import { getPageHref } from "@/lib/sitePaths";
-import { AlertCircle, Home } from "lucide-react";
-import { useLocation } from "wouter";
+import { Home } from "lucide-react";
 
 export default function NotFound() {
-  const [, setLocation] = useLocation();
-
-  const handleGoHome = () => {
-    setLocation(getPageHref("home"));
-  };
-
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
-      <Card className="w-full max-w-lg mx-4 shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-        <CardContent className="pt-8 pb-8 text-center">
-          <div className="flex justify-center mb-6">
-            <div className="relative">
-              <div className="absolute inset-0 bg-red-100 rounded-full animate-pulse" />
-              <AlertCircle className="relative h-16 w-16 text-red-500" />
-            </div>
-          </div>
-
-          <h1 className="text-4xl font-bold text-slate-900 mb-2">404</h1>
-
-          <h2 className="text-xl font-semibold text-slate-700 mb-4">
-            Page Not Found
-          </h2>
-
-          <p className="text-slate-600 mb-8 leading-relaxed">
-            Sorry, the page you are looking for doesn't exist.
-            <br />
-            It may have been moved or deleted.
+    <Layout>
+      <section className="py-32 bg-[#f8f8f8] flex items-center justify-center min-h-[60vh]">
+        <div className="max-w-lg mx-auto px-4 text-center">
+          <p className="font-display text-[9rem] font-black text-[#051040]/8 leading-none select-none">404</p>
+          <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">Page Not Found</p>
+          <h1 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">
+            Oops — this page doesn't exist.
+          </h1>
+          <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto my-5" />
+          <p className="text-[#051040]/60 font-body text-base leading-relaxed mb-10">
+            The page you are looking for may have been moved or removed. Head back to our home page to find what you need.
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button
-              onClick={handleGoHome}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
-            >
-              <Home className="w-4 h-4 mr-2" />
-              Go Home
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+          <Link
+            href={getPageHref("home")}
+            className="inline-flex items-center gap-2 px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full hover:bg-[#051040]/85 transition-colors tracking-wider uppercase"
+          >
+            <Home size={14} />
+            Back to Home
+          </Link>
+        </div>
+      </section>
+    </Layout>
   );
 }
