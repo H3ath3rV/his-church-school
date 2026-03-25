@@ -3,27 +3,15 @@
    Design: "Crest & Community" — Warm, friendly, Poppins headings
    ============================================================= */
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Layout from "@/components/Layout";
 import { getPageHref, getPublicAssetHref } from "@/lib/sitePaths";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Users, Flame, Heart } from "lucide-react";
 
 const SPORT_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_sport-ZXz2kRCQJivyVVXye2Jj9C.webp";
 const WORSHIP_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_worship-8Acaqw2TXSkoBWBdUJYMwh.webp";
 const CALENDAR_FEED_PATH = "/hcs-sporting-events-2025.ics";
-
-function useScrollAnimation() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
-      { threshold: 0.1 }
-    );
-    ref.current?.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-  return ref;
-}
 
 const sportsByTerm = [
   {
