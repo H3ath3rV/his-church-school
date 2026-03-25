@@ -10,9 +10,10 @@
    - Buttons: ADMISSION POLICY | LANGUAGE POLICY | CODE OF CONDUCT
    ============================================================= */
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Layout from "@/components/Layout";
 import { getPublicAssetHref } from "@/lib/sitePaths";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const ABOUT_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_about-h8LQ2WdpUtKKBt2ht8xpKJ.webp";
 const WORSHIP_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_worship-8Acaqw2TXSkoBWBdUJYMwh.webp";
@@ -30,19 +31,6 @@ type StaffMember = {
   photoPosition?: string;
   photoScale?: number;
 };
-
-function useScrollAnimation() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("visible")),
-      { threshold: 0.1 }
-    );
-    ref.current?.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-  return ref;
-}
 
 const staffMembers: StaffMember[] = [
   {
