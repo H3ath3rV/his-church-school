@@ -12,6 +12,7 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import { Mail, Phone, MapPin, ChevronDown, Send } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { getPublicAssetHref } from "@/lib/sitePaths";
 
 const HERO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_hero-f6ZbGbULQZM24gUgfEXMzK.webp";
 
@@ -189,10 +190,31 @@ export default function ContactUs() {
                 Fee Structure
               </a>
               <a
-                href="mailto:secretary@hcschool.co.za?subject=School Fee Policy Request"
-                className="px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full tracking-widest hover:bg-[#051040]/85 transition-colors uppercase"
+                href={getPublicAssetHref("Language-Policy.docx")}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-3 bg-[#C9A84C] text-[#051040] font-label text-xs font-bold rounded-full tracking-widest hover:bg-[#d7b85d] transition-colors uppercase"
               >
-                School Fee Policy
+                Language Policy
+              </a>
+              <a
+                href={getPublicAssetHref("Admission-Policy.docx")}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-3 bg-[#C9A84C] text-[#051040] font-label text-xs font-bold rounded-full tracking-widest hover:bg-[#d7b85d] transition-colors uppercase"
+              >
+                Admission Policy
+              </a>
+              <a
+                href={getPublicAssetHref("Code-of-Conduct.docx")}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-3 bg-[#C9A84C] text-[#051040] font-label text-xs font-bold rounded-full tracking-widest hover:bg-[#d7b85d] transition-colors uppercase"
+              >
+                Code of Conduct
               </a>
             </div>
             <p className="text-center text-[#051040]/40 font-body text-xs mt-4 fade-up">
