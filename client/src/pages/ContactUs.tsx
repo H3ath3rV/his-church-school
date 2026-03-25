@@ -14,7 +14,7 @@ import { Mail, Phone, MapPin, ChevronDown, Send } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { getPublicAssetHref } from "@/lib/sitePaths";
 
-const HERO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_hero-f6ZbGbULQZM24gUgfEXMzK.webp";
+const HERO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_worship-8Acaqw2TXSkoBWBdUJYMwh.webp";
 
 const faqs = [
   { q: "How do I enrol my child at His Church School?", a: "Contact our school secretary by phone or email to request an application form. Once completed, submit it along with the required supporting documents to the school office." },
