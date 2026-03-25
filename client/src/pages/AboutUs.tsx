@@ -399,7 +399,8 @@ export default function AboutUs() {
               <p className="text-[#051040]/50 font-body text-sm mt-4 fade-up">Excellence Through Teamwork</p>
             </div>
 
-            <div className="fade-up flex flex-col items-center">
+            <div className="fade-up overflow-x-auto -mx-4 px-4">
+              <div className="flex flex-col items-center min-w-[340px]">
 
               {/* ─── Top Tier: SGB → Principal → Management ─── */}
               <div className="bg-[#051040] text-white rounded-xl px-12 py-4 text-center shadow-md">
@@ -573,6 +574,7 @@ export default function AboutUs() {
                 </div>
               </div>
 
+              </div>
             </div>
           </div>
         </section>
