@@ -18,9 +18,6 @@ import { Mail, Phone, MapPin, ChevronRight, Star, Quote, Play } from "lucide-rea
 
 const HERO_URL    = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_hero-f6ZbGbULQZM24gUgfEXMzK.webp";
 const WORSHIP_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_worship-8Acaqw2TXSkoBWBdUJYMwh.webp";
-const ABOUT_URL   = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_about-h8LQ2WdpUtKKBt2ht8xpKJ.webp";
-const SPORT_URL   = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_sport-ZXz2kRCQJivyVVXye2Jj9C.webp";
-const ACADEMICS_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_academics-7LM8P4R7XuAXXLEZPm62aA.webp";
 
 const testimonials = [
   {
@@ -189,41 +186,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Quality Assurance ── */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-              <div className="fade-up">
-                <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">Accreditation &amp; Standards</p>
-                <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">Quality Assurance</h2>
-                <div className="w-12 h-0.5 bg-[#C9A84C] mb-6" />
-                <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
-                  <p>His Church School is fully accredited and committed to the highest standards of Christian education. Our academic programme is aligned to the National Curriculum — CAPS — from Grade 1 through to Grade 12.</p>
-                  <p>Our NSC examinations are set and managed by SACAI (South African Comprehensive Assessment Institute) and accredited by Umalusi, the national body for quality assurance in education.</p>
-                  <p>We are a recognised SACAI examination centre, authorised to conduct NSC examinations for both our own learners and registered external candidates.</p>
-                </div>
-                <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {[
-                    { label: "Umalusi", sublabel: "Accredited", detail: "No. 19 SCH01 00763" },
-                    { label: "SACAI", sublabel: "Exam Centre", detail: "NSC Examinations" },
-                    { label: "CAPS", sublabel: "Curriculum", detail: "Grade 1 – 12" },
-                  ].map((badge) => (
-                    <div key={badge.label} className="bg-[#f8f8f8] rounded-xl p-4 border border-gray-100 text-center fade-up">
-                      <p className="font-display text-lg font-black text-[#051040]">{badge.label}</p>
-                      <p className="font-label text-xs font-bold text-[#C9A84C] tracking-wider uppercase mt-0.5">{badge.sublabel}</p>
-                      <p className="font-body text-xs text-[#051040]/45 mt-1">{badge.detail}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="fade-up">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                  <img src={ACADEMICS_URL} alt="Quality Assurance at HCS" className="w-full h-full object-cover" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ── Campus Video ── */}
         <section className="py-20 bg-[#051040] relative overflow-hidden">
