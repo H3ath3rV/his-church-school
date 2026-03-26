@@ -1,84 +1,26 @@
 /* =============================================================
-   HCS School Life Page
-   Sections (per client sitemap):
-   - Hero
-   - Sport (id="sport") — intro + sports by term
-   - Individual sports: Swimming, Athletics, Soccer, Netball, Cross-Country, Chess (id anchors)
-   - Worship & Spirit (id="worship")
-   - Enrichment (id="enrichment"): Leadership, Firefighting, First Aid
-   - Community Outreach (id="outreach")
+   HCS School Life Page — Platinum Polish
+   Typography: Playfair Display (headings) + Inter (body/labels)
+   Consistent section headings, gold rules, unified buttons
    ============================================================= */
 
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { getPublicAssetHref } from "@/lib/sitePaths";
+import { getPageHref, getPublicAssetHref } from "@/lib/sitePaths";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { Users, Flame, Heart, Shield, Trophy, Calendar } from "lucide-react";
+import { Users, Flame, Heart } from "lucide-react";
 
-const SPORT_URL   = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_sport-ZXz2kRCQJivyVVXye2Jj9C.webp";
+const SPORT_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_sport-ZXz2kRCQJivyVVXye2Jj9C.webp";
 const WORSHIP_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_worship-8Acaqw2TXSkoBWBdUJYMwh.webp";
-const ABOUT_URL   = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_about-h8LQ2WdpUtKKBt2ht8xpKJ.webp";
-const ACADEMICS_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_academics-7LM8P4R7XuAXXLEZPm62aA.webp";
 const CALENDAR_FEED_PATH = "/hcs-sporting-events-2025.ics";
-
-const individualSports = [
-  {
-    id: "swimming",
-    name: "Swimming",
-    term: "Term 1",
-    img: SPORT_URL,
-    desc: "Open to boys and girls between the ages of 6 and 19. Disciplines include freestyle, backstroke, breaststroke, butterfly, and individual medley. Swimmers can qualify for Zonal, Provincial (KZNCSSA), and National (SACSSA) levels.",
-    details: ["Age groups: U6 – U19", "Disciplines: Freestyle, Backstroke, Breaststroke, Butterfly, Individual Medley", "Qualifications through to SACSSA National level"],
-  },
-  {
-    id: "athletics",
-    name: "Athletics",
-    term: "Term 3",
-    img: ACADEMICS_URL,
-    desc: "Track and field disciplines including sprints, relays, long jump, high jump, shot put, javelin, and discus. Athletes can qualify for Zonal, Provincial (KZNCSSA), and National (SACSSA) levels.",
-    details: ["Age groups: U7 – U19", "Disciplines: Sprints, Relays, Long Jump, High Jump, Shot Put, Javelin, Discus", "Qualifications through to SACSSA National level"],
-  },
-  {
-    id: "soccer",
-    name: "Soccer",
-    term: "Term 2",
-    img: SPORT_URL,
-    desc: "Boys and girls between the ages of 10 and 19 have separate teams and, if selected, take part in the KZNCSSA Provincial Winter Sports.",
-    details: ["Boys and girls teams", "Age groups: U10 – U19 (Mini Soccer U9)", "KZNCSSA Provincial Winter Sports participation"],
-  },
-  {
-    id: "netball",
-    name: "Netball",
-    term: "Term 2",
-    img: ACADEMICS_URL,
-    desc: "Girls between the ages of 10 and 19, if selected, take part in the KZNCSSA Provincial Winter Sports. Mini Netball is available for girls under 9.",
-    details: ["Girls teams", "Age groups: U9 – U19", "KZNCSSA Provincial Winter Sports participation"],
-  },
-  {
-    id: "cross-country",
-    name: "Cross-Country",
-    term: "Term 2",
-    img: ABOUT_URL,
-    desc: "Age groups Under 6 to Under 19. Runners can qualify for Zonal, Provincial (KZNCSSA), and National (SACSSA) levels.",
-    details: ["Age groups: U6 – U19", "Zonal, Provincial and National qualification pathway", "SACSSA National Cross Country"],
-  },
-  {
-    id: "chess",
-    name: "Chess",
-    term: "Year-Round",
-    img: SPORT_URL,
-    desc: "Offered throughout the year with multiple online events. Contestants can participate in the KZNCSSA Provincial Chess Event and qualify for the SACSSA National Chess Event.",
-    details: ["Year-round programme", "Online events throughout the year", "SACSSA National Chess participation"],
-  },
-];
 
 const sportsByTerm = [
   {
     term: "Term 1",
     sports: [
-      { name: "Swimming", desc: "Open to boys and girls between the ages of 6 and 19. Disciplines include freestyle, backstroke, breaststroke, butterfly, and individual medley." },
+      { name: "Swimming", desc: "Open to boys and girls between the ages of 6 and 19. Disciplines include freestyle, backstroke, breaststroke, butterfly, and individual medley. Swimmers can qualify for Zonal, Provincial (KZNCSSA), and National (SACSSA) levels." },
       { name: "Mini Cricket", desc: "Open to boys and girls between the ages of 6 and 9. Two teams (U8 and U10) participate in the KZNCSSA Mini Cricket Festival." },
-      { name: "Cricket", desc: "Open to boys between the ages of 10 and 19. Opportunity to participate in the KZNCSSA Provincial Cricket Festival." },
+      { name: "Cricket", desc: "Open to boys between the ages of 10 and 19. Opportunity to participate in the KZNCSSA Provincial Cricket Festival with prospects of selection for KZNCSSA Teams." },
     ],
   },
   {
@@ -87,21 +29,21 @@ const sportsByTerm = [
       { name: "Mini Soccer", desc: "Open to boys and girls under the age of 9. A team participates in the Under 9 KZNCSSA Provincial Winter Sports." },
       { name: "Mini Netball", desc: "Open to girls under the age of 9. A team participates in the Under 9 KZNCSSA Provincial Winter Sports." },
       { name: "Netball", desc: "Girls between the ages of 10 and 19, if selected, take part in the KZNCSSA Provincial Winter Sports." },
-      { name: "Soccer", desc: "Boys and girls between the ages of 10 and 19 have separate teams and take part in the KZNCSSA Provincial Winter Sports." },
-      { name: "Cross Country", desc: "Age groups Under 6 to Under 19. Runners can qualify for Zonal, Provincial, and National levels." },
+      { name: "Soccer", desc: "Boys and girls between the ages of 10 and 19 have separate teams and, if selected, take part in the KZNCSSA Provincial Winter Sports." },
+      { name: "Cross Country", desc: "Age groups Under 6 to Under 19. Runners can qualify for Zonal, Provincial (KZNCSSA), and National (SACSSA) levels." },
     ],
   },
   {
     term: "Term 3",
     sports: [
-      { name: "Athletics", desc: "Track and field disciplines including sprints, relays, long jump, high jump, shot put, javelin, and discus." },
+      { name: "Athletics", desc: "Track and field disciplines including sprints, relays, long jump, high jump, shot put, javelin, and discus. Age groups Under 7 to Under 19. Athletes can qualify for Zonal, Provincial (KZNCSSA), and National (SACSSA) levels." },
     ],
   },
   {
     term: "Term 4",
     sports: [
-      { name: "Chess", desc: "Offered throughout the year with multiple online events and provincial and national competitions." },
-      { name: "Table Tennis", desc: "Open to boys and girls between the ages of 6 and 19. Individual-based trial for KZNCSSA Team selection." },
+      { name: "Chess", desc: "Offered throughout the year with multiple online events. Contestants can participate in the KZNCSSA Provincial Chess Event and qualify for the SACSSA National Chess Event." },
+      { name: "Table Tennis", desc: "Open to boys and girls between the ages of 6 and 19. Athletes can participate in the KZNCSSA Provincial Table Tennis, an individual-based trial for KZNCSSA Team selection." },
     ],
   },
 ];
@@ -127,34 +69,9 @@ function splitFixtureEvent(event: string) {
   return { label, detail: rest.join(" — ") };
 }
 
-const enrichmentProgrammes = [
-  {
-    icon: <Users size={28} />,
-    title: "Leadership Courses",
-    desc: "His Church School offers leadership development programmes designed to equip learners with the skills, confidence, and Biblical foundations needed to lead effectively in their communities, schools, and future workplaces.",
-    detail: "Through practical training and Biblical principles, students are equipped to lead with integrity. Our goal: raising up Decision Makers, World Shakers, and Challenge Takers who will impact their generation for eternity.",
-    href: "mailto:secretary@hcschool.co.za?subject=Leadership Course Enquiry",
-  },
-  {
-    icon: <Flame size={28} />,
-    title: "Fire-Fighting",
-    desc: "His Church School offers a unique firefighting training programme that equips learners with practical skills in fire prevention, control, and safety, conducted by certified instructors.",
-    detail: "The programme builds teamwork, courage, and discipline while teaching emergency response. Learners who complete the course receive a certificate recognised in the workplace.",
-    href: "mailto:secretary@hcschool.co.za?subject=Firefighting Course Enquiry",
-  },
-  {
-    icon: <Heart size={28} />,
-    title: "First Aid",
-    desc: "Our accredited First Aid programme teaches learners essential life-saving skills — from CPR and wound care to emergency response. Learners earn a recognised First Aid certificate on completion.",
-    detail: "This qualification is valuable for future employment and is a practical skill that can save lives. At HCS, we equip learners not just academically, but with practical skills that prepare them for life.",
-    href: "mailto:secretary@hcschool.co.za?subject=First Aid Course Enquiry",
-  },
-];
-
 export default function SchoolLife() {
   const pageRef = useScrollAnimation();
   const [calendarFeedCopied, setCalendarFeedCopied] = useState(false);
-  const [expandedEnrichment, setExpandedEnrichment] = useState<number | null>(null);
 
   const handleCopyCalendarFeed = async () => {
     const calendarFeedUrl = `${window.location.origin}${getPublicAssetHref(CALENDAR_FEED_PATH)}`;
@@ -187,7 +104,7 @@ export default function SchoolLife() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
               <div className="fade-up">
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                  <img src={SPORT_URL} alt="HCS Sport" className="w-full h-full object-cover" />
+                  <img src={SPORT_URL} alt="HCS Athletics" className="w-full h-full object-cover" />
                 </div>
               </div>
               <div className="fade-up">
@@ -195,22 +112,14 @@ export default function SchoolLife() {
                 <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">Sport at His Church School</h2>
                 <div className="w-12 h-0.5 bg-[#C9A84C] mb-6" />
                 <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
-                  <p>His Church School encourages all students to participate in school sports as it promotes essential values such as teamwork, leadership, discipline, resilience, sportsmanship, and physical fitness — alongside Biblical values of compassion, humility, integrity, and stewardship.</p>
-                  <p>Integrating these values into sports activities fosters the holistic development of our learners, guiding them to adopt Biblical values both on and off the field.</p>
+                  <p>His Church School encourages all students to participate in school sports as it not only promotes essential values such as teamwork, leadership, discipline, resilience, sportsmanship, physical fitness, time management, and respect for authority, but also instils Biblical values such as compassion, humility, integrity, and stewardship.</p>
+                  <p>Integrating these values into sports activities fosters the holistic development of students' character, guiding them to adopt Biblical values both on and off the sport field.</p>
                 </div>
                 <blockquote className="border-l-4 border-[#C9A84C] pl-5 my-6 font-body text-sm text-[#051040]/75 italic leading-relaxed">
                   <p>SACSSA affiliated — South African Christian Schools Sports Association.</p>
                   <p className="mt-2">KZNCSSA affiliated — KwaZulu-Natal Christian Schools Sports Association, North Durban Zone.</p>
+                  <cite className="block text-xs font-body not-italic text-[#051040]/45 mt-2">— Sport Affiliations</cite>
                 </blockquote>
-                {/* Quick sport links */}
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {individualSports.map((s) => (
-                    <a key={s.id} href={`#${s.id}`}
-                      className="px-4 py-1.5 bg-[#f8f8f8] border border-gray-200 rounded-full font-label text-xs font-bold text-[#051040] hover:bg-[#051040] hover:text-white hover:border-[#051040] transition-colors tracking-wide uppercase">
-                      {s.name}
-                    </a>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
@@ -247,78 +156,53 @@ export default function SchoolLife() {
           </div>
         </section>
 
-        {/* ── Individual Sport Sections ── */}
-        {individualSports.map((sport, i) => (
-          <section key={sport.id} id={sport.id} className={`py-16 scroll-mt-20 ${i % 2 === 0 ? "bg-white" : "bg-[#f8f8f8]"}`}>
-            <div className="max-w-7xl mx-auto px-4">
-              <div className={`grid grid-cols-1 lg:grid-cols-2 gap-14 items-center ${i % 2 !== 0 ? "lg:flex-row-reverse" : ""}`}>
-                {i % 2 !== 0 && (
-                  <div className="fade-up order-2 lg:order-1">
-                    <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                      <img src={sport.img} alt={sport.name} className="w-full h-full object-cover" />
-                    </div>
-                  </div>
-                )}
-                <div className={`fade-up ${i % 2 !== 0 ? "order-1 lg:order-2" : ""}`}>
-                  <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-2">{sport.term}</p>
-                  <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">{sport.name}</h2>
-                  <div className="w-12 h-0.5 bg-[#C9A84C] mb-6" />
-                  <p className="text-[#051040]/70 font-body leading-relaxed mb-5">{sport.desc}</p>
-                  <ul className="space-y-2">
-                    {sport.details.map((d) => (
-                      <li key={d} className="flex items-start gap-3 text-sm font-body text-[#051040]/65">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] mt-1.5 shrink-0" />
-                        {d}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                {i % 2 === 0 && (
-                  <div className="fade-up">
-                    <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                      <img src={sport.img} alt={sport.name} className="w-full h-full object-cover" />
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
-        ))}
-
         {/* ── Fixtures Calendar ── */}
-        <section className="py-20 bg-[#051040] scroll-mt-20">
+        <section className="py-20 bg-[#051040]">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-10">
-              <p className="font-label text-xs font-semibold text-white/40 tracking-[0.2em] uppercase mb-3 fade-up">2025 Season</p>
-              <h2 className="font-display text-3xl md:text-4xl font-black text-white fade-up">Sporting Calendar</h2>
-              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 fade-up" />
+            <div className="text-center mb-12">
+              <p className="font-label text-xs font-semibold text-[#C9A84C] tracking-[0.2em] uppercase mb-3 fade-up">2025 Season</p>
+              <h2 className="font-display text-3xl md:text-4xl font-black text-white fade-up">Fixtures &amp; Sporting Events</h2>
+              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up" />
+              <p className="text-white/50 font-body text-sm mt-2 max-w-xl mx-auto fade-up">
+                Dates subject to change — contact the school secretary for updates.
+              </p>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {fixturesByMonth.map((m, i) => (
-                <div key={m.month} className="bg-white/5 rounded-xl overflow-hidden border border-white/10 fade-up" style={{ transitionDelay: `${i * 50}ms` }}>
-                  <div className="bg-[#C9A84C] px-4 py-2">
-                    <h3 className="font-label text-xs font-bold text-[#051040] tracking-widest uppercase">{m.month}</h3>
-                  </div>
-                  <ul className="p-4 space-y-2">
-                    {m.events.map((ev) => {
-                      const { label, detail } = splitFixtureEvent(ev);
+
+            {/* Calendar sync buttons */}
+            <div className="flex flex-wrap justify-center gap-3 mb-10 fade-up">
+              <button
+                onClick={handleCopyCalendarFeed}
+                className="px-6 py-3 rounded-full border border-white/20 bg-white/8 text-white font-label text-xs font-bold tracking-wider uppercase hover:bg-white/15 transition-colors"
+              >
+                {calendarFeedCopied ? "Copied!" : "Copy Calendar Feed URL"}
+              </button>
+              <a
+                href={getPublicAssetHref(CALENDAR_FEED_PATH)}
+                download
+                className="px-6 py-3 rounded-full bg-[#C9A84C] text-[#051040] font-label text-xs font-bold tracking-wider uppercase hover:bg-[#d7b85d] transition-colors"
+              >
+                Download .ICS File
+              </a>
+            </div>
+
+            {/* Month grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {fixturesByMonth.map((month, i) => (
+                <div key={month.month} className="bg-white/6 rounded-2xl p-5 border border-white/10 fade-up" style={{ transitionDelay: `${(i % 4) * 60}ms` }}>
+                  <h3 className="font-display text-xl font-black text-[#C9A84C] mb-3">{month.month}</h3>
+                  <div className="space-y-2">
+                    {month.events.map((event, j) => {
+                      const { label, detail } = splitFixtureEvent(event);
                       return (
-                        <li key={ev} className="text-white/70 font-body text-xs leading-snug">
-                          {label && <span className="font-bold text-[#C9A84C]">{label} — </span>}
-                          {detail}
-                        </li>
+                        <div key={j}>
+                          {label && <p className="font-label text-xs font-bold uppercase tracking-wider text-[#C9A84C] mb-0.5">{label}</p>}
+                          <p className="text-white/75 font-body text-sm leading-snug">{detail}</p>
+                        </div>
                       );
                     })}
-                  </ul>
+                  </div>
                 </div>
               ))}
-            </div>
-            <div className="mt-10 text-center fade-up">
-              <button onClick={handleCopyCalendarFeed}
-                className="inline-flex items-center gap-2 px-8 py-3 bg-white/10 border border-white/20 text-white font-label text-xs font-bold rounded-full hover:bg-white/20 transition-colors tracking-wider uppercase">
-                <Calendar size={14} />
-                {calendarFeedCopied ? "Feed URL Copied!" : "Add to Google Calendar"}
-              </button>
             </div>
           </div>
         </section>
@@ -347,7 +231,7 @@ export default function SchoolLife() {
         </section>
 
         {/* ── Enrichment Programmes ── */}
-        <section id="enrichment" className="py-20 bg-[#EBDAC8] scroll-mt-20">
+        <section id="leadership" className="py-20 bg-[#EBDAC8] scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-12">
               <p className="font-label text-xs font-semibold text-[#051040]/50 tracking-[0.2em] uppercase mb-3 fade-up">Beyond The Classroom</p>
@@ -355,65 +239,63 @@ export default function SchoolLife() {
               <div className="w-12 h-0.5 bg-[#051040]/30 mx-auto mt-4 fade-up" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {enrichmentProgrammes.map((prog, i) => (
-                <div key={prog.title}
-                  className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden fade-up"
-                  style={{ transitionDelay: `${i * 80}ms` }}>
-                  <div className="p-8">
-                    <div className="w-14 h-14 rounded-full bg-[#051040] flex items-center justify-center text-[#C9A84C] mb-5">
-                      {prog.icon}
-                    </div>
-                    <h3 className="font-display text-xl font-black text-[#051040] mb-2">{prog.title}</h3>
-                    <div className="w-8 h-0.5 bg-[#C9A84C] mb-4" />
-                    <p className="text-[#051040]/65 font-body text-sm leading-relaxed mb-3">{prog.desc}</p>
-                    {expandedEnrichment === i && (
-                      <p className="text-[#051040]/60 font-body text-sm leading-relaxed mb-3">{prog.detail}</p>
-                    )}
-                    <button
-                      onClick={() => setExpandedEnrichment(expandedEnrichment === i ? null : i)}
-                      className="text-xs font-label font-bold text-[#051040]/50 hover:text-[#051040] transition-colors tracking-wide uppercase mb-4 block">
-                      {expandedEnrichment === i ? "Show less ↑" : "Read more ↓"}
-                    </button>
+              {[
+                {
+                  icon: <Users size={26} />,
+                  title: "Leadership Courses",
+                  desc: "His Church School offers leadership development programmes designed to equip learners with the skills, confidence, and Biblical foundations needed to lead effectively in their communities, schools, and future workplaces.",
+                  href: "mailto:secretary@hcschool.co.za?subject=Leadership Course Enquiry",
+                },
+                {
+                  icon: <Flame size={26} />,
+                  title: "Firefighting",
+                  desc: "Selected staff and learners are trained in firefighting techniques, equipping them with practical skills for emergency response. This programme builds confidence, teamwork, and a sense of responsibility.",
+                  href: "mailto:secretary@hcschool.co.za?subject=Firefighting Course Enquiry",
+                },
+                {
+                  icon: <Heart size={26} />,
+                  title: "First Aid",
+                  desc: "His Church School provides First Aid training to equip learners and staff with life-saving skills. Participants receive Level One First Aid certification, preparing them to respond effectively in emergency situations.",
+                  href: "mailto:secretary@hcschool.co.za?subject=First Aid Course Enquiry",
+                },
+              ].map((programme, i) => (
+                <div key={programme.title} className="bg-white rounded-2xl shadow-sm p-8 fade-up border border-[#c9b48a]/20" style={{ transitionDelay: `${i * 90}ms` }}>
+                  <div className="w-14 h-14 rounded-full bg-[#051040] flex items-center justify-center text-[#C9A84C] mb-6">
+                    {programme.icon}
                   </div>
-                  <div className="px-8 pb-7">
-                    <a href={prog.href}
-                      className="block text-center px-6 py-2.5 bg-[#051040] text-white font-label text-xs font-bold rounded-full hover:bg-[#051040]/85 transition-colors tracking-wider uppercase">
-                      ENQUIRE
-                    </a>
-                  </div>
+                  <h3 className="font-display text-xl font-black text-[#051040] mb-2">{programme.title}</h3>
+                  <div className="w-8 h-0.5 bg-[#C9A84C] mb-4" />
+                  <p className="text-[#051040]/65 font-body text-sm leading-relaxed mb-7">{programme.desc}</p>
+                  <a
+                    href={programme.href}
+                    className="inline-block px-7 py-2.5 bg-[#051040] text-white font-label text-xs font-bold rounded-full hover:bg-[#051040]/85 transition-colors tracking-wider uppercase"
+                  >
+                    Enquire
+                  </a>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── Leadership Section (kept for id="leadership" deep link) ── */}
-        <div id="leadership" className="scroll-mt-20" />
-
         {/* ── Community Outreach ── */}
         <section id="outreach" className="py-20 bg-white scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-              <div className="fade-up">
-                <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">Giving Back</p>
-                <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">Community Outreach</h2>
-                <div className="w-12 h-0.5 bg-[#C9A84C] mb-6" />
-                <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
-                  <p>His Church School instils in its learners a heart for service and a compassion for those around them. Our Community Outreach programme gives learners the opportunity to make a practical difference in the lives of others.</p>
-                  <p>Through various outreach initiatives, learners learn the value of generosity, empathy, and servant-hearted leadership — putting their faith into action and being a light in their community.</p>
-                  <p>Outreach activities are integrated into the school calendar and provide learners with real-world opportunities to live out the Biblical call to love their neighbours.</p>
-                </div>
-                <a href="mailto:secretary@hcschool.co.za?subject=Community Outreach Enquiry"
-                  className="inline-block mt-8 px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full hover:bg-[#051040]/85 transition-colors tracking-wider uppercase">
-                  GET INVOLVED
-                </a>
-              </div>
-              <div className="fade-up">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                  <img src={ABOUT_URL} alt="Community Outreach" className="w-full h-full object-cover" />
-                </div>
-              </div>
-            </div>
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3 fade-up">Serving Others</p>
+            <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2 fade-up">Community Outreach</h2>
+            <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-8 fade-up" />
+            <p className="text-[#051040]/70 font-body leading-relaxed mb-5 fade-up">
+              His Church School believes that true education extends beyond the classroom. Through community outreach initiatives, our learners are taught to serve others with compassion, humility, and love — reflecting the heart of Jesus Christ in their communities.
+            </p>
+            <p className="text-[#051040]/70 font-body leading-relaxed mb-10 fade-up">
+              Outreach activities are integrated into the school calendar, giving learners practical opportunities to live out their faith and make a tangible difference in the lives of those around them.
+            </p>
+            <a
+              href={getPageHref("contact")}
+              className="inline-block px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full hover:bg-[#051040]/85 transition-colors tracking-wider uppercase fade-up"
+            >
+              Get Involved
+            </a>
           </div>
         </section>
 
