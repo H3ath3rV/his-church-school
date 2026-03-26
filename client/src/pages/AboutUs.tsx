@@ -278,28 +278,6 @@ function StaffCard({ member }: { member: StaffMember }) {
 
 
 
-// ── FAQ accordion item ──────────────────────────────────────────────
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = React.useState(false);
-  return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-6 py-5 text-left"
-      >
-        <span className="font-display text-base font-black text-[#051040] pr-4">{q}</span>
-        <span className={`shrink-0 w-7 h-7 rounded-full bg-[#051040] flex items-center justify-center text-[#C9A84C] transition-transform ${open ? "rotate-45" : ""}`}>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
-        </span>
-      </button>
-      {open && (
-        <div className="px-6 pb-6 text-[#051040]/65 font-body text-sm leading-relaxed border-t border-gray-50 pt-4">
-          {a}
-        </div>
-      )}
-    </div>
-  );
-}
 
 export default function AboutUs() {
   const pageRef = useScrollAnimation();
@@ -630,55 +608,40 @@ export default function AboutUs() {
           </div>
         </section>
 
-        {/* Policies */}
-        <section id="policies" className="py-16 bg-[#f8f8f8] scroll-mt-20">
-          <div className="max-w-4xl mx-auto px-4">
-            <div className="text-center mb-8">
-              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3 fade-up">Documents</p>
-              <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">School Policies</h2>
-              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up" />
-            </div>
-            {/* Three pill buttons */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8 fade-up">
-              {[
-                { label: "Admission Policy", href: getPublicAssetHref("Admission-Policy.docx") },
-                { label: "Language Policy", href: getPublicAssetHref("Language-Policy.docx") },
-                { label: "Code of Conduct", href: getPublicAssetHref("Code-of-Conduct.docx") },
-              ].map((policy) => (
-                <a
-                  key={policy.label}
-                  href={policy.href}
-                  download
-                  className="px-8 py-3 font-label text-xs font-bold rounded-full tracking-widest uppercase transition-colors bg-[#051040] text-white hover:bg-[#051040]/85"
-                >
-                  {policy.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-        {/* ── FAQ ── */}
-        <section id="faq" className="py-20 bg-[#f8f8f8] scroll-mt-20">
-          <div className="max-w-4xl mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up gold-rule-center">Frequently Asked Questions</h2>
-              <p className="text-[#051040]/50 font-body text-sm mt-4 fade-up">Everything you need to know about His Church School</p>
-            </div>
-            <div className="space-y-3 fade-up">
-              {[
-                { q: "How do I enrol my child at His Church School?", a: "Contact our school secretary by phone or email to request an application form. Once completed, submit it along with the required supporting documents to the school office. Our secretary will guide you through the full admissions process." },
-                { q: "What grades does His Church School offer?", a: "His Church School is a combined school offering education from Grade 1 (Primary Phase) through to Grade 12 (FET Phase). We provide a complete educational journey from primary school to matric within one community." },
-                { q: "Is His Church School a Christian school?", a: "Yes. His Church School is a private Christian school that is a ministry of His Church. Our school is founded on Biblical principles and our goal is to please God in everything we do — integrating faith into every aspect of learning." },
-                { q: "What curriculum does the school follow?", a: "His Church School follows the CAPS curriculum from Grade 1 to Grade 12. Our NSC examinations are set and managed by SACAI and accredited by Umalusi (Accreditation No. 19 SCH01 00763)." },
-                { q: "Does the school offer sport and extra-mural activities?", a: "Yes. His Church School offers a wide variety of sports including swimming, athletics, soccer, netball, cross country, chess, and more. We also offer enrichment programmes including leadership courses, firefighting training, and first aid certification." },
-                { q: "What are the school hours?", a: "Please contact the school secretary for current school hours and term dates. Our secretary will be happy to assist you with all scheduling information." },
-                { q: "How do I find out about school fees?", a: "School fee information is available on request. Please contact the school secretary by email or phone, or visit the Contact Us page to request a copy of the current fee schedule." },
-                { q: "Is the school accredited?", a: "Yes. His Church School is accredited by Umalusi (Accreditation No. 19 SCH01 00763) and is a recognised SACAI examination centre authorised to run NSC examinations for both our own and external candidates." },
-                { q: "Does the school accept late applications?", a: "Late applications are considered on a space-available basis. We encourage families to apply as early as possible to secure a place for their child. Contact the school secretary for current availability." },
-                { q: "What documents are required for enrolment?", a: "Typically required documents include a certified copy of the child\'s birth certificate, the previous school\'s latest report card, proof of residence, and parent/guardian ID documents. The full list is available from the school office." },
-              ].map((item, i) => (
-                <FaqItem key={i} q={item.q} a={item.a} />
-              ))}
+
+        {/* ── Career Guidance ── */}
+        <section id="career-guidance" className="py-20 bg-[#f8f8f8] scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
+              <div className="fade-up">
+                <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">Future Pathways</p>
+                <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">Career Guidance</h2>
+                <div className="w-12 h-0.5 bg-[#C9A84C] mb-6" />
+                <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
+                  <p>His Church School is committed to helping every learner discover their God-given purpose and equipping them with the knowledge, direction, and confidence to pursue a meaningful future.</p>
+                  <p>Our Career Guidance programme supports learners through the subject selection process, tertiary planning, and career exploration. Learners are helped to understand the link between their current academic choices and their future opportunities.</p>
+                  <p>In Grade 9, learners and their parents are invited to a dedicated Parents' Meeting to discuss FET subject packages, career pathways, and what is required for university entrance, college, or vocational training.</p>
+                  <p>Our staff are committed to walking alongside each learner — helping them set goals, understand their strengths, and step into their future with purpose and faith.</p>
+                </div>
+              </div>
+              <div className="space-y-4 fade-up">
+                {[
+                  { title: "Subject Selection Guidance", desc: "Personalised support during the Grade 9 subject selection process, helping learners and parents make informed decisions about their FET phase subjects and future career paths." },
+                  { title: "Tertiary & Vocational Planning", desc: "Information and guidance on university entrance requirements, college options, and vocational training pathways — helping learners understand their options after matric." },
+                  { title: "NSC & University Requirements", desc: "Clear explanation of the NSC Bachelor's, Diploma, and Higher Certificate pass requirements, and how learners can meet and exceed these benchmarks." },
+                  { title: "Individual Support", desc: "Staff are available to discuss learner progress, strengths, and future direction — encouraging every learner to pursue their calling with confidence and purpose." },
+                ].map((item, i) => (
+                  <div key={item.title} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm fade-up" style={{ transitionDelay: `${i * 60}ms` }}>
+                    <div className="flex items-start gap-4">
+                      <div className="w-2 h-2 rounded-full bg-[#C9A84C] mt-2 shrink-0" />
+                      <div>
+                        <h3 className="font-display text-base font-black text-[#051040] mb-1">{item.title}</h3>
+                        <p className="text-[#051040]/60 font-body text-sm leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
