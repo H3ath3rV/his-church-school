@@ -307,9 +307,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2">
               {[
                 { label: "GALLERY", href: "https://www.facebook.com/hischurchschool/photos" },
-                { label: "PARTNERSHIP", href: "#" },
-                { label: "TESTIMONIALS", href: "#" },
-                { label: "COMMUNICATIONS", href: "#" },
+                { label: "PARTNERSHIP", href: "/partnership/" },
+                { label: "TESTIMONIALS", href: "/#testimonials" },
+                { label: "COMMUNICATIONS", href: "/communications/" },
               ].map((link, i, arr) => (
                 <span key={link.label} className="flex items-center gap-6">
                   <a href={link.href} className="font-label text-xs font-bold tracking-widest text-white/70 hover:text-white transition-colors">
