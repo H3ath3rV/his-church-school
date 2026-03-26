@@ -11,6 +11,8 @@ import AboutUs from "./pages/AboutUs";
 import Academic from "./pages/Academic";
 import SchoolLife from "./pages/SchoolLife";
 import ContactUs from "./pages/ContactUs";
+import Partnership from "./pages/Partnership";
+import Communications from "./pages/Communications";
 
 function ScrollManager() {
   const [location] = useLocation();
@@ -50,6 +52,12 @@ function Router() {
       <Route path="/contact" component={ContactUs} />
       <Route path="/contact/" component={ContactUs} />
       <Route path="/contact.html" component={ContactUs} />
+      <Route path="/partnership" component={Partnership} />
+      <Route path="/partnership/" component={Partnership} />
+      <Route path="/partnership.html" component={Partnership} />
+      <Route path="/communications" component={Communications} />
+      <Route path="/communications/" component={Communications} />
+      <Route path="/communications.html" component={Communications} />
       <Route path="/404" component={NotFound} />
       <Route path="/404/" component={NotFound} />
       <Route path="/404.html" component={NotFound} />
