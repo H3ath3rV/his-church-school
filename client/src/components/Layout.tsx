@@ -53,8 +53,7 @@ const navItems = [
     href: getPageHref("schoolLife"),
     children: [
       { label: "Sport", href: getSectionHref("schoolLife", "sport") },
-      { label: "Worship & Spirit", href: getSectionHref("schoolLife", "worship") },
-      { label: "Leadership Courses", href: getSectionHref("schoolLife", "leadership") },
+      { label: "Enrichment Programmes", href: getSectionHref("schoolLife", "leadership") },
       { label: "Community Outreach", href: getSectionHref("schoolLife", "outreach") },
     ],
   },
