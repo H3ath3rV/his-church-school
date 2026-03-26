@@ -1,21 +1,25 @@
 /* =============================================================
-   HCS Home Page — Platinum Polish
-   Typography: Playfair Display (headings) + Inter (body/labels)
-   Buttons: All rounded-full, navy primary / gold secondary
-   Cards: Consistent border-radius, shadow-sm, border
-   Contact strip: Icon-top layout per wireframe
+   HCS Home Page
+   Sections (per client sitemap):
+   - Hero
+   - Contact strip
+   - Worship & Spirit teaser
+   - Testimonials
+   - Combined School
+   - 3-col activity cards (Leadership, Firefighting, First Aid)
+   - CTA strip
    ============================================================= */
 
 import { Link } from "wouter";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Layout from "@/components/Layout";
 import { getPageHref, getSectionHref } from "@/lib/sitePaths";
-import { Mail, Phone, MapPin, ChevronRight, Play, Star } from "lucide-react";
+import { Mail, Phone, MapPin, ChevronRight, Star, Quote } from "lucide-react";
 
-const HERO_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_hero-f6ZbGbULQZM24gUgfEXMzK.webp";
+const HERO_URL    = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_hero-f6ZbGbULQZM24gUgfEXMzK.webp";
 const WORSHIP_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_worship-8Acaqw2TXSkoBWBdUJYMwh.webp";
-const ABOUT_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_about-h8LQ2WdpUtKKBt2ht8xpKJ.webp";
-const SPORT_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_sport-ZXz2kRCQJivyVVXye2Jj9C.webp";
+const ABOUT_URL   = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_about-h8LQ2WdpUtKKBt2ht8xpKJ.webp";
+const SPORT_URL   = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_sport-ZXz2kRCQJivyVVXye2Jj9C.webp";
 const ACADEMICS_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_academics-7LM8P4R7XuAXXLEZPm62aA.webp";
 
 const testimonials = [
@@ -38,22 +42,22 @@ const testimonials = [
 
 const activityCards = [
   {
-    title: "Worship & Spirit",
-    img: WORSHIP_URL,
-    href: getSectionHref("schoolLife", "worship"),
-    desc: "Faith is the foundation of everything we do. Daily devotions, praise and worship, and a Christ-centred community shape our learners.",
+    title: "Leadership Courses",
+    img: ABOUT_URL,
+    href: getSectionHref("schoolLife", "leadership"),
+    desc: "Building character, confidence, and Godly leadership qualities through practical training and Biblical principles.",
   },
   {
     title: "Fire-Fighting",
     img: SPORT_URL,
-    href: getSectionHref("schoolLife", "leadership"),
-    desc: "Learners are trained in basic firefighting skills, building confidence, teamwork, and practical life skills under certified instructors.",
+    href: getSectionHref("schoolLife", "enrichment"),
+    desc: "Learners earn a recognised firefighting certificate, building courage, teamwork, and practical life skills.",
   },
   {
     title: "First Aid",
     img: ACADEMICS_URL,
-    href: getSectionHref("schoolLife", "leadership"),
-    desc: "Our First Aid programme equips learners with essential life-saving skills and prepares them to respond effectively in emergencies.",
+    href: getSectionHref("schoolLife", "enrichment"),
+    desc: "An accredited First Aid programme that equips learners with essential life-saving skills and certification.",
   },
 ];
 
@@ -88,7 +92,7 @@ export default function Home() {
                   </Link>
                   <Link href={getPageHref("about")}
                     className="px-8 py-3.5 bg-white/15 text-white border border-white/30 font-label text-xs font-bold rounded-full hover:bg-white/25 transition-colors tracking-wider uppercase backdrop-blur-sm">
-                    BOOK A VISIT
+                    ABOUT US
                   </Link>
                 </div>
               </div>
@@ -96,7 +100,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Contact Strip — icon-top layout per wireframe ── */}
+        {/* ── Contact Strip ── */}
         <section className="bg-[#EBDAC8] py-10">
           <div className="max-w-5xl mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -120,7 +124,90 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── 3-col activity cards ── */}
+        {/* ── Worship & Spirit Teaser ── */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+              <div className="fade-up">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
+                  <img src={WORSHIP_URL} alt="Worship at HCS" className="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div className="fade-up">
+                <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">Faith &amp; Community</p>
+                <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">Worship &amp; Spirit</h2>
+                <div className="w-12 h-0.5 bg-[#C9A84C] mb-6" />
+                <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
+                  <p>At His Church School, faith is not just a subject — it is the foundation of everything we do. Daily devotions, praise and worship, and a Christ-centred community shape the spiritual lives of our learners.</p>
+                  <p>Our Praise and Worship Team, comprising both staff and students, leads the school in worship. We believe that encountering God's presence is central to forming young people who will impact their generation for eternity.</p>
+                  <p>We are a school deeply connected to His Church — raising up Decision Makers, World Shakers, and Challenge Takers for the Kingdom of God.</p>
+                </div>
+                <Link href={getSectionHref("schoolLife", "worship")}
+                  className="inline-flex items-center gap-1.5 mt-8 px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full hover:bg-[#051040]/85 transition-colors tracking-wider uppercase">
+                  LEARN MORE <ChevronRight size={12} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Testimonials ── */}
+        <section className="py-20 bg-[#f8f8f8]">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3 fade-up">From Our Community</p>
+              <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">Testimonials</h2>
+              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 fade-up" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {testimonials.map((t, i) => (
+                <div key={t.name}
+                  className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm hover:shadow-md transition-shadow fade-up"
+                  style={{ transitionDelay: `${i * 80}ms` }}>
+                  <Quote size={28} className="text-[#C9A84C] mb-4 opacity-70" />
+                  <p className="text-[#051040]/70 font-body text-sm leading-relaxed mb-6 italic">"{t.quote}"</p>
+                  <div className="flex items-center gap-1 mb-3">
+                    {Array.from({ length: 5 }).map((_, s) => (
+                      <Star key={s} size={12} className="fill-[#C9A84C] text-[#C9A84C]" />
+                    ))}
+                  </div>
+                  <p className="font-display text-base font-black text-[#051040]">{t.name}</p>
+                  <p className="font-body text-xs text-[#051040]/45 mt-0.5">{t.role}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── Combined School ── */}
+        <section className="py-24 bg-[#EBDAC8]">
+          <div className="max-w-3xl mx-auto px-4 text-center">
+            <p className="font-label text-xs font-semibold text-[#051040]/50 tracking-[0.2em] uppercase mb-5 fade-up">Grade 1 to Matric</p>
+            <h2 className="font-display text-5xl md:text-6xl font-black text-[#051040] leading-[1.1] mb-8 fade-up">
+              One School Journey.<br />
+              From Grade 1 to Matric.
+            </h2>
+            <div className="w-12 h-0.5 bg-[#051040]/30 mx-auto mb-8 fade-up" />
+            <p className="text-[#051040]/75 font-body leading-relaxed mb-5 fade-up">
+              His Church School offers a seamless learning journey from primary school through to high school, grounded in faith, character, and academic growth.
+            </p>
+            <p className="text-[#051040]/75 font-body leading-relaxed mb-10 fade-up">
+              Within one nurturing community, learners are known, valued, and guided through every stage of their development. From Grade 1 to Matric, families enjoy the strength, continuity, and belonging of one school home.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 fade-up">
+              <Link href={getPageHref("about")}
+                className="px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full hover:bg-[#051040]/85 transition-colors tracking-wider uppercase">
+                ABOUT THE SCHOOL
+              </Link>
+              <Link href={getPageHref("contact")}
+                className="px-8 py-3 bg-white text-[#051040] border border-[#051040]/20 font-label text-xs font-bold rounded-full hover:bg-gray-50 transition-colors tracking-wider uppercase">
+                CONTACT US
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Beyond the Classroom (3 cards) ── */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-12 fade-up">
@@ -150,169 +237,20 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Leadership Courses (text left, image right) ── */}
-        <section className="py-20 bg-[#f8f8f8]">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-              <div className="fade-up">
-                <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">Enrichment</p>
-                <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">Leadership Courses</h2>
-                <div className="w-12 h-0.5 bg-[#C9A84C] mb-6" />
-                <p className="text-[#051040]/70 font-body leading-relaxed mb-4">
-                  His Church School is committed to developing the whole person. Our Leadership Courses are designed to build character, confidence, and Godly leadership qualities in our learners. Through practical training and Biblical principles, students are equipped to lead with integrity in every area of life.
-                </p>
-                <p className="text-[#051040]/70 font-body leading-relaxed mb-4">
-                  Leadership training is integrated into our school culture, with dedicated sessions that challenge learners to grow beyond the classroom — developing decision-making skills, communication, and a servant-hearted approach to leadership.
-                </p>
-                <p className="text-[#051040]/70 font-body leading-relaxed mb-8">
-                  Our goal is to raise up Decision Makers, World Shakers, and Challenge Takers who will impact their generation for eternity.
-                </p>
-                <a href="mailto:secretary@hcschool.co.za?subject=Leadership Course Enquiry"
-                  className="inline-block px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full hover:bg-[#051040]/85 transition-colors tracking-wider uppercase">
-                  ENROLL
-                </a>
-              </div>
-              <div className="fade-up">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                  <img src={ABOUT_URL} alt="Leadership Courses" className="w-full h-full object-cover" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Firefighting (image left, text right) ── */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-              <div className="fade-up order-2 lg:order-1">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                  <img src={SPORT_URL} alt="Firefighting" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              <div className="fade-up order-1 lg:order-2">
-                <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">Enrichment</p>
-                <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">Fire-Fighting</h2>
-                <div className="w-12 h-0.5 bg-[#C9A84C] mb-6" />
-                <p className="text-[#051040]/70 font-body leading-relaxed mb-4">
-                  His Church School offers a unique firefighting training programme that equips learners with practical skills in fire prevention, control, and safety. This hands-on course is conducted by certified instructors and provides learners with a recognised qualification.
-                </p>
-                <p className="text-[#051040]/70 font-body leading-relaxed mb-4">
-                  The programme builds teamwork, courage, and discipline while teaching learners how to respond effectively in emergency situations. It is one of the many ways His Church School prepares learners for real-world challenges.
-                </p>
-                <p className="text-[#051040]/70 font-body leading-relaxed mb-8">
-                  Learners who complete the course receive a certificate that is recognised in the workplace, giving them a head start in their future careers.
-                </p>
-                <a href="mailto:secretary@hcschool.co.za?subject=Firefighting Course Enquiry"
-                  className="inline-block px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full hover:bg-[#051040]/85 transition-colors tracking-wider uppercase">
-                  ENROLL
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── First Aid (text left, image right) ── */}
-        <section className="py-20 bg-[#f8f8f8]">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-              <div className="fade-up">
-                <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">Enrichment</p>
-                <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">First Aid</h2>
-                <div className="w-12 h-0.5 bg-[#C9A84C] mb-6" />
-                <p className="text-[#051040]/70 font-body leading-relaxed mb-4">
-                  Our First Aid programme is a certified course that teaches learners essential life-saving skills. From CPR and wound care to emergency response procedures, learners gain the knowledge and confidence to act decisively in medical emergencies.
-                </p>
-                <p className="text-[#051040]/70 font-body leading-relaxed mb-4">
-                  The course is accredited and provides learners with a recognised First Aid certificate upon completion. This qualification is valuable for future employment and is a practical skill that can save lives.
-                </p>
-                <p className="text-[#051040]/70 font-body leading-relaxed mb-8">
-                  At His Church School, we believe in equipping our learners not just academically, but with practical skills that prepare them for life beyond the classroom.
-                </p>
-                <a href="mailto:secretary@hcschool.co.za?subject=First Aid Course Enquiry"
-                  className="inline-block px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full hover:bg-[#051040]/85 transition-colors tracking-wider uppercase">
-                  ENROLL
-                </a>
-              </div>
-              <div className="fade-up">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                  <img src={ACADEMICS_URL} alt="First Aid" className="w-full h-full object-cover" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Combined School ── */}
-        <section className="py-24 bg-[#EBDAC8]">
-          <div className="max-w-3xl mx-auto px-4 text-center">
-            <p className="font-label text-xs font-semibold text-[#051040]/50 tracking-[0.2em] uppercase mb-5 fade-up">Grade 1 to Matric</p>
-            <h2 className="font-display text-5xl md:text-6xl font-black text-[#051040] leading-[1.1] mb-8 fade-up">
-              One School Journey.<br />
-              From Grade 1 to Matric.
-            </h2>
-            <div className="w-12 h-0.5 bg-[#051040]/30 mx-auto mb-8 fade-up" />
-            <p className="text-[#051040]/75 font-body leading-relaxed mb-5 fade-up">
-              His Church School offers a seamless learning journey from primary school to high school, grounded in faith, character, and academic growth.
-            </p>
-            <p className="text-[#051040]/75 font-body leading-relaxed mb-10 fade-up">
-              Within one nurturing community, learners are known, valued, and guided through every stage of their development. From Grade 1 to Matric, families enjoy the strength, continuity, and belonging of one school home.
-            </p>
-            <Link href={getPageHref("about")}
-              className="inline-block px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full hover:bg-[#051040]/85 transition-colors tracking-wider uppercase fade-up">
-              LEARN MORE
-            </Link>
-          </div>
-        </section>
-
-        {/* ── Campus Video ── */}
-        <section className="py-20 bg-[#051040] relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <img src={HERO_URL} alt="" className="w-full h-full object-cover" />
-          </div>
-          <div className="relative max-w-3xl mx-auto px-4 text-center">
-            <p className="font-label text-xs font-semibold text-[#C9A84C] tracking-[0.2em] uppercase mb-4 fade-up">Campus Tour</p>
-            <h2 className="font-display text-3xl md:text-4xl font-black text-white mb-5 fade-up">See Our School</h2>
-            <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mb-6 fade-up" />
-            <p className="text-white/65 font-body mb-10 fade-up">
-              Get a glimpse of life at His Church School — our facilities, community, and the vibrant faith-filled environment where our learners thrive.
-            </p>
-            <button
-              onClick={() => window.open("https://www.facebook.com/hischurchschool/videos", "_blank")}
-              className="w-20 h-20 rounded-full bg-[#C9A84C] flex items-center justify-center mx-auto hover:bg-[#d7b85d] transition-colors fade-up group"
-              aria-label="Watch campus video"
-            >
-              <Play size={30} className="text-[#051040] ml-1 group-hover:scale-110 transition-transform" />
-            </button>
-            <p className="text-white/35 text-xs font-body mt-4 fade-up">Click to watch on Facebook</p>
-          </div>
-        </section>
-
-        {/* ── Testimonials ── */}
-        <section className="py-20 bg-[#f8f8f8]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12 fade-up">
-              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">What Parents Say</p>
-              <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040]">Testimonials</h2>
-              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4" />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {testimonials.map((t, i) => (
-                <div key={i} className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 flex flex-col fade-up" style={{ transitionDelay: `${i * 80}ms` }}>
-                  <div className="flex justify-center gap-1 mb-5">
-                    {[...Array(5)].map((_, s) => (
-                      <Star key={s} size={16} className="fill-[#C9A84C] text-[#C9A84C]" />
-                    ))}
-                  </div>
-                  <p className="font-body italic text-[#051040]/70 text-base leading-relaxed flex-1 mb-8">
-                    "{t.quote}"
-                  </p>
-                  <div className="border-t border-gray-100 pt-5 text-center">
-                    <p className="font-label font-bold text-[#051040] text-sm tracking-wide">{t.name}</p>
-                    <p className="font-body text-[#051040]/50 text-xs mt-1">{t.role}</p>
-                  </div>
-                </div>
-              ))}
+        {/* ── CTA Strip ── */}
+        <section className="py-16 bg-[#051040]">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="font-display text-3xl md:text-4xl font-black text-white mb-4 fade-up">Ready to Join Our Community?</h2>
+            <p className="text-white/60 font-body mb-8 fade-up">Contact us today to find out more about enrolment, school fees, and open days.</p>
+            <div className="flex flex-wrap justify-center gap-4 fade-up">
+              <Link href={getPageHref("contact")}
+                className="px-8 py-3.5 bg-[#C9A84C] text-[#051040] font-label text-xs font-bold rounded-full hover:bg-[#d7b85d] transition-colors tracking-wider uppercase">
+                ENROL NOW
+              </Link>
+              <a href="mailto:secretary@hcschool.co.za"
+                className="px-8 py-3.5 bg-white/15 text-white border border-white/30 font-label text-xs font-bold rounded-full hover:bg-white/25 transition-colors tracking-wider uppercase">
+                EMAIL US
+              </a>
             </div>
           </div>
         </section>
