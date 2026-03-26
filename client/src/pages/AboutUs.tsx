@@ -10,7 +10,7 @@
    - Buttons: ADMISSION POLICY | LANGUAGE POLICY | CODE OF CONDUCT
    ============================================================= */
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Layout from "@/components/Layout";
 import { getPublicAssetHref } from "@/lib/sitePaths";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
@@ -276,6 +276,30 @@ function StaffCard({ member }: { member: StaffMember }) {
 
 
 
+
+
+// ── FAQ accordion item ──────────────────────────────────────────────
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-6 py-5 text-left"
+      >
+        <span className="font-display text-base font-black text-[#051040] pr-4">{q}</span>
+        <span className={`shrink-0 w-7 h-7 rounded-full bg-[#051040] flex items-center justify-center text-[#C9A84C] transition-transform ${open ? "rotate-45" : ""}`}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v10M2 7h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+        </span>
+      </button>
+      {open && (
+        <div className="px-6 pb-6 text-[#051040]/65 font-body text-sm leading-relaxed border-t border-gray-50 pt-4">
+          {a}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function AboutUs() {
   const pageRef = useScrollAnimation();
@@ -633,6 +657,33 @@ export default function AboutUs() {
             </div>
           </div>
         </section>
+        {/* ── FAQ ── */}
+        <section id="faq" className="py-20 bg-[#f8f8f8] scroll-mt-20">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up gold-rule-center">Frequently Asked Questions</h2>
+              <p className="text-[#051040]/50 font-body text-sm mt-4 fade-up">Everything you need to know about His Church School</p>
+            </div>
+            <div className="space-y-3 fade-up">
+              {[
+                { q: "How do I enrol my child at His Church School?", a: "Contact our school secretary by phone or email to request an application form. Once completed, submit it along with the required supporting documents to the school office. Our secretary will guide you through the full admissions process." },
+                { q: "What grades does His Church School offer?", a: "His Church School is a combined school offering education from Grade 1 (Primary Phase) through to Grade 12 (FET Phase). We provide a complete educational journey from primary school to matric within one community." },
+                { q: "Is His Church School a Christian school?", a: "Yes. His Church School is a private Christian school that is a ministry of His Church. Our school is founded on Biblical principles and our goal is to please God in everything we do — integrating faith into every aspect of learning." },
+                { q: "What curriculum does the school follow?", a: "His Church School follows the CAPS curriculum from Grade 1 to Grade 12. Our NSC examinations are set and managed by SACAI and accredited by Umalusi (Accreditation No. 19 SCH01 00763)." },
+                { q: "Does the school offer sport and extra-mural activities?", a: "Yes. His Church School offers a wide variety of sports including swimming, athletics, soccer, netball, cross country, chess, and more. We also offer enrichment programmes including leadership courses, firefighting training, and first aid certification." },
+                { q: "What are the school hours?", a: "Please contact the school secretary for current school hours and term dates. Our secretary will be happy to assist you with all scheduling information." },
+                { q: "How do I find out about school fees?", a: "School fee information is available on request. Please contact the school secretary by email or phone, or visit the Contact Us page to request a copy of the current fee schedule." },
+                { q: "Is the school accredited?", a: "Yes. His Church School is accredited by Umalusi (Accreditation No. 19 SCH01 00763) and is a recognised SACAI examination centre authorised to run NSC examinations for both our own and external candidates." },
+                { q: "Does the school accept late applications?", a: "Late applications are considered on a space-available basis. We encourage families to apply as early as possible to secure a place for their child. Contact the school secretary for current availability." },
+                { q: "What documents are required for enrolment?", a: "Typically required documents include a certified copy of the child\'s birth certificate, the previous school\'s latest report card, proof of residence, and parent/guardian ID documents. The full list is available from the school office." },
+              ].map((item, i) => (
+                <FaqItem key={i} q={item.q} a={item.a} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+
       </div>
     </Layout>
   );
