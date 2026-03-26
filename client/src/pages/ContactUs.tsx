@@ -2,7 +2,7 @@
    HCS Contact Us Page
    Sections:
    - Hero
-   - Two-col: Ask Us form  |  Application Form
+   - Ask Us enquiry form
    - FAQ (full width accordion)
    - Documents & Policies (grouped)
    - Map
@@ -10,7 +10,7 @@
 
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { Mail, Phone, MapPin, ChevronDown, Send, FileText, Download } from "lucide-react";
+import { Mail, Phone, MapPin, Send, FileText, Download } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { getPublicAssetHref } from "@/lib/sitePaths";
 
@@ -73,12 +73,6 @@ export default function ContactUs() {
   const [enquirySubmitted, setEnquirySubmitted] = useState(false);
 
   // Application form
-  const [app, setApp] = useState({
-    childFirstName: "", childSurname: "", dob: "", gradeApplying: "",
-    parentName: "", parentSurname: "", relationship: "", parentEmail: "", parentPhone: "",
-    currentSchool: "", additionalInfo: "",
-  });
-  const [appSubmitted, setAppSubmitted] = useState(false);
 
   const handleEnquirySubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,12 +81,6 @@ export default function ContactUs() {
     setEnquirySubmitted(true);
   };
 
-  const handleAppSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const body = `APPLICATION FOR ENROLMENT\n\nCHILD DETAILS\nFirst Name: ${app.childFirstName}\nSurname: ${app.childSurname}\nDate of Birth: ${app.dob}\nGrade Applying For: ${app.gradeApplying}\nCurrent School: ${app.currentSchool}\n\nPARENT / GUARDIAN DETAILS\nFull Name: ${app.parentName} ${app.parentSurname}\nRelationship: ${app.relationship}\nEmail: ${app.parentEmail}\nPhone: ${app.parentPhone}\n\nADDITIONAL INFORMATION\n${app.additionalInfo}`;
-    window.location.href = `mailto:secretary@hcschool.co.za?subject=${encodeURIComponent("Application for Enrolment – " + app.childFirstName + " " + app.childSurname)}&body=${encodeURIComponent(body)}`;
-    setAppSubmitted(true);
-  };
 
   return (
     <Layout>
@@ -108,10 +96,10 @@ export default function ContactUs() {
           </div>
         </section>
 
-        {/* ── Two-column: Ask Us | Application Form ── */}
+        {/* ── Ask Us ── */}
         <section className="py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div className="max-w-2xl mx-auto">
 
               {/* ── Ask Us ── */}
               <div className="bg-white rounded-2xl shadow-md border border-gray-100 p-8 fade-up">
@@ -163,79 +151,7 @@ export default function ContactUs() {
                 )}
               </div>
 
-              {/* ── Application Form ── */}
-              <div className="bg-white rounded-2xl shadow-md border border-gray-100 p-8 fade-up">
-                <h2 className="font-display text-3xl font-black text-[#051040] text-center mb-2">Apply Now</h2>
-                <div className="w-10 h-0.5 bg-[#C9A84C] mx-auto mb-7" />
-                {appSubmitted ? (
-                  <div className="text-center py-10">
-                    <div className="w-16 h-16 rounded-full bg-green-50 border border-green-200 flex items-center justify-center mx-auto mb-4">
-                      <Send size={22} className="text-green-600" />
-                    </div>
-                    <h3 className="font-display text-xl font-black text-[#051040] mb-2">Application Submitted!</h3>
-                    <p className="text-[#051040]/60 font-body text-sm leading-relaxed">Your email client should have opened with the application details. We will be in touch shortly.</p>
-                    <button onClick={() => setAppSubmitted(false)}
-                      className="mt-6 px-6 py-2.5 bg-[#051040] text-white font-label text-xs font-bold rounded-full tracking-wider uppercase hover:bg-[#051040]/85 transition-colors">
-                      Submit Another
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleAppSubmit} className="space-y-3">
-                    <p className="font-label text-xs font-bold text-[#051040]/45 tracking-[0.15em] uppercase pb-1">Child's Details</p>
-                    <div className="grid grid-cols-2 gap-3">
-                      <input type="text" placeholder="First Name" required value={app.childFirstName}
-                        onChange={(e) => setApp({ ...app, childFirstName: e.target.value })} className={inputClass} />
-                      <input type="text" placeholder="Surname" required value={app.childSurname}
-                        onChange={(e) => setApp({ ...app, childSurname: e.target.value })} className={inputClass} />
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <input type="date" placeholder="Date of Birth" required value={app.dob}
-                        onChange={(e) => setApp({ ...app, dob: e.target.value })} className={inputClass} />
-                      <select required value={app.gradeApplying}
-                        onChange={(e) => setApp({ ...app, gradeApplying: e.target.value })}
-                        className={`${inputClass} ${app.gradeApplying === "" ? "text-[#051040]/40" : "text-[#051040]"}`}>
-                        <option value="" disabled>Grade Applying For</option>
-                        {["Grade 1","Grade 2","Grade 3","Grade 4","Grade 5","Grade 6","Grade 7","Grade 8","Grade 9","Grade 10","Grade 11","Grade 12"].map(g => (
-                          <option key={g}>{g}</option>
-                        ))}
-                      </select>
-                    </div>
-                    <input type="text" placeholder="Current School (if applicable)" value={app.currentSchool}
-                      onChange={(e) => setApp({ ...app, currentSchool: e.target.value })} className={inputClass} />
-                    <p className="font-label text-xs font-bold text-[#051040]/45 tracking-[0.15em] uppercase pt-2 pb-1">Parent / Guardian Details</p>
-                    <div className="grid grid-cols-2 gap-3">
-                      <input type="text" placeholder="First Name" required value={app.parentName}
-                        onChange={(e) => setApp({ ...app, parentName: e.target.value })} className={inputClass} />
-                      <input type="text" placeholder="Surname" required value={app.parentSurname}
-                        onChange={(e) => setApp({ ...app, parentSurname: e.target.value })} className={inputClass} />
-                    </div>
-                    <select value={app.relationship}
-                      onChange={(e) => setApp({ ...app, relationship: e.target.value })}
-                      className={`${inputClass} ${app.relationship === "" ? "text-[#051040]/40" : "text-[#051040]"}`}>
-                      <option value="" disabled>Relationship to Child</option>
-                      <option>Mother</option>
-                      <option>Father</option>
-                      <option>Guardian</option>
-                      <option>Other</option>
-                    </select>
-                    <input type="email" placeholder="Email Address" required value={app.parentEmail}
-                      onChange={(e) => setApp({ ...app, parentEmail: e.target.value })} className={inputClass} />
-                    <input type="tel" placeholder="Contact Number" required value={app.parentPhone}
-                      onChange={(e) => setApp({ ...app, parentPhone: e.target.value })} className={inputClass} />
-                    <textarea placeholder="Additional Information (optional)" rows={3} value={app.additionalInfo}
-                      onChange={(e) => setApp({ ...app, additionalInfo: e.target.value })}
-                      className={`${inputClass} resize-none`} />
-                    <div className="flex justify-end pt-1">
-                      <button type="submit"
-                        className="px-8 py-2.5 bg-[#C9A84C] text-[#051040] font-label text-xs font-bold rounded-full tracking-wider hover:bg-[#d7b85d] transition-colors uppercase">
-                        Submit Application
-                      </button>
-                    </div>
-                  </form>
-                )}
-              </div>
 
-            </div>
           </div>
         </section>
 
