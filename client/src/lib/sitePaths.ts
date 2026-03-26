@@ -4,6 +4,8 @@ const PAGE_PATHS = {
   academic: "/academic/",
   schoolLife: "/school-life/",
   contact: "/contact/",
+  partnership: "/partnership/",
+  communications: "/communications/",
   notFound: "/404/",
 } as const;
 
@@ -12,11 +14,15 @@ const STATIC_ROUTE_SUFFIXES = [
   PAGE_PATHS.academic,
   PAGE_PATHS.schoolLife,
   PAGE_PATHS.contact,
+  PAGE_PATHS.partnership,
+  PAGE_PATHS.communications,
   PAGE_PATHS.notFound,
   "/about.html",
   "/academic.html",
   "/school-life.html",
   "/contact.html",
+  "/partnership.html",
+  "/communications.html",
   "/404.html",
   "/index.html",
 ] as const;
@@ -32,7 +38,7 @@ export function normalizeRoutePath(path: string) {
   const [pathname, hash] = path.split("#");
   let normalizedPath = ensureLeadingSlash(pathname || "/")
     .replace(/\/index\.html$/, "/")
-    .replace(/\/?(about|academic|school-life|contact|404)\.html$/, "/$1/")
+    .replace(/\/?(about|academic|school-life|contact|partnership|communications|404)\.html$/, "/$1/")
     .replace(/\/{2,}/g, "/");
 
   if (normalizedPath !== "/" && !normalizedPath.endsWith("/")) {
