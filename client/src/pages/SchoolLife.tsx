@@ -11,7 +11,6 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Users, Flame, Heart } from "lucide-react";
 
 const SPORT_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_sport-ZXz2kRCQJivyVVXye2Jj9C.webp";
-const WORSHIP_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_worship-8Acaqw2TXSkoBWBdUJYMwh.webp";
 const CALENDAR_FEED_PATH = "/hcs-sporting-events-2025.ics";
 
 const sportsByTerm = [
@@ -137,7 +136,7 @@ export default function SchoolLife() {
               {sportsByTerm.map((termGroup, i) => (
                 <div key={termGroup.term} className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 fade-up" style={{ transitionDelay: `${i * 100}ms` }}>
                   <div className="bg-[#051040] px-6 py-4">
-                    <h3 className="font-label text-xs tracking-[0.15em] text-[#C9A84C] uppercase font-bold">{termGroup.term}</h3>
+                    <h3 className="font-display text-base font-black text-white tracking-wide">{termGroup.term}</h3>
                   </div>
                   <div className="p-6 space-y-4">
                     {termGroup.sports.map((sport) => (
@@ -207,28 +206,6 @@ export default function SchoolLife() {
           </div>
         </section>
 
-        {/* ── Worship & Spirit ── */}
-        <section id="worship" className="py-20 bg-white scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-              <div className="fade-up order-2 lg:order-1">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                  <img src={WORSHIP_URL} alt="Worship at HCS" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              <div className="fade-up order-1 lg:order-2">
-                <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">Faith &amp; Community</p>
-                <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">Worship &amp; Spirit</h2>
-                <div className="w-12 h-0.5 bg-[#C9A84C] mb-6" />
-                <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
-                  <p>At His Church School, faith is not just a subject — it is the foundation of everything we do. Daily devotions, praise and worship, and a Christ-centred school community shape the spiritual lives of our learners.</p>
-                  <p>Our Praise and Worship Team, comprising both staff and students, leads the school community in worship. We believe that encountering God's presence is central to the formation of young people who will impact their generation for Eternity.</p>
-                  <p>We are a school deeply connected to His Church, and our spiritual life reflects the values and vision of our church community — to raise up Decision Makers, World Shakers, and Challenge Takers for the Kingdom of God.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ── Enrichment Programmes ── */}
         <section id="leadership" className="py-20 bg-[#EBDAC8] scroll-mt-20">
@@ -244,19 +221,16 @@ export default function SchoolLife() {
                   icon: <Users size={26} />,
                   title: "Leadership Courses",
                   desc: "His Church School offers leadership development programmes designed to equip learners with the skills, confidence, and Biblical foundations needed to lead effectively in their communities, schools, and future workplaces.",
-                  href: "mailto:secretary@hcschool.co.za?subject=Leadership Course Enquiry",
                 },
                 {
                   icon: <Flame size={26} />,
                   title: "Firefighting",
                   desc: "Selected staff and learners are trained in firefighting techniques, equipping them with practical skills for emergency response. This programme builds confidence, teamwork, and a sense of responsibility.",
-                  href: "mailto:secretary@hcschool.co.za?subject=Firefighting Course Enquiry",
                 },
                 {
                   icon: <Heart size={26} />,
                   title: "First Aid",
                   desc: "His Church School provides First Aid training to equip learners and staff with life-saving skills. Participants receive Level One First Aid certification, preparing them to respond effectively in emergency situations.",
-                  href: "mailto:secretary@hcschool.co.za?subject=First Aid Course Enquiry",
                 },
               ].map((programme, i) => (
                 <div key={programme.title} className="bg-white rounded-2xl shadow-sm p-8 fade-up border border-[#c9b48a]/20" style={{ transitionDelay: `${i * 90}ms` }}>
