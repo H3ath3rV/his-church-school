@@ -14,7 +14,7 @@ import { Link } from "wouter";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Layout from "@/components/Layout";
 import { getPageHref, getSectionHref } from "@/lib/sitePaths";
-import { Mail, Phone, MapPin, ChevronRight, Star, Quote } from "lucide-react";
+import { Mail, Phone, MapPin, ChevronRight, Star, Quote, Play } from "lucide-react";
 
 const HERO_URL    = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_hero-f6ZbGbULQZM24gUgfEXMzK.webp";
 const WORSHIP_URL = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_worship-8Acaqw2TXSkoBWBdUJYMwh.webp";
@@ -176,6 +176,30 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+
+        {/* ── Campus Video ── */}
+        <section className="py-20 bg-[#051040] relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <img src={HERO_URL} alt="" className="w-full h-full object-cover" />
+          </div>
+          <div className="relative max-w-3xl mx-auto px-4 text-center">
+            <p className="font-label text-xs font-semibold text-[#C9A84C] tracking-[0.2em] uppercase mb-4 fade-up">Campus Tour</p>
+            <h2 className="font-display text-3xl md:text-4xl font-black text-white mb-5 fade-up">See Our School</h2>
+            <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mb-6 fade-up" />
+            <p className="text-white/65 font-body mb-10 fade-up">
+              Get a glimpse of life at His Church School — our facilities, community, and the vibrant faith-filled environment where our learners thrive.
+            </p>
+            <button
+              onClick={() => window.open("https://www.facebook.com/hischurchschool/videos", "_blank")}
+              className="w-20 h-20 rounded-full bg-[#C9A84C] flex items-center justify-center mx-auto hover:bg-[#d7b85d] transition-colors fade-up group"
+              aria-label="Watch campus video"
+            >
+              <Play size={30} className="text-[#051040] ml-1 group-hover:scale-110 transition-transform" />
+            </button>
+            <p className="text-white/35 text-xs font-body mt-4 fade-up">Click to watch on Facebook</p>
           </div>
         </section>
 
