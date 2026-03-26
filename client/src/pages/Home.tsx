@@ -6,14 +6,14 @@
    - Worship & Spirit teaser
    - Testimonials
    - Combined School
-   - 3-col activity cards (Leadership, Firefighting, First Aid)
-   - CTA strip
+   - Quality Assurance
+   - Campus Video
    ============================================================= */
 
 import { Link } from "wouter";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Layout from "@/components/Layout";
-import { getPageHref, getSectionHref } from "@/lib/sitePaths";
+import { getPageHref } from "@/lib/sitePaths";
 import { Mail, Phone, MapPin, ChevronRight, Star, Quote, Play } from "lucide-react";
 
 const HERO_URL    = "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_hero-f6ZbGbULQZM24gUgfEXMzK.webp";
@@ -40,26 +40,6 @@ const testimonials = [
   },
 ];
 
-const activityCards = [
-  {
-    title: "Leadership Courses",
-    img: ABOUT_URL,
-    href: getSectionHref("schoolLife", "leadership"),
-    desc: "Building character, confidence, and Godly leadership qualities through practical training and Biblical principles.",
-  },
-  {
-    title: "Fire-Fighting",
-    img: SPORT_URL,
-    href: getSectionHref("schoolLife", "enrichment"),
-    desc: "Learners earn a recognised firefighting certificate, building courage, teamwork, and practical life skills.",
-  },
-  {
-    title: "First Aid",
-    img: ACADEMICS_URL,
-    href: getSectionHref("schoolLife", "enrichment"),
-    desc: "An accredited First Aid programme that equips learners with essential life-saving skills and certification.",
-  },
-];
 
 export default function Home() {
   const pageRef = useScrollAnimation();
@@ -180,34 +160,12 @@ export default function Home() {
         </section>
 
 
-        {/* ── Campus Video ── */}
-        <section className="py-20 bg-[#051040] relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <img src={HERO_URL} alt="" className="w-full h-full object-cover" />
-          </div>
-          <div className="relative max-w-3xl mx-auto px-4 text-center">
-            <p className="font-label text-xs font-semibold text-[#C9A84C] tracking-[0.2em] uppercase mb-4 fade-up">Campus Tour</p>
-            <h2 className="font-display text-3xl md:text-4xl font-black text-white mb-5 fade-up">See Our School</h2>
-            <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mb-6 fade-up" />
-            <p className="text-white/65 font-body mb-10 fade-up">
-              Get a glimpse of life at His Church School — our facilities, community, and the vibrant faith-filled environment where our learners thrive.
-            </p>
-            <button
-              onClick={() => window.open("https://www.facebook.com/hischurchschool/videos", "_blank")}
-              className="w-20 h-20 rounded-full bg-[#C9A84C] flex items-center justify-center mx-auto hover:bg-[#d7b85d] transition-colors fade-up group"
-              aria-label="Watch campus video"
-            >
-              <Play size={30} className="text-[#051040] ml-1 group-hover:scale-110 transition-transform" />
-            </button>
-            <p className="text-white/35 text-xs font-body mt-4 fade-up">Click to watch on Facebook</p>
-          </div>
-        </section>
 
         {/* ── Combined School ── */}
         <section className="py-24 bg-[#EBDAC8]">
           <div className="max-w-3xl mx-auto px-4 text-center">
             <p className="font-label text-xs font-semibold text-[#051040]/50 tracking-[0.2em] uppercase mb-5 fade-up">Grade 1 to Matric</p>
-            <h2 className="font-display text-5xl md:text-6xl font-black text-[#051040] leading-[1.1] mb-8 fade-up">
+            <h2 className="font-display text-4xl md:text-5xl font-black text-[#051040] leading-[1.15] mb-8 fade-up">
               One School Journey.<br />
               From Grade 1 to Matric.
             </h2>
@@ -231,54 +189,66 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── Beyond the Classroom (3 cards) ── */}
+        {/* ── Quality Assurance ── */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center mb-12 fade-up">
-              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">Life at HCS</p>
-              <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040]">Beyond the Classroom</h2>
-              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4" />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {activityCards.map((card, i) => (
-                <Link key={card.title} href={card.href}
-                  className="group block rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 fade-up"
-                  style={{ transitionDelay: `${i * 80}ms` }}>
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img src={card.img} alt={card.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  </div>
-                  <div className="p-6 bg-white">
-                    <h3 className="font-display text-xl font-black text-[#051040] mb-2">{card.title}</h3>
-                    <div className="w-8 h-0.5 bg-[#C9A84C] mb-3" />
-                    <p className="text-[#051040]/60 text-sm font-body leading-relaxed mb-4">{card.desc}</p>
-                    <span className="inline-flex items-center gap-1 text-[#051040] font-label text-xs font-bold group-hover:text-[#C9A84C] transition-colors tracking-wide uppercase">
-                      LEARN MORE <ChevronRight size={12} />
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── CTA Strip ── */}
-        <section className="py-16 bg-[#051040]">
-          <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="font-display text-3xl md:text-4xl font-black text-white mb-4 fade-up">Ready to Join Our Community?</h2>
-            <p className="text-white/60 font-body mb-8 fade-up">Contact us today to find out more about enrolment, school fees, and open days.</p>
-            <div className="flex flex-wrap justify-center gap-4 fade-up">
-              <Link href={getPageHref("contact")}
-                className="px-8 py-3.5 bg-[#C9A84C] text-[#051040] font-label text-xs font-bold rounded-full hover:bg-[#d7b85d] transition-colors tracking-wider uppercase">
-                ENROL NOW
-              </Link>
-              <a href="mailto:secretary@hcschool.co.za"
-                className="px-8 py-3.5 bg-white/15 text-white border border-white/30 font-label text-xs font-bold rounded-full hover:bg-white/25 transition-colors tracking-wider uppercase">
-                EMAIL US
-              </a>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+              <div className="fade-up">
+                <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.2em] uppercase mb-3">Accreditation &amp; Standards</p>
+                <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2">Quality Assurance</h2>
+                <div className="w-12 h-0.5 bg-[#C9A84C] mb-6" />
+                <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
+                  <p>His Church School is fully accredited and committed to the highest standards of Christian education. Our academic programme is aligned to the National Curriculum — CAPS — from Grade 1 through to Grade 12.</p>
+                  <p>Our NSC examinations are set and managed by SACAI (South African Comprehensive Assessment Institute) and accredited by Umalusi, the national body for quality assurance in education.</p>
+                  <p>We are a recognised SACAI examination centre, authorised to conduct NSC examinations for both our own learners and registered external candidates.</p>
+                </div>
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {[
+                    { label: "Umalusi", sublabel: "Accredited", detail: "No. 19 SCH01 00763" },
+                    { label: "SACAI", sublabel: "Exam Centre", detail: "NSC Examinations" },
+                    { label: "CAPS", sublabel: "Curriculum", detail: "Grade 1 – 12" },
+                  ].map((badge) => (
+                    <div key={badge.label} className="bg-[#f8f8f8] rounded-xl p-4 border border-gray-100 text-center fade-up">
+                      <p className="font-display text-lg font-black text-[#051040]">{badge.label}</p>
+                      <p className="font-label text-xs font-bold text-[#C9A84C] tracking-wider uppercase mt-0.5">{badge.sublabel}</p>
+                      <p className="font-body text-xs text-[#051040]/45 mt-1">{badge.detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="fade-up">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
+                  <img src={ACADEMICS_URL} alt="Quality Assurance at HCS" className="w-full h-full object-cover" />
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
+        {/* ── Campus Video ── */}
+        <section className="py-20 bg-[#051040] relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <img src={HERO_URL} alt="" className="w-full h-full object-cover" />
+          </div>
+          <div className="relative max-w-3xl mx-auto px-4 text-center">
+            <p className="font-label text-xs font-semibold text-[#C9A84C] tracking-[0.2em] uppercase mb-4 fade-up">Campus Tour</p>
+            <h2 className="font-display text-3xl md:text-4xl font-black text-white mb-5 fade-up">See Our School</h2>
+            <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mb-6 fade-up" />
+            <p className="text-white/65 font-body mb-10 fade-up">
+              Get a glimpse of life at His Church School — our facilities, community, and the vibrant faith-filled environment where our learners thrive.
+            </p>
+            <button
+              onClick={() => window.open("https://www.facebook.com/hischurchschool/videos", "_blank")}
+              className="w-20 h-20 rounded-full bg-[#C9A84C] flex items-center justify-center mx-auto hover:bg-[#d7b85d] transition-colors fade-up group"
+              aria-label="Watch campus video"
+            >
+              <Play size={30} className="text-[#051040] ml-1 group-hover:scale-110 transition-transform" />
+            </button>
+            <p className="text-white/35 text-xs font-body mt-4 fade-up">Click to watch on Facebook</p>
+          </div>
+        </section>
+
+        
       </div>
     </Layout>
   );
