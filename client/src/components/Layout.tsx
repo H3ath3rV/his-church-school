@@ -206,24 +206,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 className="h-10 w-auto shrink-0 md:h-14 xl:h-16"
               />
               <div className="min-w-0 leading-none">
-                <div
-                  className="text-[0.9rem] text-[#051040] uppercase md:text-[1.18rem] xl:text-[1.47rem]"
-                  style={{
-                    fontFamily: "Impact, 'Arial Black', sans-serif",
-                    letterSpacing: 0,
-                    lineHeight: 1,
-                  }}
-                >
+                <div className="font-logo text-[0.9rem] leading-none tracking-normal uppercase text-[#051040] md:text-[1.18rem] xl:text-[1.47rem]">
                   HIS CHURCH
                 </div>
-                <div
-                  className="text-[1.42rem] text-[#051040] uppercase md:text-[1.88rem] xl:text-[2.3rem]"
-                  style={{
-                    fontFamily: "Impact, 'Arial Black', sans-serif",
-                    letterSpacing: 0,
-                    lineHeight: 1,
-                  }}
-                >
+                <div className="font-logo text-[1.42rem] leading-none tracking-normal uppercase text-[#051040] md:text-[1.88rem] xl:text-[2.3rem]">
                   SCHOOL
                 </div>
               </div>
@@ -360,24 +346,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     className="h-10 w-auto shrink-0 sm:h-12"
                   />
                   <div className="min-w-0 leading-none">
-                    <div
-                      className="text-[0.82rem] uppercase text-[#051040] sm:text-[1.15rem]"
-                      style={{
-                        fontFamily: "Impact, 'Arial Black', sans-serif",
-                        letterSpacing: 0,
-                        lineHeight: 1,
-                      }}
-                    >
+                    <div className="font-logo text-[0.82rem] leading-none tracking-normal uppercase text-[#051040] sm:text-[1.15rem]">
                       HIS CHURCH
                     </div>
-                    <div
-                      className="text-[1.28rem] uppercase text-[#051040] sm:text-[1.8rem]"
-                      style={{
-                        fontFamily: "Impact, 'Arial Black', sans-serif",
-                        letterSpacing: 0,
-                        lineHeight: 1,
-                      }}
-                    >
+                    <div className="font-logo text-[1.28rem] leading-none tracking-normal uppercase text-[#051040] sm:text-[1.8rem]">
                       SCHOOL
                     </div>
                   </div>
