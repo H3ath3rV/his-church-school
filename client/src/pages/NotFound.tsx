@@ -24,7 +24,7 @@ export default function NotFound() {
           </p>
           <Link
             href={getPageHref("home")}
-            className="inline-flex items-center gap-2 px-8 py-3 bg-[#051040] text-white font-label text-xs font-bold rounded-full hover:bg-[#051040]/85 transition-colors tracking-[0.1em] uppercase"
+            className="hcs-btn-primary px-8"
           >
             <Home size={14} />
             Back to Home

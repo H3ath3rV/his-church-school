@@ -322,7 +322,7 @@ export default function ContactUs() {
                         setEnquiryErrors({});
                         setTouchedFields({});
                       }}
-                      className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#051040] px-6 py-3 font-label text-[0.8rem] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#051040]/85"
+                      className="hcs-btn-primary mt-6 px-6"
                     >
                       Send Another Enquiry
                     </button>
@@ -589,7 +589,7 @@ export default function ContactUs() {
                       <div className="pt-1">
                         <button
                           type="submit"
-                          className="inline-flex min-h-[44px] w-full items-center justify-center rounded-full bg-[#051040] px-5 py-3 text-center font-label text-[0.8rem] font-bold uppercase tracking-[0.1em] text-white transition-colors hover:bg-[#051040]/85"
+                          className="hcs-btn-primary w-full px-5 text-center"
                         >
                           OPEN EMAIL DRAFT
                         </button>

@@ -19,7 +19,6 @@ const routeDefinitions = {
     description:
       "His Church School is a private Christian school in Pinetown, KZN, offering a faith-rooted education from Grade 1 to Grade 12.",
     robots: "index,follow",
-    assetPrefix: "./",
   },
   about: {
     filePath: path.join(docsDir, "about", "index.html"),
@@ -28,7 +27,6 @@ const routeDefinitions = {
     description:
       "Learn more about His Church School, our history, leadership, mission, and the staff who shape our school community.",
     robots: "index,follow",
-    assetPrefix: "../",
   },
   academic: {
     filePath: path.join(docsDir, "academic", "index.html"),
@@ -37,7 +35,6 @@ const routeDefinitions = {
     description:
       "Explore the His Church School academic offering, subject pathways, curriculum information, and senior phase guidance.",
     robots: "index,follow",
-    assetPrefix: "../",
   },
   schoolLife: {
     filePath: path.join(docsDir, "school-life", "index.html"),
@@ -46,7 +43,6 @@ const routeDefinitions = {
     description:
       "Discover sport, enrichment programmes, leadership opportunities, and community life at His Church School.",
     robots: "index,follow",
-    assetPrefix: "../",
   },
   contact: {
     filePath: path.join(docsDir, "contact", "index.html"),
@@ -55,7 +51,6 @@ const routeDefinitions = {
     description:
       "Get in touch with His Church School for admissions, policy requests, school visits, and general enquiries.",
     robots: "index,follow",
-    assetPrefix: "../",
   },
   partnership: {
     filePath: path.join(docsDir, "partnership", "index.html"),
@@ -64,7 +59,6 @@ const routeDefinitions = {
     description:
       "Find ways to partner with His Church School through sponsorship, bursary support, and community collaboration.",
     robots: "index,follow",
-    assetPrefix: "../",
   },
   notFound: {
     filePath: path.join(docsDir, "404.html"),
@@ -73,7 +67,6 @@ const routeDefinitions = {
     description:
       "The page you are looking for could not be found. Return to His Church School to continue browsing.",
     robots: "noindex,follow",
-    assetPrefix: "./",
   },
 };
 

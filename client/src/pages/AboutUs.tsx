@@ -500,7 +500,7 @@ function StaffBioModal({
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-end justify-center bg-[#051040]/34 px-4 pb-4 pt-6 backdrop-blur-[8px] sm:p-6 md:items-center"
+      className="fixed inset-0 z-[70] flex items-center justify-center bg-[#051040]/34 p-4 backdrop-blur-[8px] sm:p-6"
       role="dialog"
       aria-modal="true"
       aria-labelledby={modalTitleId}
