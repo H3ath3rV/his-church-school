@@ -506,6 +506,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               src={image.src}
               alt=""
               aria-hidden="true"
+              loading="lazy"
               className="h-full w-full object-cover"
               style={{ objectPosition: image.objectPosition ?? "center" }}
             />
@@ -639,7 +640,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {/* Bottom bar */}
           <div className="mt-4 border-t border-white/10 pt-3 text-center font-body text-sm text-white/55 sm:mt-6 sm:pt-4">
             <p>
-              © {new Date().getFullYear()} His Church School. All rights
+              © {new Date().getFullYear()} His&nbsp;Church&nbsp;School. All rights
               reserved.
             </p>
           </div>

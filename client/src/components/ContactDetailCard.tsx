@@ -30,7 +30,8 @@ export default function ContactDetailCard({
 }: ContactDetailCardProps) {
   const Icon = item.icon;
   const isExternal = item.href.startsWith("http");
-  const keepValueOnOneLine = item.href.startsWith("tel:");
+  const keepValueOnOneLine =
+    item.href.startsWith("tel:") || item.href.startsWith("mailto:");
   const styles = toneStyles[tone];
 
   return (

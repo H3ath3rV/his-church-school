@@ -69,7 +69,7 @@ const staffMembers: StaffMember[] = [
     qualification:
       "Bachelor of Education in Afrikaans & Geography; Level One First Aider; Fire Fighter Training",
     funFacts:
-      "Member of the His Church School Praise and Worship Team; Experienced field and track athletics official; Assistant chief invigilator of the NSC exams; Previous coach and manager of the KZNCSSA U13 and U15 six-a-side football teams; Previous North Durban representative on the KZNCSSA committee",
+      "Member of the His\u00A0Church\u00A0School Praise and Worship Team; Experienced field and track athletics official; Assistant chief invigilator of the NSC exams; Previous coach and manager of the KZNCSSA U13 and U15 six-a-side football teams; Previous North Durban representative on the KZNCSSA committee",
     hobbies: "Singing; Guitar and piano; Squash; Tennis; Rugby; Football",
     initials: "RG",
     photo: getPublicAssetHref("photos/staff/reinhardt-geldenhuys.jpg"),
@@ -446,7 +446,7 @@ function StaffCard({
       />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0)_100%)]" />
       <div className="relative z-10 flex flex-1 flex-col items-center justify-start px-5 pb-6 pt-6 text-center sm:px-6 md:px-6 md:pb-7 md:pt-7 lg:px-7">
-        <div className="mb-2.5 flex h-20 w-20 shrink-0 aspect-square items-center justify-center overflow-hidden rounded-full border-2 border-[#D4B565]/40 bg-white/10 shadow-[0_10px_20px_rgba(0,0,0,0.16)] md:h-24 md:w-24 lg:h-20 lg:w-20">
+        <div className="mb-2.5 flex h-20 w-20 shrink-0 aspect-square items-center justify-center overflow-hidden rounded-full border-2 border-[#C9A84C] bg-white/10 shadow-[0_10px_20px_rgba(0,0,0,0.16)] md:h-24 md:w-24 lg:h-20 lg:w-20">
           {member.photo ? (
             <img
               src={member.photo}
@@ -528,7 +528,7 @@ function StaffBioModal({
             <X size={18} />
           </button>
           <div className="relative z-10 flex flex-col items-start gap-4 pr-12 sm:flex-row sm:items-center">
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-[#D4B565]/45 bg-white shadow-[0_10px_20px_rgba(5,16,64,0.12)] sm:h-24 sm:w-24">
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-[#C9A84C] bg-white shadow-[0_10px_20px_rgba(5,16,64,0.12)] sm:h-24 sm:w-24">
               {member.photo ? (
                 <img
                   src={member.photo}
@@ -659,7 +659,7 @@ export default function AboutUs() {
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14 items-start">
               <div className="fade-up">
-                <div className="hcs-editorial-image">
+                <div className="hcs-editorial-image hcs-history-image">
                   <picture>
                     <source
                       media="(max-width: 1535px)"
@@ -681,9 +681,9 @@ export default function AboutUs() {
                   History
                 </h2>
                 <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
-                <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
+                <div className="space-y-4 text-center text-[#051040]/70 font-body leading-relaxed lg:text-left">
                   <p>
-                    His Church School (formerly known as City of Life Academy)
+                    His&nbsp;Church&nbsp;School (formerly known as City of Life Academy)
                     was founded in 1994 by Fiona Desfontaine to provide a
                     Christian school for children from His Church (formerly
                     known as City of Life). The first principal was Mrs. Cheryl
@@ -701,7 +701,7 @@ export default function AboutUs() {
                     due to a decision by the Municipal Council and local
                     community. The school lost a number of students in the
                     process. When it had been officially declared that it was to
-                    retain its right to exist, His Church School had to start
+                    retain its right to exist, His&nbsp;Church&nbsp;School had to start
                     the slow process of regaining students.
                   </p>
                   <p>
@@ -748,9 +748,9 @@ export default function AboutUs() {
                 {"\u201D"}
               </span>
             </p>
-            <div className="max-w-[720px] mx-auto space-y-4 text-[#051040]/70 font-body leading-relaxed fade-up">
+            <div className="mx-auto w-full max-w-none space-y-4 text-center text-[#051040]/70 font-body leading-relaxed fade-up">
               <p>
-                His Church School desires to establish Godly foundations for
+                His&nbsp;Church&nbsp;School desires to establish Godly foundations for
                 each child's life and to educate children so that they will
                 impact their generation for Eternity.
               </p>
@@ -853,9 +853,9 @@ export default function AboutUs() {
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="text-center mb-14">
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up gold-rule-center">
-                His Church School Organogram
+                His&nbsp;Church&nbsp;School Organogram
               </h2>
-              <p className="mt-4 font-body text-sm text-[#051040]/60 fade-up">
+              <p className="mx-auto mt-4 max-w-2xl font-body text-[0.98rem] leading-[1.68] text-[#051040]/60 fade-up sm:text-[1rem]">
                 Excellence Through Teamwork
               </p>
             </div>
@@ -1134,7 +1134,7 @@ export default function AboutUs() {
                 Our Staff
               </h2>
               <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-3 fade-up hcs-divider" />
-              <p className="font-body text-sm text-[#051040]/60 fade-up">
+              <p className="mx-auto max-w-2xl font-body text-[0.98rem] leading-[1.68] text-[#051040]/60 fade-up sm:text-[1rem]">
                 Tap or press a card to learn more about each staff member
               </p>
             </div>

@@ -26,17 +26,21 @@ export default function Partnership() {
 
         {/* ── Intro ── */}
         <section className="py-20 bg-[#EBDAC8]">
-          <div className="max-w-3xl mx-auto hcs-shell text-center">
-            <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-4 fade-up">
-              Partner With Us
-            </h2>
-            <div className="w-12 h-0.5 bg-[#051040]/30 mx-auto mb-6 fade-up hcs-divider" />
-            <p className="text-[#051040]/70 font-body leading-relaxed fade-up">
-              His Church School values the support of the broader community and
-              business sector. By partnering with us, you invest directly in the
-              education and development of the next generation of young people
-              grounded in faith, character, and excellence.
-            </p>
+          <div className="max-w-6xl mx-auto hcs-shell">
+            <div className="mx-auto max-w-4xl text-center">
+              <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-4 fade-up">
+                Partner With Us
+              </h2>
+              <div className="w-12 h-0.5 bg-[#051040]/30 mx-auto mb-6 fade-up hcs-divider" />
+              <div className="mx-auto w-full max-w-none text-center text-[#051040]/70 font-body leading-relaxed fade-up">
+                <p>
+                  His&nbsp;Church&nbsp;School values the support of the broader community
+                  and business sector. By partnering with us, you invest directly
+                  in the education and development of the next generation of
+                  young people grounded in faith, character, and excellence.
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -52,10 +56,10 @@ export default function Partnership() {
                   Sponsorship
                 </h2>
                 <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
-                <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
+                <div className="space-y-4 text-center text-[#051040]/70 font-body leading-relaxed lg:text-left">
                   <p>
                     We invite businesses, organisations, and individuals to
-                    partner with His Church School through financial
+                    partner with His&nbsp;Church&nbsp;School through financial
                     sponsorship. Your support helps fund bursaries, sporting
                     programmes, enrichment activities, and school
                     infrastructure.
@@ -67,7 +71,7 @@ export default function Partnership() {
                     school events.
                   </p>
                   <p>
-                    If you are interested in supporting His Church School, we
+                    If you are interested in supporting His&nbsp;Church&nbsp;School, we
                     would love to discuss how a partnership could work for you.
                     Our school office can guide you through available options
                     and connect you with the relevant leadership team.
@@ -92,6 +96,7 @@ export default function Partnership() {
                     <img
                       src={SPONSORSHIP_IMAGE_URL}
                       alt="Sponsorship partnership with HCS"
+                      loading="lazy"
                       style={{ objectPosition: "50% 34%" }}
                     />
                   </picture>

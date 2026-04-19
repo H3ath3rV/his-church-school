@@ -207,6 +207,7 @@ export default function SchoolLife() {
                     <img
                       src={SPORT_SECTION_URL}
                       alt="HCS athletics and sport"
+                      loading="lazy"
                       className="object-[50%_30%] sm:object-[50%_28%] lg:object-[50%_34%]"
                     />
                   </picture>
@@ -217,12 +218,12 @@ export default function SchoolLife() {
                   Athletics &amp; Sport
                 </p>
                 <h2 className="mb-2 text-center font-display text-3xl font-black text-[#051040] md:text-4xl lg:text-left">
-                  Sport at His Church School
+                  Sport at His&nbsp;Church&nbsp;School
                 </h2>
                 <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
-                <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
+                <div className="space-y-4 text-center text-[#051040]/70 font-body leading-relaxed lg:text-left">
                   <p>
-                    His Church School encourages all learners to participate in
+                    His&nbsp;Church&nbsp;School encourages all learners to participate in
                     school sports as it not only promotes essential values such
                     as teamwork, leadership, discipline, resilience,
                     sportsmanship, physical fitness, time management, and
@@ -299,36 +300,38 @@ export default function SchoolLife() {
         {/* ── Fixtures Calendar ── */}
         <section className="py-20 bg-[#051040]">
           <div className="max-w-7xl mx-auto hcs-shell">
-            <div className="text-center mb-12">
-              <p className="font-label text-xs font-semibold text-[#C9A84C] tracking-[0.12em] uppercase mb-3 fade-up">
-                2026 Planner
-              </p>
-              <h2 className="font-display text-3xl md:text-4xl font-black text-white fade-up">
-                Fixtures &amp; Sporting Events
-              </h2>
-              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up hcs-divider" />
-              <p className="mx-auto mt-2 max-w-xl font-body text-[0.98rem] leading-[1.72] text-white/72 fade-up sm:text-[1rem]">
-                Key 2026 sporting dates supplied by the school are listed below.
-                Final logistics and venue updates are shared with families
-                through the school office as each event approaches.
-              </p>
-            </div>
+            <div className="mx-auto max-w-3xl">
+              <div className="text-center mb-12">
+                <p className="font-label text-xs font-semibold text-[#C9A84C] tracking-[0.12em] uppercase mb-3 fade-up">
+                  2026 Planner
+                </p>
+                <h2 className="font-display text-3xl md:text-4xl font-black text-white fade-up">
+                  Fixtures &amp; Sporting Events
+                </h2>
+                <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up hcs-divider" />
+                <p className="mx-auto mt-2 w-full max-w-none text-center font-body text-[0.98rem] leading-[1.72] text-white/72 fade-up sm:text-[1rem]">
+                  Key 2026 sporting dates supplied by the school are listed below.
+                  Final logistics and venue updates are shared with families
+                  through the school office as each event approaches.
+                </p>
+              </div>
 
-            {/* Add sporting calendar to Google Calendar */}
-            <div className="mb-10 flex flex-col items-center gap-3 text-center fade-up">
-              <a
-                href={googleCalendarHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hcs-btn-gold px-8"
-              >
-                Add to Google Calendar
-              </a>
-              <p className="max-w-2xl font-body text-[0.95rem] leading-[1.68] text-white/64 sm:text-[0.98rem]">
-                Sign in to Google and confirm to subscribe to your child's key
-                sporting dates — fixtures stay in sync as the school updates
-                them.
-              </p>
+              {/* Add sporting calendar to Google Calendar */}
+              <div className="mb-10 flex flex-col items-center gap-3 text-center fade-up">
+                <a
+                  href={googleCalendarHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hcs-btn-gold px-8"
+                >
+                  Add to Google Calendar
+                </a>
+                <p className="w-full max-w-none font-body text-[0.95rem] leading-[1.68] text-white/64 sm:text-[0.98rem]">
+                  Sign in to Google and confirm to subscribe to your child&apos;s key
+                  sporting dates — fixtures stay in sync as the school updates
+                  them.
+                </p>
+              </div>
             </div>
 
             {/* Month grid */}
@@ -382,7 +385,7 @@ export default function SchoolLife() {
                 {
                   icon: <Users size={26} />,
                   title: "Leadership Courses",
-                  desc: "His Church School offers leadership development programmes designed to equip learners with the skills, confidence, and Biblical foundations needed to lead effectively in their communities, schools, and future workplaces.",
+                  desc: "His\u00A0Church\u00A0School offers leadership development programmes designed to equip learners with the skills, confidence, and Biblical foundations needed to lead effectively in their communities, schools, and future workplaces.",
                 },
                 {
                   icon: <Flame size={26} />,
@@ -392,7 +395,7 @@ export default function SchoolLife() {
                 {
                   icon: <Heart size={26} />,
                   title: "First Aid",
-                  desc: "His Church School provides First Aid training to equip learners and staff with life-saving skills. Participants receive Level One First Aid certification, preparing them to respond effectively in emergency situations.",
+                  desc: "His\u00A0Church\u00A0School provides First Aid training to equip learners and staff with life-saving skills. Participants receive Level One First Aid certification, preparing them to respond effectively in emergency situations.",
                 },
               ].map((programme, i) => (
                 <div
@@ -418,7 +421,7 @@ export default function SchoolLife() {
 
         {/* ── Community Outreach ── */}
         <section id="outreach" className="py-20 bg-white scroll-mt-20">
-          <div className="max-w-4xl mx-auto hcs-shell text-center">
+          <div className="max-w-6xl mx-auto hcs-shell text-center">
             <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.12em] uppercase mb-3 fade-up">
               Serving Others
             </p>
@@ -426,9 +429,9 @@ export default function SchoolLife() {
               Community Outreach
             </h2>
             <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-8 fade-up hcs-divider" />
-            <div className="mx-auto max-w-[42rem] space-y-5 text-center fade-up">
+            <div className="mx-auto max-w-3xl space-y-5 text-center fade-up">
               <p className="text-[#051040]/70 font-body leading-relaxed">
-                His Church School believes that true education extends beyond
+                His&nbsp;Church&nbsp;School believes that true education extends beyond
                 the classroom. Through community outreach initiatives, our
                 learners are taught to serve others with compassion, humility,
                 and love, reflecting the heart of Jesus Christ in their

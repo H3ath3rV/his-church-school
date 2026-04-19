@@ -76,13 +76,13 @@ function TestimonialCard({
 const testimonials: Testimonial[] = [
   {
     quote:
-      "We're so grateful for His Church School. The teachers genuinely care for every child and guide them with faith and grace. Our daughter has thrived both spiritually and academically in this Christ-centred, family-like community.",
+      "We're so grateful for His\u00A0Church\u00A0School. The teachers genuinely care for every child and guide them with faith and grace. Our daughter has thrived both spiritually and academically in this Christ-centred, family-like community.",
     name: "Sarah M.",
     role: "Parent of Grade 5 Student",
   },
   {
     quote:
-      "Choosing His Church School was the best decision we made for our children. The sense of community here is incredible. Our kids love going to school each day and are growing into confident, compassionate young people.",
+      "Choosing His\u00A0Church\u00A0School was the best decision we made for our children. The sense of community here is incredible. Our kids love going to school each day and are growing into confident, compassionate young people.",
     name: "David & Rachel P.",
     role: "Parents of Grade 3 & Grade 10 Students",
   },
@@ -208,7 +208,7 @@ export default function Home() {
                       media="(max-width: 1023px)"
                       srcSet={WORSHIP_MOBILE_URL}
                     />
-                    <img src={WORSHIP_URL} alt="Worship at HCS" />
+                    <img src={WORSHIP_URL} alt="Worship at HCS" loading="lazy" />
                   </picture>
                 </div>
               </div>
@@ -219,10 +219,10 @@ export default function Home() {
                 <h2 className="mb-2 text-center font-display text-3xl font-black text-[#051040] md:text-4xl lg:text-left">
                   Worship &amp; Spirit
                 </h2>
-                <div className="mb-6 h-0.5 w-12 bg-[#C9A84C] mx-auto lg:mx-0" />
-                <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
+                <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
+                <div className="space-y-4 text-center text-[#051040]/70 font-body leading-relaxed lg:text-left">
                   <p>
-                    At His Church School, faith is not just a subject; it is the
+                    At His&nbsp;Church&nbsp;School, faith is not just a subject; it is the
                     foundation of everything we do. Daily devotions, praise and
                     worship, and a Christ-centred community shape the spiritual
                     lives of our learners.
@@ -269,7 +269,7 @@ export default function Home() {
 
         {/* ── Combined School ── */}
         <section className="py-20 bg-[#F5EBDD]">
-          <div className="max-w-3xl mx-auto hcs-shell text-center">
+          <div className="max-w-4xl mx-auto hcs-shell text-center">
             <p className="font-label text-xs font-medium text-[#4B5563] tracking-[0.12em] uppercase mb-4 fade-up">
               Grade 1 to Matric
             </p>
@@ -279,15 +279,13 @@ export default function Home() {
               From Grade 1 to Matric.
             </h2>
             <div className="w-[60px] h-[2px] bg-[#C9A84C] mx-auto my-6 fade-up hcs-divider" />
-            <div className="mx-auto max-w-[42rem] space-y-4 text-center text-[#051040]/70 font-body leading-relaxed fade-up">
+            <div className="mx-auto w-full max-w-none text-center text-[#051040]/70 font-body leading-relaxed fade-up">
               <p>
-                His Church School offers a seamless learning journey from
+                His&nbsp;Church&nbsp;School offers a seamless learning journey from
                 primary school through to high school, grounded in faith,
-                character, and academic growth.
-              </p>
-              <p>
-                Within one nurturing community, learners are known, valued, and
-                guided through every stage of their development.
+                character, and academic growth. Within one nurturing community,
+                learners are known, valued, and guided through every stage of
+                their development.
               </p>
             </div>
           </div>
@@ -299,10 +297,11 @@ export default function Home() {
             <img
               src={HOME_HERO_URL}
               alt=""
+              loading="lazy"
               className="w-full h-full object-cover object-[50%_18%]"
             />
           </div>
-          <div className="relative mx-auto flex min-h-[27rem] max-w-3xl hcs-shell flex-col items-center justify-center py-10 text-center sm:h-full sm:min-h-0 sm:py-0">
+          <div className="relative mx-auto flex min-h-[27rem] max-w-4xl hcs-shell flex-col items-center justify-center py-10 text-center sm:h-full sm:min-h-0 sm:py-0">
             <p className="font-label text-xs font-semibold text-[#C9A84C] tracking-[0.12em] uppercase mb-4 fade-up">
               Campus Tour
             </p>
@@ -311,7 +310,7 @@ export default function Home() {
             </h2>
             <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mb-6 fade-up hcs-divider" />
             <p className="text-white/65 font-body mb-8 leading-relaxed fade-up sm:mb-10">
-              Get a glimpse of life at His Church School through our facilities,
+              Get a glimpse of life at His&nbsp;Church&nbsp;School through our facilities,
               community, and the vibrant faith-filled environment where our
               learners thrive.
             </p>

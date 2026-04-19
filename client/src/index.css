@@ -238,13 +238,13 @@
 
   .hcs-split-copy {
     width: 100%;
-    max-width: 42rem;
+    max-width: 56rem;
     margin-inline: auto;
   }
 
   @media (min-width: 768px) {
     .hcs-split-copy {
-      max-width: 36rem;
+      max-width: 56rem;
     }
   }
 
@@ -275,6 +275,15 @@
     font-family: var(--font-sans);
     font-size: 0.75rem;
     font-style: normal;
+  }
+
+  .hcs-reading-copy {
+    width: 100%;
+    max-width: 56rem;
+    margin-inline: auto;
+    display: grid;
+    gap: 1rem;
+    text-align: left;
   }
 
   .hcs-editorial-image {
@@ -412,6 +421,10 @@
       max-width: none;
       max-height: none;
       object-fit: cover;
+    }
+
+    .hcs-history-image {
+      height: 21.5rem;
     }
   }
 

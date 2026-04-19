@@ -24,12 +24,12 @@ const EXIT_EXAM_CARDS = [
   {
     title: "NSC Exit Examination",
     content:
-      "The National Senior Certificate (NSC) is the exit qualification for Grade 12 learners. At His Church School, NSC examinations are set and managed by SACAI and are accredited by Umalusi. Learners who achieve the NSC are eligible for university, college, and workplace entry.",
+      "The National Senior Certificate (NSC) is the exit qualification for Grade 12 learners. At His\u00A0Church\u00A0School, NSC examinations are set and managed by SACAI and are accredited by Umalusi. Learners who achieve the NSC are eligible for university, college, and workplace entry.",
   },
   {
     title: "SACAI Examination Centre",
     content:
-      "His Church School is an accredited SACAI examination centre, authorised to run NSC examinations for both our own learners and external candidates. External candidates who wish to write their NSC exams at our centre are welcome to contact us for registration information.",
+      "His\u00A0Church\u00A0School is an accredited SACAI examination centre, authorised to run NSC examinations for both our own learners and external candidates. External candidates who wish to write their NSC exams at our centre are welcome to contact us for registration information.",
   },
   {
     title: "NSC Achievement Levels",
@@ -63,7 +63,7 @@ export default function Academic() {
                       media="(max-width: 1023px)"
                       srcSet={CURRICULUM_MOBILE_URL}
                     />
-                    <img src={CURRICULUM_URL} alt="Academic Curriculum" />
+                    <img src={CURRICULUM_URL} alt="Academic Curriculum" loading="lazy" />
                   </picture>
                 </div>
               </div>
@@ -75,9 +75,9 @@ export default function Academic() {
                   Academic Curriculum
                 </h2>
                 <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
-                <div className="space-y-4 text-[#051040]/70 font-body leading-relaxed">
+                <div className="space-y-4 text-center text-[#051040]/70 font-body leading-relaxed lg:text-left">
                   <p>
-                    At His Church School we follow the CAPS curriculum from
+                    At His&nbsp;Church&nbsp;School we follow the CAPS curriculum from
                     Grade 1 through to Grade 12.
                   </p>
                   <p>
@@ -89,13 +89,13 @@ export default function Academic() {
                     accredited by both SACAI and Umalusi.
                   </p>
                   <p>
-                    His Church School is an accredited examination centre
+                    His&nbsp;Church&nbsp;School is an accredited examination centre
                     authorised to run NSC examinations for both our own learners
                     and external candidates.
                   </p>
                 </div>
                 <blockquote className="hcs-pullquote">
-                  His Church School is accredited by Umalusi, Council for
+                  His&nbsp;Church&nbsp;School is accredited by Umalusi, Council for
                   Quality Assurance in General and Further Education and
                   Training, under accreditation number 19 SCH01 00763.
                   <cite>Umalusi Accreditation</cite>
@@ -116,11 +116,11 @@ export default function Academic() {
                 FET Subject Choices
               </h2>
               <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up hcs-divider" />
-              <p className="max-w-3xl mx-auto font-body text-base leading-relaxed text-[#051040]/70 fade-up">
+              <p className="mx-auto w-full max-w-4xl text-center font-body text-base leading-relaxed text-[#051040]/70 fade-up">
                 During the Grade 9 academic year, learners prepare for the FET
                 phase by selecting a balanced subject package for Grades 10 to
                 12. The combinations below show the compulsory majors and
-                grouped elective options available at His Church School.
+                grouped elective options available at His&nbsp;Church&nbsp;School.
               </p>
             </div>
 
@@ -196,7 +196,7 @@ export default function Academic() {
               <p className="mb-3 font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/50">
                 Subject Change Policy
               </p>
-              <p className="mx-auto max-w-[42rem] text-left font-body text-[0.96rem] leading-[1.78] text-[#051040]/66 sm:text-[0.98rem]">
+              <p className="mx-auto w-full max-w-none text-center font-body text-[0.96rem] leading-[1.78] text-[#051040]/66 sm:text-[0.98rem]">
                 Learners may make a maximum of two subject changes in Grade 10
                 and 11, but only one subject change may be made in Grade 12, on
                 condition it is made before the end of the Grade 11 academic
@@ -215,32 +215,34 @@ export default function Academic() {
           id="career-guidance"
           className="py-20 bg-[#EBDAC8] scroll-mt-20"
         >
-          <div className="max-w-6xl mx-auto hcs-shell text-center">
-            <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.12em] uppercase mb-3 fade-up">
-              Future Pathways
-            </p>
-            <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2 fade-up">
-              Career Guidance
-            </h2>
-            <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mb-6 fade-up hcs-divider" />
-            <div className="mx-auto max-w-[42rem] space-y-4 text-center text-[#051040]/70 font-body leading-relaxed fade-up">
-              <p>
-                His Church School is committed to helping every learner discover
-                their God-given purpose, equipping them with the knowledge,
-                direction, and confidence to pursue a meaningful future. Our
-                Career Guidance programme supports both learners and families
-                through subject selection, tertiary planning, and career
-                exploration, helping learners understand how their academic
-                choices shape future opportunities.
+          <div className="max-w-6xl mx-auto hcs-shell">
+            <div className="mx-auto max-w-4xl text-center">
+              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.12em] uppercase mb-3 fade-up">
+                Future Pathways
               </p>
-              <p>
-                In Grade 9, learners and their parents attend a dedicated
-                meeting focused on FET subject packages, career pathways, and
-                the requirements for university, college, or vocational
-                training. Throughout this journey, our staff walk alongside each
-                learner, helping them set goals, recognise their strengths, and
-                step confidently into the future with purpose and faith.
-              </p>
+              <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2 fade-up">
+                Career Guidance
+              </h2>
+              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mb-6 fade-up hcs-divider" />
+              <div className="mx-auto w-full max-w-none space-y-4 text-center font-body text-[0.96rem] leading-[1.78] text-[#051040]/66 fade-up sm:text-[0.98rem]">
+                <p>
+                  His&nbsp;Church&nbsp;School is committed to helping every learner discover
+                  their God-given purpose, equipping them with the knowledge,
+                  direction, and confidence to pursue a meaningful future. Our
+                  Career Guidance programme supports both learners and families
+                  through subject selection, tertiary planning, and career
+                  exploration, helping learners understand how their academic
+                  choices shape future opportunities.
+                </p>
+                <p>
+                  In Grade 9, learners and their parents attend a dedicated
+                  meeting focused on FET subject packages, career pathways, and
+                  the requirements for university, college, or vocational
+                  training. Throughout this journey, our staff walk alongside each
+                  learner, helping them set goals, recognise their strengths, and
+                  step confidently into the future with purpose and faith.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -297,7 +299,7 @@ export default function Academic() {
                 </h3>
                 <div className="w-8 h-0.5 bg-[#C9A84C]/50 mb-4" />
                 <p className="mb-4 font-body text-[0.98rem] leading-[1.72] text-white/66 sm:text-[1rem]">
-                  His Church School is accredited by Umalusi, the Council for
+                  His&nbsp;Church&nbsp;School is accredited by Umalusi, the Council for
                   Quality Assurance in General and Further Education and
                   Training.
                 </p>
@@ -314,7 +316,7 @@ export default function Academic() {
                 </h3>
                 <div className="w-8 h-0.5 bg-[#C9A84C]/50 mb-4" />
                 <p className="mb-4 font-body text-[0.98rem] leading-[1.72] text-white/66 sm:text-[1rem]">
-                  His Church School is an authorised SACAI examination centre,
+                  His&nbsp;Church&nbsp;School is an authorised SACAI examination centre,
                   running NSC examinations for own and external candidates.
                 </p>
                 <p className="font-label text-xs font-semibold text-[#C9A84C] tracking-[0.12em]">

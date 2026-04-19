@@ -15,24 +15,24 @@ const HERO_URL = getPublicAssetHref("photos/contact/contact-hero.jpg");
 
 const faqs = [
   {
-    q: "How do I enrol my child at His Church School?",
+    q: "How do I enrol my child at His\u00A0Church\u00A0School?",
     a: "Contact our school secretary by phone or email to request an application form. Once completed, submit it along with the required supporting documents to the school office. Our secretary will guide you through the full admissions process.",
   },
   {
-    q: "What grades does His Church School offer?",
-    a: "His Church School is a combined school offering education from Grade 1 (Primary Phase) through to Grade 12 (FET Phase). We provide a complete educational journey from primary school to matric within one community.",
+    q: "What grades does His\u00A0Church\u00A0School offer?",
+    a: "His\u00A0Church\u00A0School is a combined school offering education from Grade 1 (Primary Phase) through to Grade 12 (FET Phase). We provide a complete educational journey from primary school to matric within one community.",
   },
   {
-    q: "Is His Church School a Christian school?",
-    a: "Yes. His Church School is a private Christian school that is a ministry of His Church. Our school is founded on Biblical principles, and our goal is to please God in everything we do by integrating faith into every aspect of learning.",
+    q: "Is His\u00A0Church\u00A0School a Christian school?",
+    a: "Yes. His\u00A0Church\u00A0School is a private Christian school that is a ministry of His Church. Our school is founded on Biblical principles, and our goal is to please God in everything we do by integrating faith into every aspect of learning.",
   },
   {
     q: "What curriculum does the school follow?",
-    a: "His Church School follows the CAPS curriculum from Grade 1 to Grade 12. Our NSC examinations are set and managed by SACAI and accredited by Umalusi (Accreditation No. 19 SCH01 00763).",
+    a: "His\u00A0Church\u00A0School follows the CAPS curriculum from Grade 1 to Grade 12. Our NSC examinations are set and managed by SACAI and accredited by Umalusi (Accreditation No. 19 SCH01 00763).",
   },
   {
     q: "Does the school offer sport and extra-mural activities?",
-    a: "Yes. His Church School offers a wide variety of sports including swimming, athletics, soccer, netball, cross country, chess, and table tennis. We also offer enrichment programmes including leadership courses, firefighting training, and first aid certification.",
+    a: "Yes. His\u00A0Church\u00A0School offers a wide variety of sports including swimming, athletics, soccer, netball, cross country, chess, and table tennis. We also offer enrichment programmes including leadership courses, firefighting training, and first aid certification.",
   },
   {
     q: "What are the school hours?",
@@ -44,7 +44,7 @@ const faqs = [
   },
   {
     q: "Is the school accredited?",
-    a: "Yes. His Church School is accredited by Umalusi (Accreditation No. 19 SCH01 00763) and is a recognised SACAI examination centre authorised to run NSC examinations for both our own and external candidates.",
+    a: "Yes. His\u00A0Church\u00A0School is accredited by Umalusi (Accreditation No. 19 SCH01 00763) and is a recognised SACAI examination centre authorised to run NSC examinations for both our own and external candidates.",
   },
   {
     q: "Does the school accept late applications?",
@@ -611,7 +611,7 @@ export default function ContactUs() {
               </h2>
               <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up hcs-divider" />
               <p className="font-body text-[0.98rem] text-[#051040]/60 fade-up sm:text-[1rem]">
-                Everything you need to know about His Church School
+                Everything you need to know about His&nbsp;Church&nbsp;School
               </p>
             </div>
             <div className="space-y-3">
