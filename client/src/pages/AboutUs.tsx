@@ -756,20 +756,20 @@ export default function AboutUs() {
               </p>
               <p>We desire to raise:</p>
             </div>
-            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-y-4 gap-x-5 mt-3 fade-up">
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-y-4 gap-x-5 mt-4 fade-up">
               <span className="font-display text-xl font-black leading-[1.2] text-[#051040]">
                 Decision Makers
               </span>
               <span
                 aria-hidden="true"
-                className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-[#C9A84C] shrink-0"
+                className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] shrink-0"
               />
               <span className="font-display text-xl font-black leading-[1.2] text-[#051040]">
                 World Shakers
               </span>
               <span
                 aria-hidden="true"
-                className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-[#C9A84C] shrink-0"
+                className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] shrink-0"
               />
               <span className="font-display text-xl font-black leading-[1.2] text-[#051040]">
                 Challenge Takers
