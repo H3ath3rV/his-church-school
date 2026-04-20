@@ -456,6 +456,37 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   CONTACT US
                 </Link>
               </div>
+              <div className="border-t border-gray-200 bg-[#F7F8FC] px-6 py-5">
+                <p className="mb-3 font-label text-[0.68rem] font-bold tracking-[0.18em] text-[#051040]/48">
+                  FOLLOW US
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  <a
+                    href={SOCIAL_LINKS.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-[#051040]/10 bg-white px-4 py-3 text-[#051040] transition-colors hover:border-[#C9A84C]/40 hover:text-[#C9A84C] active:border-[#C9A84C]/40 active:text-[#C9A84C]"
+                    aria-label="Follow His Church School on Instagram"
+                  >
+                    <Instagram size={16} />
+                    <span className="font-label text-[0.73rem] font-bold tracking-[0.12em]">
+                      INSTAGRAM
+                    </span>
+                  </a>
+                  <a
+                    href={SOCIAL_LINKS.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-[#051040]/10 bg-white px-4 py-3 text-[#051040] transition-colors hover:border-[#C9A84C]/40 hover:text-[#C9A84C] active:border-[#C9A84C]/40 active:text-[#C9A84C]"
+                    aria-label="Follow His Church School on Facebook"
+                  >
+                    <Facebook size={16} />
+                    <span className="font-label text-[0.73rem] font-bold tracking-[0.12em]">
+                      FACEBOOK
+                    </span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         )}
