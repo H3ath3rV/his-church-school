@@ -52,7 +52,7 @@ export default function ContactDetailCard({
           {item.label}
         </p>
         <p
-          className={`mb-2 font-display text-[1.22rem] font-black leading-[1.15] tracking-[-0.01em] min-[360px]:text-[1.32rem] sm:mb-3 sm:text-[1.38rem] lg:whitespace-nowrap lg:text-[1.42rem] xl:text-[1.56rem] ${styles.title}`}
+          className={`mb-2 font-display font-black leading-[1.15] tracking-[-0.01em] text-[1.22rem] min-[360px]:text-[1.32rem] sm:mb-3 sm:text-[1.38rem] md:whitespace-nowrap md:text-[1.2rem] lg:whitespace-nowrap lg:text-[1.42rem] xl:text-[1.56rem] ${styles.title}`}
         >
           {item.title}
         </p>
