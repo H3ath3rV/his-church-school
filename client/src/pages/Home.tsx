@@ -106,7 +106,7 @@ export default function Home() {
             src={HOME_HERO_MOBILE_URL}
             alt=""
             aria-hidden="true"
-            className="absolute inset-0 h-full w-full origin-top -translate-y-[10%] scale-[1.14] object-cover object-[50%_0%] sm:hidden"
+            className="absolute inset-0 h-full w-full origin-top -translate-y-[10%] scale-[1.14] object-cover object-[58%_0%] sm:hidden"
           />
           <img
             src={HOME_HERO_URL}
