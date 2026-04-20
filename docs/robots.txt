@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.hischurchschool.co.za/sitemap.xml
+Sitemap: https://hcschool.co.za/sitemap.xml

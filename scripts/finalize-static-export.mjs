@@ -6,7 +6,7 @@ const sourceIndexPath = path.join(docsDir, "index.html");
 const siteUrl = (
   process.env.SITE_URL ??
   process.env.VITE_SITE_URL ??
-  "https://www.hischurchschool.co.za"
+  "https://hcschool.co.za"
 )
   .trim()
   .replace(/\/$/, "");

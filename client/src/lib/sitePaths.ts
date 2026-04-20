@@ -33,6 +33,14 @@ function ensureLeadingSlash(path: string) {
   return path.startsWith("/") ? path : `/${path}`;
 }
 
+function getGithubPagesProjectBase(pathname: string) {
+  if (typeof window === "undefined") return "";
+  if (!window.location.hostname.endsWith(".github.io")) return "";
+
+  const [projectSegment] = pathname.split("/").filter(Boolean);
+  return projectSegment ? `/${projectSegment}` : "";
+}
+
 export function normalizeRoutePath(path: string) {
   const [pathname, hash] = path.split("#");
   let normalizedPath = ensureLeadingSlash(pathname || "/")
@@ -59,11 +67,13 @@ export function getSiteBasePath(pathname?: string) {
     return basePath === "/" ? "" : basePath;
   }
 
-  // Graceful fallback for 404 pages loaded under the GitHub Pages repo path.
-  // When a user hits a deep broken link (e.g., /his-church-school-website/deep/broken),
-  // this ensures the base path is correctly preserved for image asset resolving.
-  if (!import.meta.env.DEV && currentPath.startsWith("/his-church-school-website/")) {
-    return "/his-church-school-website";
+  // Graceful fallback for GitHub Pages project sites where deep broken links
+  // preserve the repository segment before the missing path.
+  const githubPagesProjectBase =
+    !import.meta.env.DEV ? getGithubPagesProjectBase(currentPath) : "";
+
+  if (githubPagesProjectBase) {
+    return githubPagesProjectBase;
   }
 
   if (

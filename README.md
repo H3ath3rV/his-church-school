@@ -70,7 +70,7 @@ The most common content touchpoints are:
 
 Copy `.env.example` to `.env` if you need to override defaults.
 
-- `VITE_SITE_URL`: canonical production URL used for SEO metadata. Defaults to `https://www.hischurchschool.co.za`
+- `VITE_SITE_URL`: canonical production URL used for SEO metadata. Defaults to `https://hcschool.co.za`
 - `VITE_GA_MEASUREMENT_ID`: optional Google Analytics 4 measurement ID
 
 ## Deployment

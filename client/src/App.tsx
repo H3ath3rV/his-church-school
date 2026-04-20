@@ -29,7 +29,7 @@ type RouteMetadata = {
 };
 
 const SITE_URL = (
-  import.meta.env.VITE_SITE_URL?.trim() || "https://www.hischurchschool.co.za"
+  import.meta.env.VITE_SITE_URL?.trim() || "https://hcschool.co.za"
 ).replace(/\/$/, "");
 const SOCIAL_IMAGE_PATH = "/branding/hcs-30years-badge.png";
 const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID?.trim();
@@ -135,7 +135,7 @@ function buildAbsoluteUrl(path: string) {
     SITE_URL ||
     (typeof window !== "undefined"
       ? window.location.origin
-      : "https://www.hischurchschool.co.za");
+      : "https://hcschool.co.za");
 
   return new URL(path, `${baseUrl}/`).toString();
 }
