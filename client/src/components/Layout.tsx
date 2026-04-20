@@ -495,7 +495,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         style={{
           backgroundImage: `url(${TARTAN_URL})`,
           backgroundRepeat: "repeat-x",
-          backgroundSize: "auto 125%",
+          backgroundSize: "auto 225%",
         }}
       />
 
