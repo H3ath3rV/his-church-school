@@ -456,37 +456,26 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   CONTACT US
                 </Link>
               </div>
-              <div className="border-t border-gray-200 bg-[#FAFBFE] px-6 py-4">
-                <div className="flex flex-col items-start gap-2.5">
-                  <p className="font-label text-[0.66rem] font-bold tracking-[0.18em] text-[#051040]/42">
-                    FOLLOW US
-                  </p>
-                  <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
-                    <a
-                      href={SOCIAL_LINKS.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex min-h-[40px] items-center gap-2 py-1 text-[#051040]/72 transition-colors duration-200 hover:text-[#051040] active:text-[#051040]"
-                      aria-label="Follow His Church School on Instagram"
-                    >
-                      <Instagram size={15} />
-                      <span className="font-label text-[0.68rem] font-bold tracking-[0.12em]">
-                        INSTAGRAM
-                      </span>
-                    </a>
-                    <a
-                      href={SOCIAL_LINKS.facebook}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex min-h-[40px] items-center gap-2 py-1 text-[#051040]/72 transition-colors duration-200 hover:text-[#051040] active:text-[#051040]"
-                      aria-label="Follow His Church School on Facebook"
-                    >
-                      <Facebook size={15} />
-                      <span className="font-label text-[0.68rem] font-bold tracking-[0.12em]">
-                        FACEBOOK
-                      </span>
-                    </a>
-                  </div>
+              <div className="border-t border-gray-200 bg-[#FAFBFE] px-6 py-3.5">
+                <div className="flex items-center justify-center gap-4 sm:justify-start">
+                  <a
+                    href={SOCIAL_LINKS.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-[#051040]/58 transition-colors duration-200 hover:text-[#051040] active:text-[#051040]"
+                    aria-label="Follow His Church School on Instagram"
+                  >
+                    <Instagram size={18} />
+                  </a>
+                  <a
+                    href={SOCIAL_LINKS.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-[#051040]/58 transition-colors duration-200 hover:text-[#051040] active:text-[#051040]"
+                    aria-label="Follow His Church School on Facebook"
+                  >
+                    <Facebook size={18} />
+                  </a>
                 </div>
               </div>
             </div>
