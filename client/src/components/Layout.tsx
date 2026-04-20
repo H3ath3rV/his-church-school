@@ -456,20 +456,26 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   CONTACT US
                 </Link>
               </div>
-              <div className="border-t border-gray-200 bg-[#F7F8FC] px-6 py-5">
-                <p className="mb-3 font-label text-[0.68rem] font-bold tracking-[0.18em] text-[#051040]/48">
-                  FOLLOW US
-                </p>
-                <div className="grid grid-cols-2 gap-3">
+              <div className="border-t border-gray-200 bg-white px-6 pb-5 pt-4">
+                <div className="mb-3 flex items-center gap-3">
+                  <p className="font-label text-[0.66rem] font-bold tracking-[0.18em] text-[#051040]/42">
+                    FOLLOW US
+                  </p>
+                  <span
+                    aria-hidden="true"
+                    className="h-px flex-1 bg-[#051040]/8"
+                  />
+                </div>
+                <div className="flex flex-wrap gap-2.5">
                   <a
                     href={SOCIAL_LINKS.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-[#051040]/10 bg-white px-4 py-3 text-[#051040] transition-colors hover:border-[#C9A84C]/40 hover:text-[#C9A84C] active:border-[#C9A84C]/40 active:text-[#C9A84C]"
+                    className="inline-flex min-h-[42px] min-w-[11rem] flex-1 items-center justify-center gap-2 rounded-full border border-[#051040]/8 bg-[#F7F8FC] px-4 py-2.5 text-[#051040]/80 transition-[border-color,color,background-color] duration-200 hover:border-[#C9A84C]/35 hover:bg-white hover:text-[#051040] active:border-[#C9A84C]/35 active:bg-white active:text-[#051040]"
                     aria-label="Follow His Church School on Instagram"
                   >
-                    <Instagram size={16} />
-                    <span className="font-label text-[0.73rem] font-bold tracking-[0.12em]">
+                    <Instagram size={15} />
+                    <span className="font-label text-[0.69rem] font-bold tracking-[0.11em]">
                       INSTAGRAM
                     </span>
                   </a>
@@ -477,11 +483,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     href={SOCIAL_LINKS.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-[#051040]/10 bg-white px-4 py-3 text-[#051040] transition-colors hover:border-[#C9A84C]/40 hover:text-[#C9A84C] active:border-[#C9A84C]/40 active:text-[#C9A84C]"
+                    className="inline-flex min-h-[42px] min-w-[11rem] flex-1 items-center justify-center gap-2 rounded-full border border-[#051040]/8 bg-[#F7F8FC] px-4 py-2.5 text-[#051040]/80 transition-[border-color,color,background-color] duration-200 hover:border-[#C9A84C]/35 hover:bg-white hover:text-[#051040] active:border-[#C9A84C]/35 active:bg-white active:text-[#051040]"
                     aria-label="Follow His Church School on Facebook"
                   >
-                    <Facebook size={16} />
-                    <span className="font-label text-[0.73rem] font-bold tracking-[0.12em]">
+                    <Facebook size={15} />
+                    <span className="font-label text-[0.69rem] font-bold tracking-[0.11em]">
                       FACEBOOK
                     </span>
                   </a>
