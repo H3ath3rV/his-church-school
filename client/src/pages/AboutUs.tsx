@@ -762,14 +762,14 @@ export default function AboutUs() {
               </span>
               <span
                 aria-hidden="true"
-                className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] shrink-0"
+                className="inline-block w-1.5 h-1.5 rounded-full bg-[#C9A84C] shrink-0"
               />
               <span className="font-display text-xl font-black leading-[1.2] text-[#051040]">
                 World Shakers
               </span>
               <span
                 aria-hidden="true"
-                className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] shrink-0"
+                className="inline-block w-1.5 h-1.5 rounded-full bg-[#C9A84C] shrink-0"
               />
               <span className="font-display text-xl font-black leading-[1.2] text-[#051040]">
                 Challenge Takers
