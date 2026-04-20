@@ -333,7 +333,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         {/* Mobile menu */}
         {mobileOpen && (
           <div className="hcs-shell xl:hidden absolute inset-x-0 top-full z-40 -mt-px">
-            <div className="mx-auto max-h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden rounded-[1.25rem] border border-gray-200 bg-white shadow-[0_18px_50px_rgba(5,16,64,0.16)] sm:max-h-[calc(100vh-8rem)]">
+            <div className="mx-auto max-h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden rounded-[1.25rem] border border-gray-200 bg-white shadow-[0_18px_50px_rgba(5,16,64,0.16)] sm:max-h-[calc(100vh-8rem)] sm:max-w-[42rem] md:max-w-[46rem] lg:max-w-[50rem]">
               <div className="flex items-center justify-between gap-4 border-b border-gray-200 bg-[#F7F8FC] px-6 py-5">
                 <Link
                   href={homeHref}
@@ -457,7 +457,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </Link>
               </div>
               <div className="border-t border-gray-200 bg-[#FAFBFE] px-6 py-3.5">
-                <div className="flex items-center justify-center gap-4 sm:justify-start">
+                <div className="flex flex-wrap items-center justify-start gap-x-4 gap-y-1.5">
                   <a
                     href={SOCIAL_LINKS.instagram}
                     target="_blank"
