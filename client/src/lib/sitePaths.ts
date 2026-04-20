@@ -59,6 +59,13 @@ export function getSiteBasePath(pathname?: string) {
     return basePath === "/" ? "" : basePath;
   }
 
+  // Graceful fallback for 404 pages loaded under the GitHub Pages repo path.
+  // When a user hits a deep broken link (e.g., /his-church-school-website/deep/broken),
+  // this ensures the base path is correctly preserved for image asset resolving.
+  if (!import.meta.env.DEV && currentPath.startsWith("/his-church-school-website/")) {
+    return "/his-church-school-website";
+  }
+
   if (
     !import.meta.env.DEV &&
     currentPath !== "/" &&
