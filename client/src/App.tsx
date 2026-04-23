@@ -14,6 +14,7 @@ import {
   SITE_PHONE_HREF,
   SOCIAL_LINKS,
 } from "@/content/site";
+import routeMetadata from "@/content/routeMetadata.json";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
@@ -31,7 +32,8 @@ type RouteMetadata = {
 const SITE_URL = (
   import.meta.env.VITE_SITE_URL?.trim() || "https://hcschool.co.za"
 ).replace(/\/$/, "");
-const SOCIAL_IMAGE_PATH = "/branding/hcs-30years-badge.png";
+const SOCIAL_IMAGE_PATH = "/branding/hcs-social-preview.jpg";
+const LOGO_PATH = "/branding/hcs-crest.png";
 const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID?.trim();
 
 const ROUTE_COMPONENTS: Record<SitePage, ComponentType> = {
@@ -54,50 +56,7 @@ const ROUTE_ORDER: SitePage[] = [
   "notFound",
 ];
 
-const PAGE_METADATA: Record<SitePage, RouteMetadata> = {
-  home: {
-    title: "His Church School | Private Christian School in Pinetown",
-    description:
-      "His Church School is a private Christian school in Pinetown, KZN, offering a faith-rooted education from Grade 1 to Grade 12.",
-    robots: "index,follow",
-  },
-  about: {
-    title: "About Us | His Church School",
-    description:
-      "Learn more about His Church School, our history, leadership, mission, and the staff who shape our school community.",
-    robots: "index,follow",
-  },
-  academic: {
-    title: "Academic Programme | His Church School",
-    description:
-      "Explore the His Church School academic offering, subject pathways, curriculum information, and senior phase guidance.",
-    robots: "index,follow",
-  },
-  schoolLife: {
-    title: "School Life | His Church School",
-    description:
-      "Discover sport, enrichment programmes, leadership opportunities, and community life at His Church School.",
-    robots: "index,follow",
-  },
-  contact: {
-    title: "Contact Us | His Church School",
-    description:
-      "Get in touch with His Church School for admissions, policy requests, school visits, and general enquiries.",
-    robots: "index,follow",
-  },
-  partnership: {
-    title: "Partnership | His Church School",
-    description:
-      "Find ways to partner with His Church School through sponsorship, bursary support, and community collaboration.",
-    robots: "index,follow",
-  },
-  notFound: {
-    title: "Page Not Found | His Church School",
-    description:
-      "The page you are looking for could not be found. Return to His Church School to continue browsing.",
-    robots: "noindex,follow",
-  },
-};
+const PAGE_METADATA = routeMetadata as Record<SitePage, RouteMetadata>;
 
 const ROUTE_METADATA_BY_PATH = (
   ["home", "about", "academic", "schoolLife", "contact", "partnership"] as const
@@ -176,6 +135,7 @@ function RouteMetadataManager() {
     const pageUrl = buildAbsoluteUrl(normalizedPath);
     const siteUrl = buildAbsoluteUrl("/");
     const socialImageUrl = buildAbsoluteUrl(SOCIAL_IMAGE_PATH);
+    const logoUrl = buildAbsoluteUrl(LOGO_PATH);
     const structuredData = {
       "@context": "https://schema.org",
       "@graph": [
@@ -185,7 +145,7 @@ function RouteMetadataManager() {
           name: "His Church School",
           url: siteUrl,
           image: socialImageUrl,
-          logo: socialImageUrl,
+          logo: logoUrl,
           description: PAGE_METADATA.home.description,
           email: SITE_EMAIL_ADDRESS,
           telephone: SITE_PHONE_HREF.replace(/^tel:/, ""),
@@ -255,12 +215,16 @@ function Router() {
   );
 }
 
-function App() {
-  const routerBase = import.meta.env.DEV ? "" : getSiteBasePath();
+type AppProps = {
+  ssrPath?: string;
+};
+
+function App({ ssrPath }: AppProps = {}) {
+  const routerBase = import.meta.env.DEV || ssrPath ? "" : getSiteBasePath();
 
   return (
     <ErrorBoundary>
-      <WouterRouter base={routerBase}>
+      <WouterRouter base={routerBase} ssrPath={ssrPath}>
         <ScrollManager />
         <RouteMetadataManager />
         <Router />

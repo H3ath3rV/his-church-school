@@ -10,6 +10,24 @@
     />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#051040" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon-32x32.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="preload"
+      href="/fonts/SourceSerif4-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/Inter-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <link rel="canonical" href="https://hcschool.co.za/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="His Church School" />
@@ -22,17 +40,14 @@
       property="og:description"
       content="His Church School is a private Christian school in Pinetown, KZN, offering a faith-rooted education from Grade 1 to Grade 12."
     />
-    <meta
-      property="og:url"
-      content="https://hcschool.co.za/"
-    />
+    <meta property="og:url" content="https://hcschool.co.za/" />
     <meta
       property="og:image"
-      content="https://hcschool.co.za/branding/hcs-30years-badge.png"
+      content="https://hcschool.co.za/branding/hcs-social-preview.jpg"
     />
     <meta
       property="og:image:alt"
-      content="His Church School 30 year celebration badge"
+      content="His Church School learners with school branding"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
@@ -45,14 +60,48 @@
     />
     <meta
       name="twitter:image"
-      content="https://hcschool.co.za/branding/hcs-30years-badge.png"
+      content="https://hcschool.co.za/branding/hcs-social-preview.jpg"
     />
     <script id="structured-data" type="application/ld+json">
-      {"@context":"https://schema.org","@type":"School","name":"His Church School","url":"https://hcschool.co.za/","description":"His Church School is a private Christian school in Pinetown, KZN, offering a faith-rooted education from Grade 1 to Grade 12."}
+      {
+        "@context": "https://schema.org",
+        "@type": "School",
+        "name": "His Church School",
+        "url": "https://hcschool.co.za/",
+        "description": "His Church School is a private Christian school in Pinetown, KZN, offering a faith-rooted education from Grade 1 to Grade 12."
+      }
     </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript id="static-page-fallback">
+      <main
+        style="
+          font-family: Georgia, serif;
+          margin: 2rem auto;
+          max-width: 48rem;
+          padding: 0 1.25rem;
+          color: #051040;
+        "
+      >
+        <h1>His Church School</h1>
+        <p>
+          His Church School is a private Christian school in Pinetown, KZN,
+          offering a faith-rooted education from Grade 1 to Grade 12.
+        </p>
+        <p>
+          This website works best with JavaScript enabled. You can still contact
+          the school office at secretary@hcschool.co.za or 031 701 6211.
+        </p>
+        <nav aria-label="Core pages">
+          <a href="/">Home</a> | <a href="/about/">About Us</a> |
+          <a href="/academic/">Academic</a> |
+          <a href="/school-life/">School Life</a> |
+          <a href="/contact/">Contact</a> |
+          <a href="/partnership/">Partnership</a>
+        </nav>
+      </main>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

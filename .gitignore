@@ -1,6 +1,7 @@
 node_modules/
 .pnpm-store/
 dist/
+.static-ssr/
 .claude/
 .DS_Store
 .env

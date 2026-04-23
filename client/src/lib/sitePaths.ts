@@ -27,6 +27,7 @@ const STATIC_ROUTE_SUFFIXES = [
   "/index.html",
 ];
 const DEV_ASSET_VERSION = import.meta.env.DEV ? Date.now().toString() : "";
+const PROD_ASSET_VERSION = import.meta.env.DEV ? "" : __ASSET_VERSION__;
 
 function ensureLeadingSlash(path: string) {
   if (!path) return "/";
@@ -121,10 +122,14 @@ export function getSectionHref(
 
 export function getPublicAssetHref(filePath: string) {
   const normalizedPath = withSiteBase(`/${filePath.replace(/^\/+/, "")}`);
-  const separator = normalizedPath.includes("?") ? "&" : "?";
   const assetVersion = import.meta.env.DEV
     ? DEV_ASSET_VERSION
-    : __ASSET_VERSION__;
+    : PROD_ASSET_VERSION;
 
+  if (!assetVersion) {
+    return normalizedPath;
+  }
+
+  const separator = normalizedPath.includes("?") ? "&" : "?";
   return `${normalizedPath}${separator}v=${assetVersion}`;
 }

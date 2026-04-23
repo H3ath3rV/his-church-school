@@ -1,8 +1,16 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 const docsDir = path.resolve(process.cwd(), "docs");
 const sourceIndexPath = path.join(docsDir, "index.html");
+const routeMetadataPath = path.resolve(
+  process.cwd(),
+  "client",
+  "src",
+  "content",
+  "routeMetadata.json"
+);
 const siteUrl = (
   process.env.SITE_URL ??
   process.env.VITE_SITE_URL ??
@@ -10,63 +18,52 @@ const siteUrl = (
 )
   .trim()
   .replace(/\/$/, "");
-const socialImagePath = "/branding/hcs-30years-badge.png";
+const socialImagePath = "/branding/hcs-social-preview.jpg";
+const logoPath = "/branding/hcs-crest.png";
+const sharedRouteMetadata = JSON.parse(
+  await readFile(routeMetadataPath, "utf8")
+);
+const sitemapLastmod = (process.env.SITEMAP_LASTMOD ?? "2026-04-23").trim();
+
+if (!/^\d{4}-\d{2}-\d{2}$/.test(sitemapLastmod)) {
+  throw new Error("SITEMAP_LASTMOD must use YYYY-MM-DD format.");
+}
+
 const routeDefinitions = {
   home: {
     filePath: path.join(docsDir, "index.html"),
     routePath: "/",
-    title: "His Church School | Private Christian School in Pinetown",
-    description:
-      "His Church School is a private Christian school in Pinetown, KZN, offering a faith-rooted education from Grade 1 to Grade 12.",
-    robots: "index,follow",
+    ...sharedRouteMetadata.home,
   },
   about: {
     filePath: path.join(docsDir, "about", "index.html"),
     routePath: "/about/",
-    title: "About Us | His Church School",
-    description:
-      "Learn more about His Church School, our history, leadership, mission, and the staff who shape our school community.",
-    robots: "index,follow",
+    ...sharedRouteMetadata.about,
   },
   academic: {
     filePath: path.join(docsDir, "academic", "index.html"),
     routePath: "/academic/",
-    title: "Academic Programme | His Church School",
-    description:
-      "Explore the His Church School academic offering, subject pathways, curriculum information, and senior phase guidance.",
-    robots: "index,follow",
+    ...sharedRouteMetadata.academic,
   },
   schoolLife: {
     filePath: path.join(docsDir, "school-life", "index.html"),
     routePath: "/school-life/",
-    title: "School Life | His Church School",
-    description:
-      "Discover sport, enrichment programmes, leadership opportunities, and community life at His Church School.",
-    robots: "index,follow",
+    ...sharedRouteMetadata.schoolLife,
   },
   contact: {
     filePath: path.join(docsDir, "contact", "index.html"),
     routePath: "/contact/",
-    title: "Contact Us | His Church School",
-    description:
-      "Get in touch with His Church School for admissions, policy requests, school visits, and general enquiries.",
-    robots: "index,follow",
+    ...sharedRouteMetadata.contact,
   },
   partnership: {
     filePath: path.join(docsDir, "partnership", "index.html"),
     routePath: "/partnership/",
-    title: "Partnership | His Church School",
-    description:
-      "Find ways to partner with His Church School through sponsorship, bursary support, and community collaboration.",
-    robots: "index,follow",
+    ...sharedRouteMetadata.partnership,
   },
   notFound: {
     filePath: path.join(docsDir, "404.html"),
     routePath: "/404.html",
-    title: "Page Not Found | His Church School",
-    description:
-      "The page you are looking for could not be found. Return to His Church School to continue browsing.",
-    robots: "noindex,follow",
+    ...sharedRouteMetadata.notFound,
   },
 };
 
@@ -85,9 +82,35 @@ function resolvePageUrl(routePath) {
   return new URL(routePath, `${siteUrl}/`).toString();
 }
 
+const staticRenderModulePath = path.resolve(
+  process.cwd(),
+  ".static-ssr",
+  "static-render.js"
+);
+const { renderStaticPage } = await import(
+  pathToFileURL(staticRenderModulePath).href
+);
+
+function normalizeDocumentAssetLinks(html) {
+  return html
+    .replaceAll('href="./favicon.ico"', 'href="/favicon.ico"')
+    .replaceAll('href="./favicon-32x32.png"', 'href="/favicon-32x32.png"')
+    .replaceAll('href="./apple-touch-icon.png"', 'href="/apple-touch-icon.png"')
+    .replaceAll('href="./site.webmanifest"', 'href="/site.webmanifest"')
+    .replaceAll('href="./fonts/', 'href="/fonts/');
+}
+
+function injectStaticRoot(html, metadata) {
+  return html.replace(
+    /<div id="root"><\/div>/,
+    `<div id="root">${renderStaticPage(metadata.routePath)}</div>`
+  );
+}
+
 function applyMetadata(html, metadata) {
   const canonicalUrl = resolvePageUrl(metadata.routePath);
   const socialImageUrl = resolvePageUrl(socialImagePath);
+  const logoUrl = resolvePageUrl(logoPath);
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -97,7 +120,7 @@ function applyMetadata(html, metadata) {
         name: "His Church School",
         url: resolvePageUrl("/"),
         image: socialImageUrl,
-        logo: socialImageUrl,
+        logo: logoUrl,
         description:
           "His Church School is a private Christian school in Pinetown, KZN, offering a faith-rooted education from Grade 1 to Grade 12.",
         email: "secretary@hcschool.co.za",
@@ -125,8 +148,11 @@ function applyMetadata(html, metadata) {
     ],
   };
 
-  return html
-    .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(metadata.title)}</title>`)
+  return normalizeDocumentAssetLinks(injectStaticRoot(html, metadata))
+    .replace(
+      /<title>[\s\S]*?<\/title>/,
+      `<title>${escapeHtml(metadata.title)}</title>`
+    )
     .replace(
       /<meta\s+name="description"\s+content="[\s\S]*?"\s*\/>/,
       `<meta name="description" content="${escapeAttribute(metadata.description)}" />`
@@ -140,7 +166,7 @@ function applyMetadata(html, metadata) {
       `<link rel="canonical" href="${escapeAttribute(canonicalUrl)}" />`
     )
     .replace(
-      /<meta property="og:title" content="[^"]*"\s*\/>/,
+      /<meta\s+property="og:title"\s+content="[\s\S]*?"\s*\/>/,
       `<meta property="og:title" content="${escapeAttribute(metadata.title)}" />`
     )
     .replace(
@@ -156,7 +182,11 @@ function applyMetadata(html, metadata) {
       `<meta property="og:image" content="${escapeAttribute(socialImageUrl)}" />`
     )
     .replace(
-      /<meta name="twitter:title" content="[^"]*"\s*\/>/,
+      /<meta\s+property="og:image:alt"\s+content="[\s\S]*?"\s*\/>/,
+      `<meta property="og:image:alt" content="His Church School learners with school branding" />`
+    )
+    .replace(
+      /<meta\s+name="twitter:title"\s+content="[\s\S]*?"\s*\/>/,
       `<meta name="twitter:title" content="${escapeAttribute(metadata.title)}" />`
     )
     .replace(
@@ -172,7 +202,32 @@ function applyMetadata(html, metadata) {
       `<script id="structured-data" type="application/ld+json">${escapeHtml(
         JSON.stringify(structuredData)
       )}</script>`
+    )
+    .replace(
+      /<noscript id="static-page-fallback">[\s\S]*?<\/noscript>/,
+      buildNoScriptFallback(metadata)
     );
+}
+
+function buildNoScriptFallback(metadata) {
+  return `<noscript id="static-page-fallback">
+      <main style="font-family: Georgia, serif; margin: 2rem auto; max-width: 48rem; padding: 0 1.25rem; color: #051040;">
+        <h1>${escapeHtml(metadata.title.replace(" | His Church School", ""))}</h1>
+        <p>${escapeHtml(metadata.description)}</p>
+        <p>
+          This website works best with JavaScript enabled. You can still contact
+          the school office at secretary@hcschool.co.za or 031 701 6211.
+        </p>
+        <nav aria-label="Core pages">
+          <a href="/">Home</a> |
+          <a href="/about/">About Us</a> |
+          <a href="/academic/">Academic</a> |
+          <a href="/school-life/">School Life</a> |
+          <a href="/contact/">Contact</a> |
+          <a href="/partnership/">Partnership</a>
+        </nav>
+      </main>
+    </noscript>`;
 }
 
 const html = await readFile(sourceIndexPath, "utf8");
@@ -206,7 +261,7 @@ const sitemapEntries = Object.values(routeDefinitions)
     route =>
       `  <url>\n    <loc>${escapeHtml(
         resolvePageUrl(route.routePath)
-      )}</loc>\n  </url>`
+      )}</loc>\n    <lastmod>${sitemapLastmod}</lastmod>\n  </url>`
   )
   .join("\n");
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries}\n</urlset>\n`;

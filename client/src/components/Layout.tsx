@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
 import {
   Menu,
@@ -29,11 +29,19 @@ import {
   TARTAN_URL,
 } from "@/content/site";
 
+const MOBILE_MENU_ID = "site-mobile-menu";
+const FOCUSABLE_SELECTOR =
+  'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const mobileToggleRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileCloseRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuReturnFocusRef = useRef<HTMLElement | null>(null);
   const [location] = useLocation();
   const homeHref = getPageHref("home");
   const contactHref = getPageHref("contact");
@@ -78,7 +86,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     if (event.key !== "Escape") return;
 
     setActiveDropdown(null);
-    const trigger = event.currentTarget.querySelector("a");
+    const trigger = event.currentTarget.querySelector("button, a");
     if (trigger instanceof HTMLElement) {
       trigger.focus();
     }
@@ -137,8 +145,65 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     closeMenus();
   }, [location]);
 
+  useEffect(() => {
+    if (!mobileOpen) return undefined;
+
+    mobileMenuReturnFocusRef.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : mobileToggleRef.current;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.setTimeout(() => mobileCloseRef.current?.focus(), 0);
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMobileOpen(false);
+        setMobileExpanded(null);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusableElements = Array.from(
+        mobileMenuRef.current?.querySelectorAll<HTMLElement>(
+          FOCUSABLE_SELECTOR
+        ) ?? []
+      ).filter(element => element.offsetParent !== null);
+
+      if (focusableElements.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+      window.setTimeout(() => mobileMenuReturnFocusRef.current?.focus(), 0);
+    };
+  }, [mobileOpen]);
+
   return (
     <div className="min-h-screen flex flex-col">
+      <a href="#main-content" className="hcs-skip-link">
+        Skip to main content
+      </a>
       {/* Top bar */}
       <div className="relative z-50 hidden bg-[#051040] text-white xl:block">
         <div className="max-w-7xl mx-auto flex min-h-[3.1rem] items-center justify-between hcs-shell xl:min-h-[3.35rem]">
@@ -147,7 +212,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               href={SOCIAL_LINKS.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white/78 transition-colors duration-200 hover:text-[#C9A84C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C]/35 xl:h-9 xl:w-9"
+              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full text-white/78 transition-colors duration-200 hover:text-[#C9A84C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C]/35"
               aria-label="Follow His Church School on Instagram"
             >
               <Instagram size={17} />
@@ -156,7 +221,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               href={SOCIAL_LINKS.facebook}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full text-white/78 transition-colors duration-200 hover:text-[#C9A84C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C]/35 xl:h-9 xl:w-9"
+              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full text-white/78 transition-colors duration-200 hover:text-[#C9A84C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C]/35"
               aria-label="Follow His Church School on Facebook"
             >
               <Facebook size={17} />
@@ -165,7 +230,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-4 font-body text-[0.82rem] text-white/80 xl:gap-5 xl:text-[0.84rem]">
             <a
               href={SITE_EMAIL_HREF}
-              className="group flex items-center gap-2 transition-colors duration-200 hover:text-white"
+              className="group flex min-h-[44px] items-center gap-2 transition-colors duration-200 hover:text-white"
             >
               <Mail
                 size={14}
@@ -176,7 +241,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <span className="text-white/18">|</span>
             <a
               href={SITE_PHONE_HREF}
-              className="group flex items-center gap-2 transition-colors duration-200 hover:text-white"
+              className="group flex min-h-[44px] items-center gap-2 transition-colors duration-200 hover:text-white"
             >
               <Phone
                 size={14}
@@ -198,11 +263,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Link
               href={homeHref}
               onClick={event => handleNavClick(event, homeHref)}
-              className="flex min-w-0 items-center gap-2.5 md:gap-3"
+              className="flex min-h-[44px] min-w-0 items-center gap-2.5 md:gap-3"
             >
               <img
                 src={CREST_URL}
-                alt="HCS Crest"
+                alt="His Church School crest"
                 className="h-10 w-auto shrink-0 md:h-14 xl:h-16"
               />
               <div className="min-w-0 leading-none">
@@ -248,29 +313,38 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     }
                     onKeyDown={handleDesktopDropdownKeyDown}
                   >
-                    <Link
-                      href={item.href}
-                      onClick={event => handleNavClick(event, item.href)}
-                      className="group relative inline-flex min-h-[44px] items-center gap-1 whitespace-nowrap px-4 py-2 font-label text-[0.79rem] font-bold tracking-[0.1em] text-[#051040] transition-colors"
-                      aria-current={isItemActive ? "page" : undefined}
-                      aria-haspopup={item.children ? "menu" : undefined}
-                      aria-expanded={item.children ? isItemOpen : undefined}
-                      aria-controls={
-                        item.children ? getDropdownId(item.label) : undefined
-                      }
-                    >
-                      {item.label}
+                    <div className="group relative inline-flex min-h-[44px] items-center whitespace-nowrap font-label text-[0.79rem] font-bold tracking-[0.1em] text-[#051040] transition-colors">
+                      <Link
+                        href={item.href}
+                        onClick={event => handleNavClick(event, item.href)}
+                        className={`inline-flex min-h-[44px] items-center py-2 ${item.children ? "pl-4 pr-1" : "px-4"}`}
+                        aria-current={isItemActive ? "page" : undefined}
+                      >
+                        {item.label}
+                      </Link>
                       {item.children && (
-                        <ChevronDown
-                          size={12}
-                          className={`transition-[color,transform] duration-200 ${isItemOpen ? "rotate-180" : ""} ${showAccent ? "text-[#C9A84C]" : "text-current group-hover:text-[#C9A84C]"}`}
-                        />
+                        <button
+                          type="button"
+                          className="inline-flex min-h-[44px] min-w-[34px] items-center justify-center pr-3 text-current transition-colors hover:text-[#C9A84C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C]/35"
+                          onClick={() =>
+                            setActiveDropdown(isItemOpen ? null : item.label)
+                          }
+                          aria-haspopup="menu"
+                          aria-expanded={isItemOpen}
+                          aria-controls={getDropdownId(item.label)}
+                          aria-label={`${isItemOpen ? "Collapse" : "Expand"} ${item.label} menu`}
+                        >
+                          <ChevronDown
+                            size={12}
+                            className={`transition-[color,transform] duration-200 ${isItemOpen ? "rotate-180" : ""} ${showAccent ? "text-[#C9A84C]" : "text-current group-hover:text-[#C9A84C]"}`}
+                          />
+                        </button>
                       )}
                       <span
                         aria-hidden="true"
                         className={`absolute bottom-0 left-4 right-4 h-0.5 rounded-full bg-[#C9A84C] origin-center transition-transform duration-200 ${showAccent ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}
                       />
-                    </Link>
+                    </div>
                     {idx < PRIMARY_NAV_ITEMS.length - 1 && (
                       <span className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-300 text-sm pointer-events-none">
                         |
@@ -301,17 +375,21 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <Link
                 href={contactHref}
                 onClick={event => handleNavClick(event, contactHref)}
-                className="ml-5 inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-full bg-[#051040] px-7 py-3 text-[0.78rem] font-label font-bold tracking-[0.1em] text-white shadow-[0_12px_26px_rgba(5,16,64,0.16)] transition-colors hover:bg-[#051040]/85"
+                className="hcs-btn-primary hcs-btn-enquire ml-5 whitespace-nowrap shadow-[0_12px_26px_rgba(5,16,64,0.16)]"
               >
-                CONTACT US
+                ENQUIRE NOW
               </Link>
             </nav>
 
             {/* Mobile hamburger */}
             <button
+              ref={mobileToggleRef}
               className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-[#051040] xl:hidden"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
+              aria-controls={MOBILE_MENU_ID}
+              aria-haspopup="dialog"
               type="button"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -332,17 +410,24 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="hcs-shell xl:hidden absolute inset-x-0 top-full z-40 -mt-px">
+          <div
+            ref={mobileMenuRef}
+            id={MOBILE_MENU_ID}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
+            className="hcs-shell xl:hidden absolute inset-x-0 top-full z-40 -mt-px"
+          >
             <div className="mx-auto max-h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden rounded-[1.25rem] border border-gray-200 bg-white shadow-[0_18px_50px_rgba(5,16,64,0.16)] sm:max-h-[calc(100vh-8rem)] sm:max-w-[42rem] md:max-w-[46rem] lg:max-w-[50rem]">
               <div className="flex items-center justify-between gap-4 border-b border-gray-200 bg-[#F7F8FC] px-6 py-5">
                 <Link
                   href={homeHref}
                   onClick={event => handleNavClick(event, homeHref)}
-                  className="flex min-w-0 items-center gap-3"
+                  className="flex min-h-[44px] min-w-0 items-center gap-3"
                 >
                   <img
                     src={CREST_URL}
-                    alt="HCS Crest"
+                    alt="His Church School crest"
                     className="h-10 w-auto shrink-0 sm:h-12"
                   />
                   <div className="min-w-0 leading-none">
@@ -355,12 +440,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   </div>
                 </Link>
                 <button
+                  ref={mobileCloseRef}
                   type="button"
                   onClick={() => {
                     setMobileOpen(false);
                     setMobileExpanded(null);
                   }}
-                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#051040]/12 bg-white text-[#051040] transition-colors hover:bg-[#EEF2FB]"
+                  className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded-full border border-[#051040]/12 bg-white text-[#051040] transition-colors hover:bg-[#EEF2FB]"
                   aria-label="Close menu"
                 >
                   <X size={18} />
@@ -397,7 +483,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       {item.children && (
                         <button
                           type="button"
-                          className="inline-flex min-w-[52px] items-center justify-center px-4 text-[#051040]/50 transition-colors hover:text-[#051040]"
+                          className="inline-flex min-w-[52px] items-center justify-center px-4 text-[#051040]/68 transition-colors hover:text-[#051040]"
                           onClick={() =>
                             setMobileExpanded(
                               mobileExpanded === item.label ? null : item.label
@@ -451,9 +537,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Link
                   href={contactHref}
                   onClick={event => handleNavClick(event, contactHref)}
-                  className="inline-flex min-h-[44px] w-full items-center justify-center rounded-full bg-[#051040] px-5 py-3 text-center font-label text-[0.8rem] font-bold tracking-[0.1em] text-white"
+                  className="hcs-btn-primary mx-auto w-full max-w-[28rem] text-center sm:max-w-none"
                 >
-                  CONTACT US
+                  ENQUIRE NOW
                 </Link>
               </div>
               <div className="border-t border-gray-200 bg-[#FAFBFE] px-6 py-3.5">
@@ -490,7 +576,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </header>
 
       {/* Page content */}
-      <main className="flex-1">{children}</main>
+      <main id="main-content" className="flex-1" tabIndex={-1}>
+        {children}
+      </main>
 
       {/* Photo gallery strip */}
       <div
@@ -519,11 +607,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Tartan band */}
       <div
-        className="h-12"
+        className="h-12 sm:h-14"
         style={{
           backgroundImage: `url(${TARTAN_URL})`,
           backgroundRepeat: "repeat-x",
-          backgroundSize: "auto 225%",
+          backgroundPosition: "center",
+          backgroundSize: "auto 255%",
         }}
       />
 
@@ -531,18 +620,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <footer className="bg-[#051040] py-7 text-white sm:py-8">
         <div className="max-w-7xl mx-auto hcs-shell">
           <div className="xl:hidden">
-            <nav className="flex w-full flex-wrap items-center justify-center gap-x-8 gap-y-2 sm:gap-x-10 md:gap-x-12">
-              {FOOTER_NAV_ITEMS.map(link => (
-                <span
+            <div className="mx-auto grid w-full max-w-[26rem] grid-cols-2 items-start justify-items-center gap-x-8 sm:max-w-[30rem] sm:gap-x-10 md:max-w-[34rem] md:gap-x-12">
+              {FOOTER_NAV_ITEMS.map((link, index) => (
+                <div
                   key={link.label}
-                  className="flex items-center justify-center"
+                  className="grid justify-items-center gap-y-4 sm:gap-y-5"
                 >
                   {link.href.startsWith("http") ? (
                     <a
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="whitespace-nowrap font-label text-[0.8rem] font-bold tracking-[0.1em] text-white/78 transition-colors hover:text-white"
+                      className="inline-flex min-h-[44px] items-center justify-center whitespace-nowrap text-center font-label text-[0.8rem] font-bold tracking-[0.1em] text-white/78 transition-colors hover:text-white"
                     >
                       {link.label}
                     </a>
@@ -550,34 +639,34 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <Link
                       href={link.href}
                       onClick={event => handleNavClick(event, link.href)}
-                      className="whitespace-nowrap font-label text-[0.8rem] font-bold tracking-[0.1em] text-white/78 transition-colors hover:text-white"
+                      className="inline-flex min-h-[44px] items-center justify-center whitespace-nowrap text-center font-label text-[0.8rem] font-bold tracking-[0.1em] text-white/78 transition-colors hover:text-white"
                     >
                       {link.label}
                     </Link>
                   )}
-                </span>
+
+                  {index === 0 ? (
+                    <Link
+                      href={homeHref}
+                      onClick={event => handleNavClick(event, homeHref)}
+                      className="flex h-[3.45rem] w-[3.45rem] items-center justify-center rounded-full transition-opacity hover:opacity-100 sm:h-[3.8rem] sm:w-[3.8rem] md:h-[3.9rem] md:w-[3.9rem]"
+                      aria-label="His Church School home"
+                    >
+                      <img
+                        src={CREST_URL}
+                        alt="His Church School crest"
+                        className="h-full w-auto opacity-55"
+                      />
+                    </Link>
+                  ) : (
+                    <img
+                      src={getPublicAssetHref("branding/hcs-30years-badge.png")}
+                      alt="His Church School 30 Years badge"
+                      className="h-[3.15rem] w-auto opacity-55 sm:h-[3.45rem] md:h-[3.55rem]"
+                    />
+                  )}
+                </div>
               ))}
-            </nav>
-
-            <div className="mx-auto mt-4 flex w-full items-center justify-center gap-8 sm:mt-5 sm:gap-10 md:max-w-[34rem] md:justify-center md:gap-12">
-              <Link
-                href={homeHref}
-                onClick={event => handleNavClick(event, homeHref)}
-                className="flex h-[3.45rem] w-[3.45rem] items-center justify-center rounded-full transition-opacity hover:opacity-100 sm:h-[3.8rem] sm:w-[3.8rem] md:h-[3.9rem] md:w-[3.9rem]"
-                aria-label="His Church School home"
-              >
-                <img
-                  src={CREST_URL}
-                  alt="His Church School crest"
-                  className="h-full w-auto opacity-55"
-                />
-              </Link>
-
-              <img
-                src={getPublicAssetHref("branding/hcs-30years-badge.png")}
-                alt="His Church School 30 Years badge"
-                className="h-[3.15rem] w-auto opacity-55 sm:h-[3.45rem] md:h-[3.55rem]"
-              />
             </div>
           </div>
 
@@ -608,7 +697,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="whitespace-nowrap font-label text-[0.82rem] font-bold tracking-[0.1em] text-white/78 transition-colors hover:text-white 2xl:text-[0.9rem] 2xl:tracking-[0.12em]"
+                      className="inline-flex min-h-[44px] items-center whitespace-nowrap font-label text-[0.82rem] font-bold tracking-[0.1em] text-white/78 transition-colors hover:text-white 2xl:text-[0.9rem] 2xl:tracking-[0.12em]"
                     >
                       {link.label}
                     </a>
@@ -616,7 +705,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     <Link
                       href={link.href}
                       onClick={event => handleNavClick(event, link.href)}
-                      className="whitespace-nowrap font-label text-[0.82rem] font-bold tracking-[0.1em] text-white/78 transition-colors hover:text-white 2xl:text-[0.9rem] 2xl:tracking-[0.12em]"
+                      className="inline-flex min-h-[44px] items-center whitespace-nowrap font-label text-[0.82rem] font-bold tracking-[0.1em] text-white/78 transition-colors hover:text-white 2xl:text-[0.9rem] 2xl:tracking-[0.12em]"
                     >
                       {link.label}
                     </Link>
@@ -640,8 +729,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {/* Bottom bar */}
           <div className="mt-4 border-t border-white/10 pt-3 text-center font-body text-sm text-white/55 sm:mt-6 sm:pt-4">
             <p>
-              © {new Date().getFullYear()} His&nbsp;Church&nbsp;School. All rights
-              reserved.
+              <span className="block sm:inline">
+                © {new Date().getFullYear()} His&nbsp;Church&nbsp;School.
+              </span>
+              <span className="block sm:inline">
+                <span className="hidden sm:inline"> </span>
+                All rights reserved.
+              </span>
             </p>
           </div>
         </div>

@@ -4,14 +4,22 @@ import path from "node:path";
 import { defineConfig } from "vite";
 
 const plugins = [react(), tailwindcss()];
-const assetVersion = Date.now().toString();
+const assetVersion =
+  process.env.VITE_ASSET_VERSION?.trim() ||
+  process.env.GITHUB_SHA?.slice(0, 12);
+
+if (process.env.CI && !assetVersion) {
+  throw new Error(
+    "Set VITE_ASSET_VERSION to the deployment commit SHA before building in CI."
+  );
+}
 
 export default defineConfig({
   base: "./",
-  define: {
-    __ASSET_VERSION__: JSON.stringify(assetVersion),
-  },
   plugins,
+  define: {
+    __ASSET_VERSION__: JSON.stringify(assetVersion || "local"),
+  },
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),

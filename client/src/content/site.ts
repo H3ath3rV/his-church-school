@@ -27,16 +27,14 @@ export const SOCIAL_LINKS = {
   facebook: "https://www.facebook.com/hischurchschool",
 } as const;
 
-export const CREST_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_crest_6c734c35.png";
-export const TARTAN_URL =
-  "https://d2xsxph8kpxj0f.cloudfront.net/112950987/DfvXRdX3KuuYDzjuA34tRA/hcs_tartan_2be6630d.png";
+export const CREST_URL = getPublicAssetHref("branding/hcs-crest.png");
+export const TARTAN_URL = getPublicAssetHref("branding/hcs-tartan.png");
 
 export const CONTACT_DETAILS: ContactDetail[] = [
   {
     icon: Mail,
     label: "Email",
-    title: "Email our office",
+    title: "Send us a message",
     value: SITE_EMAIL_ADDRESS,
     href: SITE_EMAIL_HREF,
   },
@@ -58,17 +56,17 @@ export const CONTACT_DETAILS: ContactDetail[] = [
 
 export const FOOTER_GALLERY_IMAGES: FooterGalleryImage[] = [
   {
-    src: getPublicAssetHref("photos/footer-strip/strip-01-prayer.jpg"),
+    src: getPublicAssetHref("photos/footer-strip/strip-01-prayer.webp"),
     objectPosition: "50% 35%",
   },
-  { src: getPublicAssetHref("photos/footer-strip/strip-02-writing.jpg") },
+  { src: getPublicAssetHref("photos/footer-strip/strip-02-writing.webp") },
   {
-    src: getPublicAssetHref("photos/footer-strip/strip-03-teamwork-board.jpg"),
+    src: getPublicAssetHref("photos/footer-strip/strip-03-teamwork-board.webp"),
     objectPosition: "50% 44%",
   },
-  { src: getPublicAssetHref("photos/footer-strip/strip-04-flower-frame.jpg") },
+  { src: getPublicAssetHref("photos/footer-strip/strip-04-flower-frame.webp") },
   {
-    src: getPublicAssetHref("photos/footer-strip/strip-05-tree-planting.jpg"),
+    src: getPublicAssetHref("photos/footer-strip/strip-05-tree-planting.webp"),
     objectPosition: "60% 52%",
   },
 ];
@@ -80,18 +78,3 @@ export const FOOTER_GALLERY_VISIBILITY = [
   "hidden md:block",
   "hidden lg:block",
 ] as const;
-
-export function buildMailtoHref(subject?: string, body?: string) {
-  const searchParams = new URLSearchParams();
-
-  if (subject) {
-    searchParams.set("subject", subject);
-  }
-
-  if (body) {
-    searchParams.set("body", body);
-  }
-
-  const query = searchParams.toString();
-  return query ? `${SITE_EMAIL_HREF}?${query}` : SITE_EMAIL_HREF;
-}

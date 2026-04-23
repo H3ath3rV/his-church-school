@@ -1,17 +1,28 @@
+import { Link } from "wouter";
 import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
-import { getPublicAssetHref } from "@/lib/sitePaths";
+import ResponsiveEditorialImage from "@/components/ResponsiveEditorialImage";
+import { getPageHref, getPublicAssetHref } from "@/lib/sitePaths";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Users, Flame, Heart } from "lucide-react";
 
 const SPORT_HERO_URL = getPublicAssetHref(
-  "photos/school-life/school-life-hero.jpg"
+  "photos/school-life/school-life-hero-mobile.webp"
 );
-const SPORT_SECTION_URL = getPublicAssetHref(
-  "photos/school-life/school-life-sport.jpg"
+const SPORT_HERO_TABLET_URL = getPublicAssetHref(
+  "photos/school-life/school-life-hero-tablet.webp"
+);
+const SPORT_HERO_DESKTOP_URL = getPublicAssetHref(
+  "photos/school-life/school-life-hero-desktop.webp"
+);
+const SPORT_SECTION_DESKTOP_URL = getPublicAssetHref(
+  "photos/school-life/school-life-sport-desktop.webp"
 );
 const SPORT_SECTION_MOBILE_URL = getPublicAssetHref(
-  "photos/school-life/school-life-sport-mobile.jpg"
+  "photos/school-life/school-life-sport-mobile.webp"
+);
+const SPORT_SECTION_TABLET_URL = getPublicAssetHref(
+  "photos/school-life/school-life-sport-tablet.webp"
 );
 const SPORTING_CALENDAR_URL = getPublicAssetHref(
   "downloads/calendar/hcs-sporting-events-2026.ics"
@@ -169,10 +180,14 @@ function splitFixtureEvent(event: string) {
 
 export default function SchoolLife() {
   const pageRef = useScrollAnimation();
-  const sportingCalendarAbsoluteUrl =
+  const calendarUrlBase =
     typeof window === "undefined"
-      ? SPORTING_CALENDAR_URL
-      : new URL(SPORTING_CALENDAR_URL, window.location.href).toString();
+      ? "https://hcschool.co.za/"
+      : window.location.href;
+  const sportingCalendarAbsoluteUrl = new URL(
+    SPORTING_CALENDAR_URL,
+    calendarUrlBase
+  ).toString();
   const sportingCalendarForGoogle = new URL(sportingCalendarAbsoluteUrl);
   sportingCalendarForGoogle.search = "";
   const googleCalendarHref = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(
@@ -186,6 +201,14 @@ export default function SchoolLife() {
         <PageHero
           title="School Life"
           imageUrl={SPORT_HERO_URL}
+          mobileShowFullImage
+          mobileAspectRatio="1080 / 1201"
+          tabletImageUrl={SPORT_HERO_TABLET_URL}
+          tabletShowFullImage
+          tabletAspectRatio="2 / 1"
+          desktopImageUrl={SPORT_HERO_DESKTOP_URL}
+          desktopShowFullImage
+          desktopAspectRatio="4 / 1"
           imagePosition={{
             mobile: "center 40%",
             tablet: "center 40%",
@@ -198,37 +221,32 @@ export default function SchoolLife() {
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14 items-start">
               <div className="fade-up">
-                <div className="hcs-editorial-image">
-                  <picture>
-                    <source
-                      media="(max-width: 1023px)"
-                      srcSet={SPORT_SECTION_MOBILE_URL}
-                    />
-                    <img
-                      src={SPORT_SECTION_URL}
-                      alt="HCS athletics and sport"
-                      loading="lazy"
-                      className="object-[50%_30%] sm:object-[50%_28%] lg:object-[50%_34%]"
-                    />
-                  </picture>
-                </div>
+                <ResponsiveEditorialImage
+                  className="hcs-editorial-image"
+                  desktopImageUrl={SPORT_SECTION_DESKTOP_URL}
+                  mobileImageUrl={SPORT_SECTION_MOBILE_URL}
+                  tabletImageUrl={SPORT_SECTION_TABLET_URL}
+                  alt="Learners taking part in athletics and school sport"
+                  imageClassName="object-[50%_30%] sm:object-[50%_28%] lg:object-[50%_34%]"
+                />
               </div>
               <div className="fade-up hcs-split-copy">
-                <p className="mb-3 text-center font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/45 lg:text-left">
+                <p className="mb-3 text-center font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/62 lg:text-left">
                   Athletics &amp; Sport
                 </p>
                 <h2 className="mb-2 text-center font-display text-3xl font-black text-[#051040] md:text-4xl lg:text-left">
                   Sport at His&nbsp;Church&nbsp;School
                 </h2>
                 <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
-                <div className="space-y-4 text-center text-[#051040]/70 font-body leading-relaxed lg:text-left">
+                <div className="mx-auto max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed lg:mx-0 lg:max-w-none">
                   <p>
-                    His&nbsp;Church&nbsp;School encourages all learners to participate in
-                    school sports as it not only promotes essential values such
-                    as teamwork, leadership, discipline, resilience,
-                    sportsmanship, physical fitness, time management, and
-                    respect for authority, but also instils Biblical values such
-                    as compassion, humility, integrity, and stewardship.
+                    His&nbsp;Church&nbsp;School encourages all learners to
+                    participate in school sports as it not only promotes
+                    essential values such as teamwork, leadership, discipline,
+                    resilience, sportsmanship, physical fitness, time
+                    management, and respect for authority, but also instils
+                    Biblical values such as compassion, humility, integrity, and
+                    stewardship.
                   </p>
                   <p>
                     Integrating these values into sports activities fosters the
@@ -256,7 +274,7 @@ export default function SchoolLife() {
         <section className="py-20 bg-[#f8f8f8]">
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="text-center mb-12">
-              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.12em] uppercase mb-3 fade-up">
+              <p className="font-label text-xs font-semibold text-[#051040]/62 tracking-[0.12em] uppercase mb-3 fade-up">
                 Year Round
               </p>
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">
@@ -309,10 +327,10 @@ export default function SchoolLife() {
                   Fixtures &amp; Sporting Events
                 </h2>
                 <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up hcs-divider" />
-                <p className="mx-auto mt-2 w-full max-w-none text-center font-body text-[0.98rem] leading-[1.72] text-white/72 fade-up sm:text-[1rem]">
-                  Key 2026 sporting dates supplied by the school are listed below.
-                  Final logistics and venue updates are shared with families
-                  through the school office as each event approaches.
+                <p className="mx-auto mt-2 w-full max-w-[44ch] text-left font-body text-[0.98rem] leading-[1.72] text-white/72 fade-up sm:text-[1rem] md:max-w-none md:text-center">
+                  Key 2026 sporting dates supplied by the school are listed
+                  below. Final logistics and venue updates are shared with
+                  families through the school office as each event approaches.
                 </p>
               </div>
 
@@ -327,9 +345,9 @@ export default function SchoolLife() {
                   Add to Google Calendar
                 </a>
                 <p className="w-full max-w-none font-body text-[0.95rem] leading-[1.68] text-white/64 sm:text-[0.98rem]">
-                  Sign in to Google and confirm to subscribe to your child&apos;s key
-                  sporting dates — fixtures stay in sync as the school updates
-                  them.
+                  Sign in to Google and confirm to subscribe to your
+                  child&apos;s key sporting dates — fixtures stay in sync as the
+                  school updates them.
                 </p>
               </div>
             </div>
@@ -372,7 +390,7 @@ export default function SchoolLife() {
         <section id="leadership" className="py-20 bg-[#EBDAC8] scroll-mt-20">
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="text-center mb-12">
-              <p className="font-label text-xs font-semibold text-[#051040]/50 tracking-[0.12em] uppercase mb-3 fade-up">
+              <p className="font-label text-xs font-semibold text-[#051040]/62 tracking-[0.12em] uppercase mb-3 fade-up">
                 Beyond The Classroom
               </p>
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">
@@ -422,7 +440,7 @@ export default function SchoolLife() {
         {/* ── Community Outreach ── */}
         <section id="outreach" className="py-20 bg-white scroll-mt-20">
           <div className="max-w-6xl mx-auto hcs-shell text-center">
-            <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.12em] uppercase mb-3 fade-up">
+            <p className="font-label text-xs font-semibold text-[#051040]/62 tracking-[0.12em] uppercase mb-3 fade-up">
               Serving Others
             </p>
             <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2 fade-up">
@@ -431,11 +449,11 @@ export default function SchoolLife() {
             <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-8 fade-up hcs-divider" />
             <div className="mx-auto max-w-3xl space-y-5 text-center fade-up">
               <p className="text-[#051040]/70 font-body leading-relaxed">
-                His&nbsp;Church&nbsp;School believes that true education extends beyond
-                the classroom. Through community outreach initiatives, our
-                learners are taught to serve others with compassion, humility,
-                and love, reflecting the heart of Jesus Christ in their
-                communities.
+                His&nbsp;Church&nbsp;School believes that true education extends
+                beyond the classroom. Through community outreach initiatives,
+                our learners are taught to serve others with compassion,
+                humility, and love, reflecting the heart of Jesus Christ in
+                their communities.
               </p>
               <p className="text-[#051040]/70 font-body leading-relaxed">
                 Outreach activities are integrated into the school calendar,
@@ -443,6 +461,26 @@ export default function SchoolLife() {
                 and make a tangible difference in the lives of those around
                 them.
               </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#051040] py-16">
+          <div className="mx-auto max-w-5xl hcs-shell text-center">
+            <p className="font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#C9A84C] fade-up">
+              Visit &amp; Connect
+            </p>
+            <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-black leading-tight text-white fade-up md:text-4xl">
+              Want to see school life in person?
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl font-body text-[1rem] leading-[1.72] text-white/76 fade-up">
+              Contact the office to ask about sport, enrichment, outreach, and
+              what a typical learner week looks like at His Church School.
+            </p>
+            <div className="mt-7 flex justify-center fade-up">
+              <Link href={getPageHref("contact")} className="hcs-btn-gold px-8">
+                Enquire About a Visit
+              </Link>
             </div>
           </div>
         </section>

@@ -1,17 +1,24 @@
 import { Fragment, useId, useState } from "react";
 import ContactDetailCard from "@/components/ContactDetailCard";
+import HostedEnquiryForm, {
+  type HostedEnquiryField,
+} from "@/components/HostedEnquiryForm";
 import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
-import { Mail, Download, ChevronDown } from "lucide-react";
+import { Mail, Download } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { getPublicAssetHref } from "@/lib/sitePaths";
-import {
-  buildMailtoHref,
-  CONTACT_DETAILS,
-  SITE_EMAIL_ADDRESS,
-} from "@/content/site";
+import { CONTACT_DETAILS } from "@/content/site";
 
-const HERO_URL = getPublicAssetHref("photos/contact/contact-hero.jpg");
+const HERO_URL = getPublicAssetHref("photos/contact/contact-hero-mobile.webp");
+const HERO_TABLET_URL = getPublicAssetHref(
+  "photos/contact/contact-hero-tablet.webp"
+);
+const HERO_DESKTOP_URL = getPublicAssetHref(
+  "photos/contact/contact-hero-desktop.webp"
+);
+const CONTACT_MAP_URL = getPublicAssetHref("maps/contact-map-1800.webp");
+const CONTACT_MAP_PIN_URL = getPublicAssetHref("maps/contact-map-pin-only.png");
 
 const faqs = [
   {
@@ -56,86 +63,103 @@ const faqs = [
   },
 ];
 
-type PolicyDownload = { label: string; file: string };
+type PolicyDownload = { label: string; file: string; fileMeta: string };
 
 const policyDownloads = [
   {
     label: "Language Policy",
     file: "downloads/policies/Language-Policy.docx",
+    fileMeta: "DOCX · 13 KB",
   },
   {
     label: "Admission Policy",
     file: "downloads/policies/Admission-Policy.docx",
+    fileMeta: "DOCX · 15 KB",
   },
   {
     label: "Code of Conduct",
     file: "downloads/policies/Code-of-Conduct.docx",
+    fileMeta: "DOCX · 4 KB",
   },
 ] satisfies PolicyDownload[];
 
-const inputClass =
-  "w-full min-h-[52px] rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-body text-[#051040] placeholder:text-[#051040]/55 transition-colors focus:border-[#051040] focus:outline-none focus:ring-1 focus:ring-[#051040]/20";
-const fieldLabelClass =
-  "px-1 font-label text-[0.78rem] font-bold uppercase tracking-[0.12em] text-[#051040]/70";
 const cardSurfaceClass =
   "bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden";
 
-const initialEnquiry = {
-  firstName: "",
-  surname: "",
-  email: "",
-  phone: "",
-  subject: "",
-  message: "",
-};
-
-type EnquiryField = keyof typeof initialEnquiry;
-type EnquiryState = typeof initialEnquiry;
-type EnquiryErrors = Partial<Record<EnquiryField, string>>;
-
-function validateEnquiryField(field: EnquiryField, value: string) {
-  const trimmed = value.trim();
-
-  switch (field) {
-    case "firstName":
-      return trimmed ? "" : "Please enter a first name.";
-    case "surname":
-      return trimmed ? "" : "Please enter a surname.";
-    case "email":
-      if (!trimmed) return "Please enter an email address.";
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)
+const contactFields: HostedEnquiryField[] = [
+  {
+    name: "firstName",
+    label: "First Name",
+    type: "text",
+    placeholder: "First name",
+    required: true,
+    requiredMessage: "Please enter a first name.",
+    autoComplete: "given-name",
+    column: "half",
+  },
+  {
+    name: "surname",
+    label: "Surname",
+    type: "text",
+    placeholder: "Surname",
+    required: true,
+    requiredMessage: "Please enter a surname.",
+    autoComplete: "family-name",
+    column: "half",
+  },
+  {
+    name: "email",
+    label: "Email Address",
+    type: "email",
+    placeholder: "Email address",
+    required: true,
+    requiredMessage: "Please enter an email address.",
+    autoComplete: "email",
+    validate: value =>
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
         ? ""
-        : "Please enter a valid email address.";
-    case "phone":
-      if (!trimmed) return "";
-      return trimmed.replace(/\D/g, "").length >= 7
+        : "Please enter a valid email address.",
+  },
+  {
+    name: "phone",
+    label: "Contact Number",
+    type: "tel",
+    placeholder: "Contact number",
+    autoComplete: "tel",
+    validate: value =>
+      value === "" || value.replace(/\D/g, "").length >= 7
         ? ""
-        : "Please enter a valid contact number.";
-    case "subject":
-      return trimmed ? "" : "Please choose a subject.";
-    case "message":
-      if (!trimmed) return "Please enter a message.";
-      return trimmed.length >= 10
+        : "Please enter a valid contact number.",
+  },
+  {
+    name: "subject",
+    label: "Subject",
+    type: "select",
+    required: true,
+    requiredMessage: "Please choose a subject.",
+    placeholder: "Choose a subject",
+    options: [
+      "Enrolment Enquiry",
+      "Fee Structure Request",
+      "Application Form Request",
+      "General Enquiry",
+      "Sport Enquiry",
+      "Academic Enquiry",
+    ],
+  },
+  {
+    name: "message",
+    label: "Message",
+    type: "textarea",
+    placeholder: "Message",
+    required: true,
+    requiredMessage: "Please enter a message.",
+    validate: value =>
+      value.length >= 10
         ? ""
-        : "Please add a little more detail to your message.";
-    default:
-      return "";
-  }
-}
-
-function validateEnquiry(enquiry: EnquiryState) {
-  const errors: EnquiryErrors = {};
-
-  (Object.keys(enquiry) as EnquiryField[]).forEach(field => {
-    const error = validateEnquiryField(field, enquiry[field]);
-
-    if (error) {
-      errors[field] = error;
-    }
-  });
-
-  return errors;
-}
+        : "Please add a little more detail to your message.",
+  },
+];
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
@@ -185,419 +209,60 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 export default function ContactUs() {
   const pageRef = useScrollAnimation();
 
-  // Ask Us form
-  const [enquiry, setEnquiry] = useState<EnquiryState>(initialEnquiry);
-  const [enquiryErrors, setEnquiryErrors] = useState<EnquiryErrors>({});
-  const [touchedFields, setTouchedFields] = useState<
-    Partial<Record<EnquiryField, boolean>>
-  >({});
-  const [enquirySubmitted, setEnquirySubmitted] = useState(false);
-
-  const updateFieldError = (field: EnquiryField, draft: EnquiryState) => {
-    const error = validateEnquiryField(field, draft[field]);
-
-    setEnquiryErrors(current => {
-      const next = { ...current };
-
-      if (error) next[field] = error;
-      else delete next[field];
-
-      return next;
-    });
-  };
-
-  const handleFieldChange = (field: EnquiryField, value: string) => {
-    const nextEnquiry = { ...enquiry, [field]: value };
-    setEnquiry(nextEnquiry);
-
-    if (touchedFields[field] || enquiryErrors[field]) {
-      updateFieldError(field, nextEnquiry);
-    }
-  };
-
-  const handleFieldBlur = (field: EnquiryField) => {
-    setTouchedFields(current => ({ ...current, [field]: true }));
-    updateFieldError(field, enquiry);
-  };
-
-  const getFieldClass = (field: EnquiryField, extraClass = "") => {
-    const hasError = Boolean(touchedFields[field] && enquiryErrors[field]);
-
-    return `${inputClass} ${
-      hasError
-        ? "border-[#C94A4A] focus:border-[#C94A4A] focus:ring-[#C94A4A]/15"
-        : ""
-    } ${extraClass}`.trim();
-  };
-  const getFieldErrorId = (field: EnquiryField) => `${field}-error`;
-
-  const handleEnquirySubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const errors = validateEnquiry(enquiry);
-
-    if (Object.keys(errors).length > 0) {
-      setEnquiryErrors(errors);
-      setTouchedFields({
-        firstName: true,
-        surname: true,
-        email: true,
-        phone: true,
-        subject: true,
-        message: true,
-      });
-      return;
-    }
-
-    const bodyLines = [
-      `Name: ${enquiry.firstName} ${enquiry.surname}`,
-      `Email: ${enquiry.email}`,
-      enquiry.phone ? `Phone: ${enquiry.phone}` : null,
-      `Subject: ${enquiry.subject}`,
-      "",
-      "Message:",
-      enquiry.message,
-    ].filter(Boolean) as string[];
-
-    const body = bodyLines.join("\n");
-    window.location.href = buildMailtoHref(enquiry.subject, body);
-    setEnquiryErrors({});
-    setEnquirySubmitted(true);
-  };
-
   return (
     <Layout>
       <div ref={pageRef}>
         {/* ── Hero ── */}
-        <PageHero title="Contact Us" imageUrl={HERO_URL} />
+        <PageHero
+          title="Contact Us"
+          imageUrl={HERO_URL}
+          mobileShowFullImage
+          mobileAspectRatio="1080 / 1201"
+          tabletImageUrl={HERO_TABLET_URL}
+          tabletShowFullImage
+          tabletAspectRatio="2 / 1"
+          desktopImageUrl={HERO_DESKTOP_URL}
+          desktopShowFullImage
+          desktopAspectRatio="4 / 1"
+          imagePosition={{ desktop: "0% 10%" }}
+          imageSize={{ desktop: "1760px" }}
+        />
 
         {/* ── Ask Us ── */}
         <section className="py-20 bg-white">
           <div className="max-w-6xl mx-auto hcs-shell">
             <div className="mx-auto">
-              {/* ── Ask Us ── */}
-              <div className={`${cardSurfaceClass} p-6 fade-up sm:p-7 md:p-8`}>
-                <h2 className="font-display text-3xl font-black text-[#051040] text-center mb-2">
-                  Ask Us
-                </h2>
-                <div className="mx-auto mb-6 h-0.5 w-10 bg-[#C9A84C]" />
-                {enquirySubmitted ? (
-                  <div
-                    className="mx-auto flex max-w-3xl flex-col items-center py-4 text-center sm:py-6"
-                    aria-live="polite"
-                  >
-                    <div className="mb-4 flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-[#C9A84C] sm:h-20 sm:w-20">
-                      <Mail
-                        size={24}
-                        strokeWidth={1.85}
-                        className="text-[#051040]"
-                      />
-                    </div>
-                    <h3 className="font-display text-[1.9rem] font-black leading-none text-[#051040] sm:text-[2.2rem]">
-                      Email Draft Ready
-                    </h3>
-                    <div className="mx-auto mt-3 max-w-xl space-y-1.5">
-                      <p className="font-body text-[0.98rem] leading-[1.72] text-[#051040]/68 sm:text-[1rem]">
-                        We&apos;ve prepared your enquiry for email.
-                      </p>
-                      <p className="font-body text-[0.98rem] leading-[1.72] text-[#051040]/68 sm:text-[1rem]">
-                        If it didn&apos;t open automatically, send it to{" "}
-                        <a
-                          href={buildMailtoHref()}
-                          className="font-semibold text-[#051040] underline underline-offset-4"
-                        >
-                          {SITE_EMAIL_ADDRESS}
-                        </a>
-                        .
-                      </p>
-                    </div>
-                    <p className="mt-2 font-body text-[0.92rem] leading-[1.65] text-[#051040]/55 sm:text-[0.96rem]">
-                      Once sent, our school office will get back to you as soon
-                      as possible.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEnquirySubmitted(false);
-                        setEnquiry(initialEnquiry);
-                        setEnquiryErrors({});
-                        setTouchedFields({});
-                      }}
-                      className="hcs-btn-primary mt-6 px-6"
-                    >
-                      Send Another Enquiry
-                    </button>
-                  </div>
-                ) : (
-                  <form
-                    onSubmit={handleEnquirySubmit}
-                    className="space-y-4 md:space-y-5"
-                  >
-                    <p className="rounded-2xl bg-[#EEF2FB] px-4 py-4 font-body text-[0.98rem] leading-[1.72] text-[#051040]/70 md:px-5 sm:text-[1rem]">
-                      Submitting this form opens your email app with a
-                      pre-filled draft to the school office.
-                    </p>
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5">
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="contact-first-name"
-                          className={fieldLabelClass}
-                        >
-                          First Name
-                        </label>
-                        <input
-                          id="contact-first-name"
-                          type="text"
-                          placeholder="First name"
-                          required
-                          value={enquiry.firstName}
-                          onChange={e =>
-                            handleFieldChange("firstName", e.target.value)
-                          }
-                          onBlur={() => handleFieldBlur("firstName")}
-                          className={getFieldClass("firstName")}
-                          autoComplete="given-name"
-                          aria-invalid={
-                            touchedFields.firstName && enquiryErrors.firstName
-                              ? true
-                              : undefined
-                          }
-                          aria-describedby={
-                            touchedFields.firstName && enquiryErrors.firstName
-                              ? getFieldErrorId("firstName")
-                              : undefined
-                          }
-                        />
-                        {touchedFields.firstName && enquiryErrors.firstName ? (
-                          <p
-                            id={getFieldErrorId("firstName")}
-                            className="px-1 text-sm font-body text-[#C94A4A]"
-                          >
-                            {enquiryErrors.firstName}
-                          </p>
-                        ) : null}
-                      </div>
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="contact-surname"
-                          className={fieldLabelClass}
-                        >
-                          Surname
-                        </label>
-                        <input
-                          id="contact-surname"
-                          type="text"
-                          placeholder="Surname"
-                          required
-                          value={enquiry.surname}
-                          onChange={e =>
-                            handleFieldChange("surname", e.target.value)
-                          }
-                          onBlur={() => handleFieldBlur("surname")}
-                          className={getFieldClass("surname")}
-                          autoComplete="family-name"
-                          aria-invalid={
-                            touchedFields.surname && enquiryErrors.surname
-                              ? true
-                              : undefined
-                          }
-                          aria-describedby={
-                            touchedFields.surname && enquiryErrors.surname
-                              ? getFieldErrorId("surname")
-                              : undefined
-                          }
-                        />
-                        {touchedFields.surname && enquiryErrors.surname ? (
-                          <p
-                            id={getFieldErrorId("surname")}
-                            className="px-1 text-sm font-body text-[#C94A4A]"
-                          >
-                            {enquiryErrors.surname}
-                          </p>
-                        ) : null}
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="contact-email"
-                        className={fieldLabelClass}
-                      >
-                        Email Address
-                      </label>
-                      <input
-                        id="contact-email"
-                        type="email"
-                        placeholder="Email address"
-                        required
-                        value={enquiry.email}
-                        onChange={e =>
-                          handleFieldChange("email", e.target.value)
-                        }
-                        onBlur={() => handleFieldBlur("email")}
-                        className={getFieldClass("email")}
-                        autoComplete="email"
-                        aria-invalid={
-                          touchedFields.email && enquiryErrors.email
-                            ? true
-                            : undefined
-                        }
-                        aria-describedby={
-                          touchedFields.email && enquiryErrors.email
-                            ? getFieldErrorId("email")
-                            : undefined
-                        }
-                      />
-                      {touchedFields.email && enquiryErrors.email ? (
-                        <p
-                          id={getFieldErrorId("email")}
-                          className="px-1 text-sm font-body text-[#C94A4A]"
-                        >
-                          {enquiryErrors.email}
-                        </p>
-                      ) : null}
-                    </div>
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="contact-phone"
-                        className={fieldLabelClass}
-                      >
-                        Contact Number
-                      </label>
-                      <input
-                        id="contact-phone"
-                        type="tel"
-                        placeholder="Contact number"
-                        value={enquiry.phone}
-                        onChange={e =>
-                          handleFieldChange("phone", e.target.value)
-                        }
-                        onBlur={() => handleFieldBlur("phone")}
-                        className={getFieldClass("phone")}
-                        autoComplete="tel"
-                        aria-invalid={
-                          touchedFields.phone && enquiryErrors.phone
-                            ? true
-                            : undefined
-                        }
-                        aria-describedby={
-                          touchedFields.phone && enquiryErrors.phone
-                            ? getFieldErrorId("phone")
-                            : undefined
-                        }
-                      />
-                      {touchedFields.phone && enquiryErrors.phone ? (
-                        <p
-                          id={getFieldErrorId("phone")}
-                          className="px-1 text-sm font-body text-[#C94A4A]"
-                        >
-                          {enquiryErrors.phone}
-                        </p>
-                      ) : null}
-                    </div>
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="contact-subject"
-                        className={fieldLabelClass}
-                      >
-                        Subject
-                      </label>
-                      <div className="relative">
-                        <select
-                          id="contact-subject"
-                          required
-                          value={enquiry.subject}
-                          onChange={e =>
-                            handleFieldChange("subject", e.target.value)
-                          }
-                          onBlur={() => handleFieldBlur("subject")}
-                          className={`${getFieldClass("subject", "appearance-none pr-12")} ${enquiry.subject === "" ? "text-[#051040]/70" : "text-[#051040]"}`}
-                          aria-invalid={
-                            touchedFields.subject && enquiryErrors.subject
-                              ? true
-                              : undefined
-                          }
-                          aria-describedby={
-                            touchedFields.subject && enquiryErrors.subject
-                              ? getFieldErrorId("subject")
-                              : undefined
-                          }
-                        >
-                          <option value="" disabled>
-                            Choose a subject
-                          </option>
-                          <option>Enrolment Enquiry</option>
-                          <option>Fee Structure Request</option>
-                          <option>Application Form Request</option>
-                          <option>General Enquiry</option>
-                          <option>Sport Enquiry</option>
-                          <option>Academic Enquiry</option>
-                        </select>
-                        <ChevronDown
-                          size={20}
-                          strokeWidth={1.8}
-                          className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#051040]/70"
-                        />
-                      </div>
-                      {touchedFields.subject && enquiryErrors.subject ? (
-                        <p
-                          id={getFieldErrorId("subject")}
-                          className="px-1 text-sm font-body text-[#C94A4A]"
-                        >
-                          {enquiryErrors.subject}
-                        </p>
-                      ) : null}
-                    </div>
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="contact-message"
-                        className={fieldLabelClass}
-                      >
-                        Message
-                      </label>
-                      <textarea
-                        id="contact-message"
-                        placeholder="Message"
-                        rows={5}
-                        required
-                        value={enquiry.message}
-                        onChange={e =>
-                          handleFieldChange("message", e.target.value)
-                        }
-                        onBlur={() => handleFieldBlur("message")}
-                        className={getFieldClass(
-                          "message",
-                          "min-h-[168px] resize-none"
-                        )}
-                        aria-invalid={
-                          touchedFields.message && enquiryErrors.message
-                            ? true
-                            : undefined
-                        }
-                        aria-describedby={
-                          touchedFields.message && enquiryErrors.message
-                            ? getFieldErrorId("message")
-                            : undefined
-                        }
-                      />
-                      {touchedFields.message && enquiryErrors.message ? (
-                        <p
-                          id={getFieldErrorId("message")}
-                          className="px-1 text-sm font-body text-[#C94A4A]"
-                        >
-                          {enquiryErrors.message}
-                        </p>
-                      ) : null}
-                      <div className="pt-1">
-                        <button
-                          type="submit"
-                          className="hcs-btn-primary w-full px-5 text-center"
-                        >
-                          OPEN EMAIL DRAFT
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                )}
-              </div>
+              <HostedEnquiryForm
+                buildSubmission={values => ({
+                  fields: {
+                    firstName: values.firstName,
+                    surname: values.surname,
+                    email: values.email,
+                    phone: values.phone,
+                    subject: values.subject,
+                    message: values.message,
+                  },
+                  replyTo: values.email,
+                  subject: values.subject,
+                })}
+                emptyStateMessage="Online enquiries are not available yet. Please email secretary@hcschool.co.za or call 031 701 6211 and the school office will assist you directly."
+                enquiryType="General Enquiry"
+                fields={contactFields}
+                formId="contact"
+                intro="Complete this form and your enquiry will be sent directly to the school office."
+                page="Contact Us"
+                submitLabel="SEND ENQUIRY"
+                successBody="Your enquiry has been sent directly to the school office. We'll reply using the email address you provided as soon as possible."
+                successIcon={
+                  <Mail
+                    size={24}
+                    strokeWidth={1.85}
+                    className="text-[#051040]"
+                  />
+                }
+                successTitle="Enquiry Sent"
+                title="Ask Us"
+              />
             </div>
           </div>
         </section>
@@ -632,7 +297,7 @@ export default function ContactUs() {
         <section id="policies" className="py-20 bg-white scroll-mt-20">
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="max-w-4xl mx-auto text-center mb-10">
-              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.12em] uppercase mb-3 fade-up">
+              <p className="font-label text-xs font-semibold text-[#051040]/62 tracking-[0.12em] uppercase mb-3 fade-up">
                 Downloads
               </p>
               <h2 className="font-display text-3xl font-black text-[#051040] fade-up">
@@ -646,41 +311,59 @@ export default function ContactUs() {
                   key={doc.label}
                   href={getPublicAssetHref(doc.file)}
                   download
-                  className="group flex min-h-[104px] items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#051040] hover:bg-[#051040] hover:text-white hover:shadow-md"
-                  aria-label={`Download ${doc.label}`}
+                  className="group flex min-h-[112px] items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#051040] hover:bg-[#051040] hover:text-white hover:shadow-md"
+                  aria-label={`Download ${doc.label} (${doc.fileMeta})`}
                 >
                   <div className="flex max-w-[18rem] items-center justify-center gap-3.5 text-center">
                     <Download
                       size={20}
                       className="text-[#C9A84C] shrink-0 group-hover:text-[#C9A84C]"
                     />
-                    <span className="font-label text-[0.79rem] font-bold uppercase tracking-[0.1em] text-[#051040] group-hover:text-white">
-                      {doc.label}
+                    <span>
+                      <span className="block font-label text-[0.79rem] font-bold uppercase tracking-[0.1em] text-[#051040] group-hover:text-white">
+                        {doc.label}
+                      </span>
+                      <span className="mt-1 block font-body text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-[#051040]/48 group-hover:text-white/72">
+                        {doc.fileMeta}
+                      </span>
                     </span>
                   </div>
                 </a>
               ))}
             </div>
-            <p className="mx-auto mt-6 max-w-3xl text-center font-body text-[0.98rem] leading-[1.7] text-[#051040]/52 fade-up sm:text-[1rem]">
-              Need an application form or fee structure? Contact the school
-              office and we&apos;ll send it through.
+            <p className="mx-auto mt-6 max-w-3xl text-center font-body text-[0.98rem] leading-[1.7] text-[#051040]/62 fade-up sm:text-[1rem]">
+              Application forms and current fee schedules are issued directly by
+              the school office to make sure families receive the latest
+              admissions pack.
             </p>
           </div>
         </section>
 
         {/* ── Find Us ── */}
         <section className="relative overflow-hidden bg-[#051040] py-20 fade-up sm:py-24 lg:min-h-[34rem] lg:py-16">
-          <div className="absolute inset-0 opacity-30 blur-[1px]">
-            <div
-              className="h-full w-full bg-center bg-cover"
-              style={{
-                backgroundImage: `url(${getPublicAssetHref(
-                  "maps/contact-map-pin-only.png"
-                )}), url(${getPublicAssetHref("maps/contact-map.jpg")})`,
-                backgroundPosition: "50% 14%, center",
-                backgroundRepeat: "no-repeat, no-repeat",
-                backgroundSize: "4.5rem auto, cover",
-              }}
+          <div
+            className="absolute inset-0 opacity-30 blur-[1px]"
+            aria-hidden="true"
+          >
+            <picture className="block h-full w-full">
+              <img
+                src={CONTACT_MAP_URL}
+                alt=""
+                width="1800"
+                height="720"
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover object-center"
+              />
+            </picture>
+            <img
+              src={CONTACT_MAP_PIN_URL}
+              alt=""
+              width="96"
+              height="96"
+              loading="lazy"
+              decoding="async"
+              className="absolute left-1/2 top-[14%] h-[4.5rem] w-auto -translate-x-1/2"
             />
           </div>
           <div className="absolute inset-0 bg-[#051040]/74" />

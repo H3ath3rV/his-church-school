@@ -3,17 +3,26 @@ import { Link } from "wouter";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import ContactDetailCard from "@/components/ContactDetailCard";
 import Layout from "@/components/Layout";
+import ResponsiveEditorialImage from "@/components/ResponsiveEditorialImage";
 import { getPageHref, getPublicAssetHref } from "@/lib/sitePaths";
 import { CONTACT_DETAILS } from "@/content/site";
 import { Play } from "lucide-react";
 
-const HOME_HERO_URL = getPublicAssetHref("photos/home/home-hero.jpg");
-const HOME_HERO_MOBILE_URL = getPublicAssetHref(
-  "photos/home/home-hero-mobile.jpg"
+const HOME_HERO_URL = getPublicAssetHref("photos/home/home-hero-desktop.webp");
+const HOME_HERO_TABLET_URL = getPublicAssetHref(
+  "photos/home/home-hero-tablet.webp"
 );
-const WORSHIP_URL = getPublicAssetHref("photos/home/home-worship-spirit.jpg");
+const HOME_HERO_MOBILE_URL = getPublicAssetHref(
+  "photos/home/home-hero-mobile.webp"
+);
+const WORSHIP_DESKTOP_URL = getPublicAssetHref(
+  "photos/home/home-worship-spirit-desktop.webp"
+);
 const WORSHIP_MOBILE_URL = getPublicAssetHref(
-  "photos/home/home-worship-spirit-mobile.jpg"
+  "photos/home/home-worship-spirit-mobile.webp"
+);
+const WORSHIP_TABLET_URL = getPublicAssetHref(
+  "photos/home/home-worship-spirit-tablet.webp"
 );
 
 function TestimonialStar({ className = "" }: { className?: string }) {
@@ -65,7 +74,7 @@ function TestimonialCard({
         <p className="mt-5 font-display text-lg font-black text-[#051040]">
           {testimonial.name}
         </p>
-        <p className="mt-0.5 font-body text-sm text-[#051040]/55">
+        <p className="mt-0.5 font-body text-sm text-[#051040]/62">
           {testimonial.role}
         </p>
       </div>
@@ -101,69 +110,81 @@ export default function Home() {
     <Layout>
       <div ref={pageRef}>
         {/* ── Hero ── */}
-        <section className="relative flex min-h-[30rem] items-end overflow-hidden sm:min-h-[40rem] sm:items-center lg:min-h-[46rem]">
-          <img
-            src={HOME_HERO_MOBILE_URL}
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover object-[50%_30%] sm:hidden"
-          />
-          <img
-            src={HOME_HERO_URL}
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 hidden h-full w-full object-cover object-[72%_26%] sm:block md:object-[76%_12%] lg:object-[72%_26%] xl:object-[68%_24%]"
-          />
+        <section className="relative flex aspect-[1080/1201] min-h-0 items-end overflow-hidden bg-[#051040] sm:min-h-[32rem] sm:aspect-auto sm:items-center md:min-h-[40rem] lg:min-h-[46rem]">
+          <picture aria-hidden="true">
+            <source media="(min-width: 1024px)" srcSet={HOME_HERO_URL} />
+            <source media="(min-width: 640px)" srcSet={HOME_HERO_TABLET_URL} />
+            <img
+              src={HOME_HERO_MOBILE_URL}
+              alt=""
+              fetchPriority="high"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover object-[50%_18%] sm:object-[62%_center] lg:object-[72%_26%] xl:object-[68%_24%]"
+            />
+          </picture>
           <div
             className="absolute inset-0 sm:hidden"
             style={{
               background:
-                "linear-gradient(180deg, rgba(5,16,64,0.32) 0%, rgba(5,16,64,0.44) 18%, rgba(5,16,64,0.66) 42%, rgba(5,16,64,0.87) 68%, rgba(5,16,64,0.98) 100%)",
+                "linear-gradient(180deg, rgba(5,16,64,0.22) 0%, rgba(5,16,64,0.34) 16%, rgba(5,16,64,0.5) 34%, rgba(5,16,64,0.72) 52%, rgba(5,16,64,0.9) 70%, rgba(5,16,64,0.98) 100%)",
             }}
           />
           <div
             className="absolute inset-0 sm:hidden"
             style={{
               background:
-                "radial-gradient(circle at center 58%, rgba(5,16,64,0.02) 0%, rgba(5,16,64,0.16) 34%, rgba(5,16,64,0.34) 66%, rgba(5,16,64,0.56) 100%)",
+                "radial-gradient(circle at center 62%, rgba(5,16,64,0.02) 0%, rgba(5,16,64,0.12) 24%, rgba(5,16,64,0.28) 48%, rgba(5,16,64,0.52) 72%, rgba(5,16,64,0.7) 100%)",
             }}
           />
           <div
             className="absolute inset-0 hidden sm:block"
             style={{
               background:
-                "linear-gradient(90deg, rgba(5,16,64,0.97) 0%, rgba(5,16,64,0.9) 24%, rgba(5,16,64,0.68) 46%, rgba(5,16,64,0.3) 70%, rgba(5,16,64,0.08) 100%)",
+                "linear-gradient(90deg, rgba(5,16,64,0.95) 0%, rgba(5,16,64,0.89) 18%, rgba(5,16,64,0.72) 34%, rgba(5,16,64,0.43) 50%, rgba(5,16,64,0.19) 64%, rgba(5,16,64,0.06) 76%, rgba(5,16,64,0.01) 84%)",
             }}
           />
           <div
             className="absolute inset-0 hidden sm:block"
             style={{
               background:
-                "radial-gradient(circle at left center, rgba(5,16,64,0.18) 0%, rgba(5,16,64,0.1) 26%, rgba(5,16,64,0) 54%)",
+                "radial-gradient(circle at 18% 50%, rgba(5,16,64,0.18) 0%, rgba(5,16,64,0.11) 24%, rgba(5,16,64,0.04) 42%, rgba(5,16,64,0) 58%)",
+            }}
+          />
+          <div
+            className="absolute inset-0 hidden sm:block"
+            style={{
+              background:
+                "radial-gradient(circle at 31% 45%, rgba(5,16,64,0.28) 0%, rgba(5,16,64,0.18) 20%, rgba(5,16,64,0.08) 38%, rgba(5,16,64,0.02) 50%, rgba(5,16,64,0) 60%)",
             }}
           />
           <div className="relative z-10 w-full">
-            <div className="max-w-7xl mx-auto hcs-shell pb-8 pt-32 sm:py-24 lg:py-28">
-              <div className="mx-auto w-full max-w-[24.5rem] text-center sm:mx-0 sm:max-w-2xl sm:text-left">
-                <h1 className="mx-auto mb-5 max-w-none font-display text-[2rem] font-black leading-[1.02] tracking-[-0.015em] text-white drop-shadow-[0_6px_18px_rgba(5,16,64,0.38)] fade-up min-[360px]:text-[2.3rem] sm:mx-0 sm:mb-6 sm:text-6xl sm:leading-[1.08] sm:text-left sm:drop-shadow-none lg:text-[5rem]">
-                  <span className="block whitespace-nowrap">
+            <div className="max-w-7xl mx-auto hcs-shell px-4 min-[390px]:px-5 sm:px-9 lg:px-12 xl:px-14 pb-12 sm:py-24 lg:py-28">
+              <div className="mx-auto w-full max-w-[24.5rem] translate-y-4 text-center sm:mx-0 sm:max-w-[25.5rem] sm:translate-y-3 sm:text-left md:max-w-[27rem] lg:max-w-[30rem] xl:max-w-[31.5rem]">
+                <h1 className="mx-auto mb-4 max-w-[18rem] font-display text-[1.9rem] font-black leading-[1.02] tracking-[-0.015em] text-white drop-shadow-[0_6px_18px_rgba(5,16,64,0.38)] fade-up visible min-[360px]:text-[2.1rem] sm:mx-0 sm:max-w-none sm:text-[2.85rem] sm:leading-[1.04] sm:text-left sm:drop-shadow-[0_8px_20px_rgba(5,16,64,0.22)] md:text-[3.2rem] lg:mb-6 lg:text-[4.65rem] lg:leading-[1.08] lg:drop-shadow-[0_10px_28px_rgba(5,16,64,0.34)]">
+                  <span className="block sm:whitespace-nowrap">
                     Confident learners
                   </span>
-                  <span className="block whitespace-nowrap text-[#C9A84C]">
+                  <span className="block sm:whitespace-nowrap text-[#C9A84C]">
                     rooted in Christ.
                   </span>
                 </h1>
-                <p className="mx-auto mb-6 max-w-[25.5rem] font-body text-[1rem] leading-[1.68] text-white/90 drop-shadow-[0_4px_12px_rgba(5,16,64,0.34)] fade-up sm:mx-0 sm:mb-8 sm:max-w-[31rem] sm:text-[1.125rem] sm:leading-[1.8] sm:text-white/84 sm:drop-shadow-none">
-                  A private Christian school for Grades 1-12, shaping confident,
-                  purpose-driven learners where every child is known, valued,
-                  and{"\u00A0"}guided.
+                <p className="mx-auto mb-5 max-w-[19.5rem] font-body text-[1rem] leading-[1.5] text-white/92 drop-shadow-[0_4px_12px_rgba(5,16,64,0.34)] fade-up visible [text-wrap:balance] min-[360px]:text-[1.04rem] sm:mx-0 sm:mb-6 sm:max-w-[24rem] sm:text-[1rem] sm:leading-[1.65] sm:text-white/86 sm:drop-shadow-[0_6px_18px_rgba(5,16,64,0.18)] sm:[text-wrap:pretty] md:text-[1.05rem] md:leading-[1.7] lg:mb-8 lg:max-w-[26rem] lg:text-[1.125rem] lg:leading-[1.8]">
+                  <span className="sm:hidden">
+                    Faith-rooted education in Pinetown where every learner is
+                    known, valued, and guided.
+                  </span>
+                  <span className="hidden sm:inline">
+                    A private Christian school for Grades 1-12, raising
+                    confident, purpose-driven learners who are known, valued,
+                    and{"\u00A0"}guided.
+                  </span>
                 </p>
-                <div className="flex justify-center fade-up sm:justify-start">
+                <div className="flex justify-center fade-up visible sm:justify-start">
                   <Link
                     href={getPageHref("contact")}
-                    className="hcs-btn-gold w-full max-w-[16rem] justify-center px-9 sm:w-auto sm:max-w-none sm:px-11"
+                    className="hcs-btn-gold hcs-btn-enquire justify-center"
                   >
-                    BOOK A VISIT
+                    ENQUIRE NOW
                   </Link>
                 </div>
               </div>
@@ -172,26 +193,30 @@ export default function Home() {
         </section>
 
         {/* ── Contact Strip ── */}
-        <section className="bg-[#EEF2FB] py-9 sm:py-12">
+        <section className="bg-[#EEF2FB] py-10 sm:py-12 lg:py-14">
           <div className="max-w-7xl mx-auto hcs-shell">
-            <div className="mx-auto hidden md:grid md:max-w-[72rem] md:grid-cols-[minmax(0,18rem)_auto_minmax(0,18rem)_auto_minmax(0,18rem)] md:items-start md:justify-items-center md:justify-between md:gap-6 lg:max-w-[76rem] lg:grid-cols-[minmax(0,20.5rem)_auto_minmax(0,20.5rem)_auto_minmax(0,20.5rem)] lg:gap-8">
+            <div className="mx-auto hidden min-[900px]:grid min-[900px]:max-w-[68rem] min-[900px]:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)_1px_minmax(0,1fr)] min-[900px]:items-stretch min-[900px]:justify-items-center min-[900px]:gap-x-5 lg:gap-x-8 xl:max-w-[76rem] xl:gap-x-10">
               {CONTACT_DETAILS.map((item, index) => {
                 return (
                   <Fragment key={item.label}>
                     <ContactDetailCard
                       item={item}
-                      className="mx-auto max-w-none sm:max-w-[21rem] md:max-w-[20.5rem]"
+                      className="mx-auto w-full min-[900px]:max-w-[18rem] lg:max-w-[20rem] xl:max-w-[22rem]"
                     />
                     {index < CONTACT_DETAILS.length - 1 ? (
-                      <span className="fade-up hcs-divider pointer-events-none hidden h-20 w-px self-center bg-[#051040]/12 md:block lg:h-24" />
+                      <span className="fade-up hcs-divider pointer-events-none hidden h-32 w-px self-center bg-[#051040]/12 min-[900px]:block lg:h-36" />
                     ) : null}
                   </Fragment>
                 );
               })}
             </div>
-            <div className="mx-auto grid max-w-[42rem] grid-cols-1 justify-items-center gap-3 md:hidden">
+            <div className="mx-auto grid max-w-[40rem] grid-cols-1 justify-items-center gap-8 min-[900px]:hidden">
               {CONTACT_DETAILS.map(item => (
-                <ContactDetailCard key={item.label} item={item} />
+                <ContactDetailCard
+                  key={item.label}
+                  item={item}
+                  className="max-w-[34rem]"
+                />
               ))}
             </div>
           </div>
@@ -202,15 +227,13 @@ export default function Home() {
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
               <div className="fade-up">
-                <div className="hcs-editorial-image">
-                  <picture>
-                    <source
-                      media="(max-width: 1023px)"
-                      srcSet={WORSHIP_MOBILE_URL}
-                    />
-                    <img src={WORSHIP_URL} alt="Worship at HCS" loading="lazy" />
-                  </picture>
-                </div>
+                <ResponsiveEditorialImage
+                  className="hcs-editorial-image"
+                  desktopImageUrl={WORSHIP_DESKTOP_URL}
+                  mobileImageUrl={WORSHIP_MOBILE_URL}
+                  tabletImageUrl={WORSHIP_TABLET_URL}
+                  alt="Learners and staff worshipping together at His Church School"
+                />
               </div>
               <div className="fade-up hcs-split-copy">
                 <p className="mb-3 text-center font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/60 lg:text-left">
@@ -323,7 +346,7 @@ export default function Home() {
             >
               <Play size={26} className="ml-1 text-[#051040]" />
             </a>
-            <p className="text-white/35 text-xs font-body mt-4 fade-up">
+            <p className="text-white/72 text-xs font-body mt-4 fade-up">
               Click to watch on Facebook
             </p>
           </div>

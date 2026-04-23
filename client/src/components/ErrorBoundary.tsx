@@ -29,7 +29,7 @@ class ErrorBoundary extends Component<Props, State> {
             <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-[#051040] text-[#C9A84C]">
               <AlertTriangle size={28} />
             </div>
-            <p className="font-label text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[#051040]/55">
+            <p className="font-label text-[0.78rem] font-bold uppercase tracking-[0.14em] text-[#051040]/62">
               Something Went Wrong
             </p>
             <h2 className="mt-3 font-display text-3xl font-black text-[#051040]">

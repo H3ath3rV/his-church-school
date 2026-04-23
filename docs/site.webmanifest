@@ -1,0 +1,21 @@
+{
+  "name": "His Church School",
+  "short_name": "HCS",
+  "description": "Private Christian school in Pinetown, KZN.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#051040",
+  "theme_color": "#051040",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

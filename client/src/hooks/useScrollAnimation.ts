@@ -8,6 +8,15 @@ import { useEffect, useRef } from "react";
 export function useScrollAnimation() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    const targets = Array.from(
+      ref.current?.querySelectorAll(".fade-up, .slide-in-x") ?? []
+    );
+
+    if (!("IntersectionObserver" in window)) {
+      targets.forEach(el => el.classList.add("visible"));
+      return undefined;
+    }
+
     const observer = new IntersectionObserver(
       entries =>
         entries.forEach(
@@ -15,9 +24,14 @@ export function useScrollAnimation() {
         ),
       { threshold: 0.1 }
     );
-    ref.current
-      ?.querySelectorAll(".fade-up, .slide-in-x")
-      .forEach(el => observer.observe(el));
+    targets.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+        el.classList.add("visible");
+      }
+      observer.observe(el);
+    });
+    document.documentElement.classList.add("hcs-animations-ready");
     return () => observer.disconnect();
   }, []);
   return ref;

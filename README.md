@@ -29,7 +29,7 @@ This starts the Vite development server. Use it when updating copy, layouts, or 
 pnpm check
 ```
 
-Runs the TypeScript checks for the app and Vite config.
+Runs the TypeScript checks plus the image budget validation.
 
 ## Production build
 
@@ -37,7 +37,7 @@ Runs the TypeScript checks for the app and Vite config.
 pnpm build
 ```
 
-This creates the static site in `docs/` and then finalises the route entry files, metadata, `robots.txt`, and `sitemap.xml`.
+This validates the image budgets, creates the static site in `docs/`, finalises the route entry files and metadata, and then validates the generated static HTML metadata.
 
 ## Preview the built site
 
@@ -54,7 +54,10 @@ Use this after `pnpm build` to review the generated static output locally.
 - `client/public/photos/`: Photography for pages, staff, and footer gallery strips.
 - `client/public/maps/`: Contact page map imagery.
 - `client/public/downloads/`: Policy documents and calendar download files.
+- `client/src/content/routeMetadata.json`: shared source of truth for page metadata used by both the app runtime and the static export scripts.
+- `scripts/check-image-budgets.mjs`: validates image file sizes and blocks oversized or legacy public photo assets.
 - `scripts/finalize-static-export.mjs`: Post-build step for route HTML files, metadata, sitemap, and robots output.
+- `scripts/validate-static-export.mjs`: validates the generated route HTML metadata after build.
 - `docs/`: Generated deployment output. Do not edit by hand.
 
 ## Editable content
@@ -72,6 +75,8 @@ Copy `.env.example` to `.env` if you need to override defaults.
 
 - `VITE_SITE_URL`: canonical production URL used for SEO metadata. Defaults to `https://hcschool.co.za`
 - `VITE_GA_MEASUREMENT_ID`: optional Google Analytics 4 measurement ID
+- `VITE_ENQUIRY_FORM_ENDPOINT`: hosted form endpoint for all website enquiries and sponsorship submissions, for example `https://formspree.io/f/your-form-id`
+- `VITE_ASSET_VERSION`: optional cache-busting version for public assets. If omitted, the build generates one automatically.
 
 ## Deployment
 
@@ -85,5 +90,6 @@ This project is currently set up to deploy as a static site.
 
 - Treat `client/src/` and `client/public/` as the source of truth.
 - Treat `docs/` as generated output only.
-- The contact form uses a `mailto:` workflow and opens the visitor's email app with a pre-filled draft.
+- To enable live website submissions, connect a hosted form endpoint in `.env` as `VITE_ENQUIRY_FORM_ENDPOINT`.
+- The contact and sponsorship flows both use the same live submission pattern and intentionally do not fall back to `mailto:`.
 - Route paths and static-export behavior are centralised in `client/src/lib/sitePaths.ts`.

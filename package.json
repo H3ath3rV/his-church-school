@@ -5,9 +5,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build && node scripts/finalize-static-export.mjs",
+    "build": "node scripts/check-image-budgets.mjs && vite build && vite build --ssr src/static-render.tsx --outDir ../.static-ssr --emptyOutDir && node scripts/finalize-static-export.mjs && node scripts/validate-static-export.mjs",
     "preview": "vite preview --host",
-    "check": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
+    "check": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json && node scripts/check-image-budgets.mjs",
+    "check:images": "node scripts/check-image-budgets.mjs",
+    "check:seo": "node scripts/validate-static-export.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {

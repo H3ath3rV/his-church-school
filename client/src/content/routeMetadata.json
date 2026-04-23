@@ -1,0 +1,37 @@
+{
+  "home": {
+    "title": "His Church School | Private Christian School in Pinetown",
+    "description": "His Church School is a private Christian school in Pinetown, KZN, offering a faith-rooted education from Grade 1 to Grade 12.",
+    "robots": "index,follow"
+  },
+  "about": {
+    "title": "About Us | His Church School",
+    "description": "Learn more about His Church School, our history, leadership, mission, and the staff who shape our school community.",
+    "robots": "index,follow"
+  },
+  "academic": {
+    "title": "Academic Programme | His Church School",
+    "description": "Explore the His Church School academic offering, subject pathways, curriculum information, and senior phase guidance.",
+    "robots": "index,follow"
+  },
+  "schoolLife": {
+    "title": "School Life | His Church School",
+    "description": "Discover sport, enrichment programmes, leadership opportunities, and community life at His Church School.",
+    "robots": "index,follow"
+  },
+  "contact": {
+    "title": "Contact Us | His Church School",
+    "description": "Get in touch with His Church School for admissions, policy requests, school visits, and general enquiries.",
+    "robots": "index,follow"
+  },
+  "partnership": {
+    "title": "Partnership | His Church School",
+    "description": "Find ways to partner with His Church School through sponsorship, bursary support, and community collaboration.",
+    "robots": "index,follow"
+  },
+  "notFound": {
+    "title": "Page Not Found | His Church School",
+    "description": "The page you are looking for could not be found. Return to His Church School to continue browsing.",
+    "robots": "noindex,follow"
+  }
+}

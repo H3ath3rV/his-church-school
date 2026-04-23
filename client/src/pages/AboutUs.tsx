@@ -2,14 +2,26 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronDown, X } from "lucide-react";
 import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
+import ResponsiveEditorialImage from "@/components/ResponsiveEditorialImage";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { getPublicAssetHref } from "@/lib/sitePaths";
 
-const HISTORY_URL = getPublicAssetHref("photos/about/about-history.jpg");
-const HISTORY_MOBILE_URL = getPublicAssetHref(
-  "photos/about/about-history-mobile.jpg"
+const HISTORY_DESKTOP_URL = getPublicAssetHref(
+  "photos/about/about-history-desktop.webp"
 );
-const HERO_URL = getPublicAssetHref("photos/about/about-hero.jpg");
+const HISTORY_MOBILE_URL = getPublicAssetHref(
+  "photos/about/about-history-mobile.webp"
+);
+const HISTORY_TABLET_URL = getPublicAssetHref(
+  "photos/about/about-history-tablet.webp"
+);
+const HERO_URL = getPublicAssetHref("photos/about/about-hero-mobile.webp");
+const HERO_TABLET_URL = getPublicAssetHref(
+  "photos/about/about-hero-tablet.webp"
+);
+const HERO_DESKTOP_URL = getPublicAssetHref(
+  "photos/about/about-hero-desktop.webp"
+);
 
 type StaffMember = {
   name: string;
@@ -478,7 +490,7 @@ function StaffCard({
         </p>
       </div>
       <div className="relative z-10 flex min-h-[52px] shrink-0 items-start justify-center border-t border-white/12 px-4 pt-3 text-center">
-        <p className="font-body text-sm leading-[1.1] text-white/44 transition-colors duration-200 group-hover:text-white/56">
+        <p className="font-body text-sm leading-[1.1] text-white/78 transition-colors duration-200 group-hover:text-white/90">
           Tap or press to open the full bio
         </p>
       </div>
@@ -493,10 +505,46 @@ function StaffBioModal({
   member: StaffMember;
   onClose: () => void;
 }) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const qualificationItems = splitStaffBioItems(member.qualification);
   const funFactItems = splitStaffBioItems(member.funFacts);
   const hobbyItems = splitStaffBioItems(member.hobbies);
   const modalTitleId = `staff-bio-title-${member.initials.toLowerCase()}`;
+
+  useEffect(() => {
+    window.setTimeout(() => closeButtonRef.current?.focus(), 0);
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return;
+
+      const focusableElements = Array.from(
+        dialogRef.current?.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        ) ?? []
+      ).filter(element => element.offsetParent !== null);
+
+      if (focusableElements.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <div
@@ -511,11 +559,13 @@ function StaffBioModal({
       }}
     >
       <div
+        ref={dialogRef}
         className="flex max-h-[calc(100vh-2rem)] w-full max-w-3xl flex-col overflow-hidden rounded-[1.75rem] border border-gray-200 bg-white shadow-[0_28px_80px_rgba(5,16,64,0.22)] sm:max-h-[calc(100vh-3rem)]"
         onClick={event => event.stopPropagation()}
       >
         <div className="relative overflow-hidden border-b border-gray-200 bg-white px-5 pb-5 pt-6 text-[#051040] sm:px-7 sm:pb-6 sm:pt-7">
           <button
+            ref={closeButtonRef}
             type="button"
             onClick={event => {
               event.stopPropagation();
@@ -581,7 +631,7 @@ function StaffBioModal({
         </div>
 
         <div className="border-t border-gray-200 px-5 py-3 text-center sm:px-7">
-          <p className="font-body text-[0.88rem] leading-[1.35] text-[#051040]/50">
+          <p className="font-body text-[0.88rem] leading-[1.35] text-[#051040]/62">
             Scroll to read more. Tap outside the panel or use the close button
             to return.
           </p>
@@ -595,6 +645,7 @@ export default function AboutUs() {
   const pageRef = useScrollAnimation();
   const [activeStaffIndex, setActiveStaffIndex] = useState<number | null>(null);
   const staffModalCloseGuardRef = useRef(0);
+  const staffModalOpenerRef = useRef<HTMLElement | null>(null);
   const [openMobileOrganogramSections, setOpenMobileOrganogramSections] =
     useState({
       senior: true,
@@ -606,12 +657,17 @@ export default function AboutUs() {
       return;
     }
 
+    staffModalOpenerRef.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
     setActiveStaffIndex(index);
   };
 
   const closeStaffModal = () => {
     staffModalCloseGuardRef.current = Date.now() + 350;
     setActiveStaffIndex(null);
+    window.setTimeout(() => staffModalOpenerRef.current?.focus(), 0);
   };
 
   useEffect(() => {
@@ -642,6 +698,14 @@ export default function AboutUs() {
         <PageHero
           title="About Us"
           imageUrl={HERO_URL}
+          mobileShowFullImage
+          mobileAspectRatio="1080 / 1201"
+          tabletImageUrl={HERO_TABLET_URL}
+          tabletShowFullImage
+          tabletAspectRatio="2 / 1"
+          desktopImageUrl={HERO_DESKTOP_URL}
+          desktopShowFullImage
+          desktopAspectRatio="4 / 1"
           imagePosition={{
             mobile: "center 30%",
             tablet: "center 28%",
@@ -659,33 +723,28 @@ export default function AboutUs() {
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14 items-start">
               <div className="fade-up">
-                <div className="hcs-editorial-image hcs-history-image">
-                  <picture>
-                    <source
-                      media="(max-width: 1535px)"
-                      srcSet={HISTORY_MOBILE_URL}
-                    />
-                    <img
-                      src={HISTORY_URL}
-                      alt="History of HCS"
-                      className="object-[50%_18%] md:object-[50%_14%] lg:object-center"
-                    />
-                  </picture>
-                </div>
+                <ResponsiveEditorialImage
+                  className="hcs-editorial-image hcs-history-image"
+                  desktopImageUrl={HISTORY_DESKTOP_URL}
+                  mobileImageUrl={HISTORY_MOBILE_URL}
+                  tabletImageUrl={HISTORY_TABLET_URL}
+                  alt="Historic photo representing the beginnings of His Church School"
+                  imageClassName="object-[50%_18%] sm:object-[50%_14%] lg:object-center"
+                />
               </div>
               <div className="fade-up hcs-split-copy">
-                <p className="mb-3 text-center font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/45 lg:text-left">
+                <p className="mb-3 text-center font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/62 lg:text-left">
                   Since 1994
                 </p>
                 <h2 className="mb-2 text-center font-display text-3xl font-black text-[#051040] md:text-4xl lg:text-left">
                   History
                 </h2>
                 <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
-                <div className="space-y-4 text-center text-[#051040]/70 font-body leading-relaxed lg:text-left">
+                <div className="mx-auto max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed lg:mx-0 lg:max-w-none">
                   <p>
-                    His&nbsp;Church&nbsp;School (formerly known as City of Life Academy)
-                    was founded in 1994 by Fiona Desfontaine to provide a
-                    Christian school for children from His Church (formerly
+                    His&nbsp;Church&nbsp;School (formerly known as City of Life
+                    Academy) was founded in 1994 by Fiona Desfontaine to provide
+                    a Christian school for children from His Church (formerly
                     known as City of Life). The first principal was Mrs. Cheryl
                     van der Merwe. The school has since grown and currently
                     caters for learners from Grade 1 to Grade 12.
@@ -701,8 +760,8 @@ export default function AboutUs() {
                     due to a decision by the Municipal Council and local
                     community. The school lost a number of students in the
                     process. When it had been officially declared that it was to
-                    retain its right to exist, His&nbsp;Church&nbsp;School had to start
-                    the slow process of regaining students.
+                    retain its right to exist, His&nbsp;Church&nbsp;School had
+                    to start the slow process of regaining students.
                   </p>
                   <p>
                     In 2004, we received an additional room that was the former
@@ -732,7 +791,7 @@ export default function AboutUs() {
         {/* Vision */}
         <section id="vision" className="py-20 bg-[#F1E6D6] scroll-mt-20">
           <div className="max-w-4xl mx-auto hcs-shell text-center">
-            <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.12em] uppercase mb-3 fade-up">
+            <p className="font-label text-xs font-semibold text-[#051040]/62 tracking-[0.12em] uppercase mb-3 fade-up">
               Our Purpose
             </p>
             <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2 fade-up">
@@ -748,11 +807,11 @@ export default function AboutUs() {
                 {"\u201D"}
               </span>
             </p>
-            <div className="mx-auto w-full max-w-none space-y-4 text-center text-[#051040]/70 font-body leading-relaxed fade-up">
+            <div className="mx-auto w-full max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed fade-up md:max-w-none md:text-center">
               <p>
-                His&nbsp;Church&nbsp;School desires to establish Godly foundations for
-                each child's life and to educate children so that they will
-                impact their generation for Eternity.
+                His&nbsp;Church&nbsp;School desires to establish Godly
+                foundations for each child's life and to educate children so
+                that they will impact their generation for Eternity.
               </p>
               <p>We desire to raise:</p>
             </div>
@@ -782,7 +841,7 @@ export default function AboutUs() {
         <section id="mission" className="py-20 bg-white scroll-mt-20">
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="text-center mb-12">
-              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.12em] uppercase mb-3 fade-up">
+              <p className="font-label text-xs font-semibold text-[#051040]/62 tracking-[0.12em] uppercase mb-3 fade-up">
                 Our Calling
               </p>
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">
@@ -862,7 +921,7 @@ export default function AboutUs() {
 
             <div className="mx-auto w-full max-w-[42rem] space-y-5 md:hidden fade-up">
               <div className="w-full rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm">
-                <p className="font-label text-[0.72rem] font-bold uppercase tracking-[0.12em] text-[#051040]/55">
+                <p className="font-label text-[0.72rem] font-bold uppercase tracking-[0.12em] text-[#051040]/62">
                   Governance
                 </p>
                 <div className="mt-4 rounded-xl bg-[#051040] px-5 py-4 text-white">
@@ -1127,7 +1186,7 @@ export default function AboutUs() {
         <section id="staff" className="py-20 bg-white scroll-mt-20">
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="text-center mb-12">
-              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.12em] uppercase mb-3 fade-up">
+              <p className="font-label text-xs font-semibold text-[#051040]/62 tracking-[0.12em] uppercase mb-3 fade-up">
                 Meet the Team
               </p>
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">

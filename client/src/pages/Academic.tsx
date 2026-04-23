@@ -1,14 +1,27 @@
+import { Link } from "wouter";
 import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
+import ResponsiveEditorialImage from "@/components/ResponsiveEditorialImage";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { getPublicAssetHref } from "@/lib/sitePaths";
+import { getPageHref, getPublicAssetHref } from "@/lib/sitePaths";
 
-const HERO_URL = getPublicAssetHref("photos/academic/academic-hero.jpg");
-const CURRICULUM_URL = getPublicAssetHref(
-  "photos/academic/academic-curriculum.jpg"
+const HERO_URL = getPublicAssetHref(
+  "photos/academic/academic-hero-mobile.webp"
+);
+const HERO_TABLET_URL = getPublicAssetHref(
+  "photos/academic/academic-hero-tablet.webp"
+);
+const HERO_DESKTOP_URL = getPublicAssetHref(
+  "photos/academic/academic-hero-desktop.webp"
+);
+const CURRICULUM_DESKTOP_URL = getPublicAssetHref(
+  "photos/academic/academic-curriculum-desktop.webp"
 );
 const CURRICULUM_MOBILE_URL = getPublicAssetHref(
-  "photos/academic/academic-curriculum-mobile.jpg"
+  "photos/academic/academic-curriculum-mobile.webp"
+);
+const CURRICULUM_TABLET_URL = getPublicAssetHref(
+  "photos/academic/academic-curriculum-tablet.webp"
 );
 
 const SUBJECT_COLUMNS = [
@@ -34,7 +47,7 @@ const EXIT_EXAM_CARDS = [
   {
     title: "NSC Achievement Levels",
     content:
-      "The NSC uses a 7-point rating scale: Level 7 (80-100%) Outstanding, Level 6 (70-79%) Meritorious, Level 5 (60-69%) Substantial, Level 4 (50-59%) Adequate, Level 3 (40-49%) Moderate, Level 2 (30-39%) Elementary, Level 1 (0-29%) Not Achieved.",
+      "The NSC uses a 7-point rating scale: Level\u00A07 (80\u2011100%) Outstanding, Level\u00A06 (70\u201179%) Meritorious, Level\u00A05 (60\u201169%) Substantial, Level\u00A04 (50\u201159%) Adequate, Level\u00A03 (40\u201149%) Moderate, Level\u00A02 (30\u201139%) Elementary, Level\u00A01 (0\u201129%) Not Achieved.",
   },
   {
     title: "University Entrance",
@@ -50,35 +63,44 @@ export default function Academic() {
     <Layout>
       <div ref={pageRef}>
         {/* ── Hero ── */}
-        <PageHero title="Academic" imageUrl={HERO_URL} />
+        <PageHero
+          title="Academic"
+          imageUrl={HERO_URL}
+          mobileShowFullImage
+          mobileAspectRatio="1080 / 1201"
+          tabletImageUrl={HERO_TABLET_URL}
+          tabletShowFullImage
+          tabletAspectRatio="2 / 1"
+          desktopImageUrl={HERO_DESKTOP_URL}
+          desktopShowFullImage
+          desktopAspectRatio="4 / 1"
+        />
 
         {/* ── Academic Curriculum ── */}
         <section id="curriculum" className="py-20 bg-white scroll-mt-20">
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14 items-start">
               <div className="fade-up">
-                <div className="hcs-editorial-image">
-                  <picture>
-                    <source
-                      media="(max-width: 1023px)"
-                      srcSet={CURRICULUM_MOBILE_URL}
-                    />
-                    <img src={CURRICULUM_URL} alt="Academic Curriculum" loading="lazy" />
-                  </picture>
-                </div>
+                <ResponsiveEditorialImage
+                  className="hcs-editorial-image"
+                  desktopImageUrl={CURRICULUM_DESKTOP_URL}
+                  mobileImageUrl={CURRICULUM_MOBILE_URL}
+                  tabletImageUrl={CURRICULUM_TABLET_URL}
+                  alt="Learners working together during an academic lesson at His Church School"
+                />
               </div>
               <div className="fade-up hcs-split-copy">
-                <p className="mb-3 text-center font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/45 lg:text-left">
+                <p className="mb-3 text-center font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/62 lg:text-left">
                   CAPS Curriculum
                 </p>
                 <h2 className="mb-2 text-center font-display text-3xl font-black text-[#051040] md:text-4xl lg:text-left">
                   Academic Curriculum
                 </h2>
                 <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
-                <div className="space-y-4 text-center text-[#051040]/70 font-body leading-relaxed lg:text-left">
+                <div className="mx-auto max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed lg:mx-0 lg:max-w-none">
                   <p>
-                    At His&nbsp;Church&nbsp;School we follow the CAPS curriculum from
-                    Grade 1 through to Grade 12.
+                    At His&nbsp;Church&nbsp;School we follow the CAPS curriculum
+                    from Grade 1 through to Grade 12.
                   </p>
                   <p>
                     Assessments are mostly developed internally, except for the
@@ -89,14 +111,14 @@ export default function Academic() {
                     accredited by both SACAI and Umalusi.
                   </p>
                   <p>
-                    His&nbsp;Church&nbsp;School is an accredited examination centre
-                    authorised to run NSC examinations for both our own learners
-                    and external candidates.
+                    His&nbsp;Church&nbsp;School is an accredited examination
+                    centre authorised to run NSC examinations for both our own
+                    learners and external candidates.
                   </p>
                 </div>
                 <blockquote className="hcs-pullquote">
-                  His&nbsp;Church&nbsp;School is accredited by Umalusi, Council for
-                  Quality Assurance in General and Further Education and
+                  His&nbsp;Church&nbsp;School is accredited by Umalusi, Council
+                  for Quality Assurance in General and Further Education and
                   Training, under accreditation number 19 SCH01 00763.
                   <cite>Umalusi Accreditation</cite>
                 </blockquote>
@@ -109,18 +131,19 @@ export default function Academic() {
         <section id="subjects" className="py-20 bg-[#f8f8f8] scroll-mt-20">
           <div className="max-w-6xl mx-auto hcs-shell">
             <div className="text-center mb-12">
-              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.12em] uppercase mb-3 fade-up">
+              <p className="font-label text-xs font-semibold text-[#051040]/62 tracking-[0.12em] uppercase mb-3 fade-up">
                 Grades 10 – 12
               </p>
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">
                 FET Subject Choices
               </h2>
               <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up hcs-divider" />
-              <p className="mx-auto w-full max-w-4xl text-center font-body text-base leading-relaxed text-[#051040]/70 fade-up">
+              <p className="mx-auto w-full max-w-[44ch] text-left font-body text-base leading-relaxed text-[#051040]/70 fade-up md:max-w-4xl md:text-center">
                 During the Grade 9 academic year, learners prepare for the FET
                 phase by selecting a balanced subject package for Grades 10 to
                 12. The combinations below show the compulsory majors and
-                grouped elective options available at His&nbsp;Church&nbsp;School.
+                grouped elective options available at
+                His&nbsp;Church&nbsp;School.
               </p>
             </div>
 
@@ -180,7 +203,7 @@ export default function Academic() {
                         {subjects.map((s, i) => (
                           <div
                             key={i}
-                            className={`text-center font-body ${s === "OR" ? "text-[#051040]/45 text-xs font-semibold" : "text-[#051040] text-sm font-semibold"}`}
+                            className={`text-center font-body ${s === "OR" ? "text-[#051040]/62 text-xs font-semibold" : "text-[#051040] text-sm font-semibold"}`}
                           >
                             {s}
                           </div>
@@ -193,10 +216,10 @@ export default function Academic() {
             </div>
 
             <div className="mx-auto mt-8 max-w-4xl text-center fade-up">
-              <p className="mb-3 font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/50">
+              <p className="mb-3 font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/62">
                 Subject Change Policy
               </p>
-              <p className="mx-auto w-full max-w-none text-center font-body text-[0.96rem] leading-[1.78] text-[#051040]/66 sm:text-[0.98rem]">
+              <p className="mx-auto w-full max-w-[44ch] text-left font-body text-[0.96rem] leading-[1.78] text-[#051040]/66 sm:text-[0.98rem] md:max-w-none md:text-center">
                 Learners may make a maximum of two subject changes in Grade 10
                 and 11, but only one subject change may be made in Grade 12, on
                 condition it is made before the end of the Grade 11 academic
@@ -217,30 +240,31 @@ export default function Academic() {
         >
           <div className="max-w-6xl mx-auto hcs-shell">
             <div className="mx-auto max-w-4xl text-center">
-              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.12em] uppercase mb-3 fade-up">
+              <p className="font-label text-xs font-semibold text-[#051040]/62 tracking-[0.12em] uppercase mb-3 fade-up">
                 Future Pathways
               </p>
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] mb-2 fade-up">
                 Career Guidance
               </h2>
               <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mb-6 fade-up hcs-divider" />
-              <div className="mx-auto w-full max-w-none space-y-4 text-center font-body text-[0.96rem] leading-[1.78] text-[#051040]/66 fade-up sm:text-[0.98rem]">
+              <div className="mx-auto w-full max-w-[44ch] space-y-4 text-left font-body text-[0.96rem] leading-[1.78] text-[#051040]/66 fade-up sm:text-[0.98rem] md:max-w-none md:text-center">
                 <p>
-                  His&nbsp;Church&nbsp;School is committed to helping every learner discover
-                  their God-given purpose, equipping them with the knowledge,
-                  direction, and confidence to pursue a meaningful future. Our
-                  Career Guidance programme supports both learners and families
-                  through subject selection, tertiary planning, and career
-                  exploration, helping learners understand how their academic
-                  choices shape future opportunities.
+                  His&nbsp;Church&nbsp;School is committed to helping every
+                  learner discover their God-given purpose, equipping them with
+                  the knowledge, direction, and confidence to pursue a
+                  meaningful future. Our Career Guidance programme supports both
+                  learners and families through subject selection, tertiary
+                  planning, and career exploration, helping learners understand
+                  how their academic choices shape future opportunities.
                 </p>
                 <p>
                   In Grade 9, learners and their parents attend a dedicated
                   meeting focused on FET subject packages, career pathways, and
                   the requirements for university, college, or vocational
-                  training. Throughout this journey, our staff walk alongside each
-                  learner, helping them set goals, recognise their strengths, and
-                  step confidently into the future with purpose and faith.
+                  training. Throughout this journey, our staff walk alongside
+                  each learner, helping them set goals, recognise their
+                  strengths, and step confidently into the future with purpose
+                  and faith.
                 </p>
               </div>
             </div>
@@ -251,7 +275,7 @@ export default function Academic() {
         <section id="exit-exam" className="py-20 bg-white scroll-mt-20">
           <div className="max-w-6xl mx-auto hcs-shell">
             <div className="text-center mb-12">
-              <p className="font-label text-xs font-semibold text-[#051040]/45 tracking-[0.12em] uppercase mb-3 fade-up">
+              <p className="font-label text-xs font-semibold text-[#051040]/62 tracking-[0.12em] uppercase mb-3 fade-up">
                 Grade 12
               </p>
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">
@@ -299,9 +323,9 @@ export default function Academic() {
                 </h3>
                 <div className="w-8 h-0.5 bg-[#C9A84C]/50 mb-4" />
                 <p className="mb-4 font-body text-[0.98rem] leading-[1.72] text-white/66 sm:text-[1rem]">
-                  His&nbsp;Church&nbsp;School is accredited by Umalusi, the Council for
-                  Quality Assurance in General and Further Education and
-                  Training.
+                  His&nbsp;Church&nbsp;School is accredited by Umalusi, the
+                  Council for Quality Assurance in General and Further Education
+                  and Training.
                 </p>
                 <p className="font-label text-xs font-semibold text-[#C9A84C] tracking-[0.12em]">
                   Accreditation No. 19 SCH01 00763
@@ -316,13 +340,38 @@ export default function Academic() {
                 </h3>
                 <div className="w-8 h-0.5 bg-[#C9A84C]/50 mb-4" />
                 <p className="mb-4 font-body text-[0.98rem] leading-[1.72] text-white/66 sm:text-[1rem]">
-                  His&nbsp;Church&nbsp;School is an authorised SACAI examination centre,
-                  running NSC examinations for own and external candidates.
+                  His&nbsp;Church&nbsp;School is an authorised SACAI examination
+                  centre, running NSC examinations for own and external
+                  candidates.
                 </p>
                 <p className="font-label text-xs font-semibold text-[#C9A84C] tracking-[0.12em]">
                   NSC Examinations: Own &amp; External Candidates
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#F5EBDD] py-16">
+          <div className="mx-auto max-w-5xl hcs-shell text-center">
+            <p className="font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/62 fade-up">
+              Next Step
+            </p>
+            <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-black leading-tight text-[#051040] fade-up md:text-4xl">
+              Need help choosing the right academic pathway?
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl font-body text-[1rem] leading-[1.72] text-[#051040]/70 fade-up">
+              Speak to the school office about subject choices, NSC
+              registration, accreditation, or the admissions process for your
+              child.
+            </p>
+            <div className="mt-7 flex justify-center fade-up">
+              <Link
+                href={getPageHref("contact")}
+                className="hcs-btn-primary px-8"
+              >
+                Contact the School Office
+              </Link>
             </div>
           </div>
         </section>
