@@ -1,4 +1,4 @@
-import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -375,3 +375,4 @@ await writeFile(path.join(docsDir, ".nojekyll"), "");
 await writeFile(path.join(docsDir, "sitemap.xml"), sitemapXml);
 await writeFile(path.join(docsDir, "robots.txt"), robotsTxt);
 await localizeCssAssetUrls();
+await rm(path.dirname(staticRenderModulePath), { recursive: true, force: true });
