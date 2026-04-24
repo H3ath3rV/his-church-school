@@ -137,7 +137,7 @@ export default function Partnership() {
                 Partner With Us
               </h2>
               <div className="w-12 h-0.5 bg-[#051040]/30 mx-auto mb-6 fade-up hcs-divider" />
-              <div className="mx-auto w-full max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed fade-up md:max-w-[62rem] md:text-center">
+              <div className="mx-auto w-full max-w-[44ch] space-y-4 text-center text-[#051040]/70 font-body leading-relaxed fade-up md:max-w-[62rem]">
                 <p>
                   His&nbsp;Church&nbsp;School values the support of the broader
                   community and business sector. By partnering with us, you
