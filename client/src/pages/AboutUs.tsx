@@ -989,17 +989,18 @@ export default function AboutUs() {
                           [section.key]: !current[section.key],
                         }))
                       }
-                      className="relative flex w-full items-center justify-center rounded-2xl bg-[#051040] px-5 py-4 text-center text-white shadow-sm"
+                      className="grid w-full grid-cols-[1fr_auto] items-center gap-3 rounded-2xl bg-[#051040] px-4 py-4 text-center text-white shadow-sm sm:px-5"
                       aria-expanded={isOpen}
                       aria-controls={panelId}
                       id={buttonId}
                       aria-label={`${isOpen ? "Collapse" : "Expand"} ${section.title}`}
                     >
-                      <span className="font-display text-base font-black uppercase tracking-[0.12em]">
+                      <span className="min-w-0 pl-2 font-display text-[0.95rem] font-black uppercase tracking-[0.095em] sm:text-base sm:tracking-[0.12em]">
                         {section.title}
                       </span>
                       <span
-                        className={`absolute right-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/8 text-[#C9A84C] transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-[#C9A84C] transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                        aria-hidden="true"
                       >
                         <ChevronDown size={18} />
                       </span>
