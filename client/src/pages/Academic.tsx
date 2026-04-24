@@ -93,7 +93,8 @@ export default function Academic() {
                   CAPS Curriculum
                 </p>
                 <h2 className="mb-2 text-center font-display text-3xl font-black text-[#051040] md:text-4xl lg:text-left">
-                  Academic Curriculum
+                  <span className="block sm:inline">Academic</span>{" "}
+                  <span className="block sm:inline">Curriculum</span>
                 </h2>
                 <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
                 <div className="mx-auto max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed lg:mx-0 lg:max-w-none">
@@ -134,7 +135,8 @@ export default function Academic() {
                 Grades 10 – 12
               </p>
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">
-                FET Subject Choices
+                <span className="block sm:inline">FET Subject</span>{" "}
+                <span className="block sm:inline">Choices</span>
               </h2>
               <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up hcs-divider" />
               <p className="mx-auto w-full max-w-[44ch] text-left font-body text-base leading-relaxed text-[#051040]/70 fade-up md:max-w-4xl md:text-center">

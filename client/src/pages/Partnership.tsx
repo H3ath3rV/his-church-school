@@ -259,7 +259,8 @@ export default function Partnership() {
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="text-center mb-12">
               <h3 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">
-                Partnership Opportunities
+                <span className="block sm:inline">Partnership</span>{" "}
+                <span className="block sm:inline">Opportunities</span>
               </h3>
               <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 fade-up hcs-divider" />
             </div>
