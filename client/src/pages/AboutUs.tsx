@@ -827,7 +827,7 @@ export default function AboutUs() {
                 {"\u201D"}
               </span>
             </p>
-            <div className="mx-auto w-full max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed fade-up md:max-w-none md:text-center">
+            <div className="mx-auto w-full max-w-[44ch] space-y-4 text-center text-[#051040]/70 font-body leading-relaxed fade-up md:max-w-none">
               <p>
                 His&nbsp;Church&nbsp;School desires to establish Godly
                 foundations for each child's life and to educate children so

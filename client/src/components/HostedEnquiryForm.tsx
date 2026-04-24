@@ -435,7 +435,7 @@ export default function HostedEnquiryForm({
             <button
               type="submit"
               disabled={isSubmitting || !HAS_ENQUIRY_FORM_ENDPOINT}
-              className="hcs-btn-primary w-full whitespace-nowrap px-4 text-center text-[0.7rem] tracking-[0.075em] disabled:cursor-not-allowed disabled:bg-[#8B93AA] disabled:text-white/88 disabled:shadow-none sm:px-5 sm:text-[0.8125rem] sm:tracking-[0.1em]"
+              className="hcs-btn-primary w-full whitespace-nowrap px-5 text-center disabled:cursor-not-allowed disabled:bg-[#8B93AA] disabled:text-white/88 disabled:shadow-none"
             >
               {!HAS_ENQUIRY_FORM_ENDPOINT
                 ? "ONLINE ENQUIRIES UNAVAILABLE"

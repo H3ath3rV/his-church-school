@@ -239,7 +239,7 @@ export default function Partnership() {
               formId="sponsorship"
               intro="Complete this form and your sponsorship enquiry will be sent to the school office for follow-up."
               page="Partnership"
-              submitLabel="SEND SPONSORSHIP ENQUIRY"
+              submitLabel="SEND ENQUIRY"
               successBody="Your sponsorship enquiry has been sent to the school office. We'll follow up using the details you provided."
               successIcon={
                 <HandHeart
