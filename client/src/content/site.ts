@@ -28,6 +28,9 @@ export const SOCIAL_LINKS = {
 } as const;
 
 export const CREST_URL = getPublicAssetHref("branding/hcs-crest.png");
+export const LOGO_LOCKUP_URL = getPublicAssetHref(
+  "branding/hcs-logo-lockup.png"
+);
 export const TARTAN_URL = getPublicAssetHref("branding/hcs-tartan.png");
 
 export const CONTACT_DETAILS: ContactDetail[] = [

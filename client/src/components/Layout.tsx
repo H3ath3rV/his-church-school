@@ -21,6 +21,7 @@ import {
   CREST_URL,
   FOOTER_GALLERY_IMAGES,
   FOOTER_GALLERY_VISIBILITY,
+  LOGO_LOCKUP_URL,
   SITE_EMAIL_ADDRESS,
   SITE_EMAIL_HREF,
   SITE_PHONE_DISPLAY,
@@ -268,21 +269,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Link
               href={homeHref}
               onClick={event => handleNavClick(event, homeHref)}
-              className="flex min-h-[44px] min-w-0 items-center gap-2.5 md:gap-3"
+              className="flex min-h-[44px] min-w-0 items-center"
             >
               <img
-                src={CREST_URL}
-                alt="His Church School crest"
-                className="h-10 w-auto shrink-0 md:h-14 lg:h-[3.65rem] xl:h-16"
+                src={LOGO_LOCKUP_URL}
+                alt="His Church School"
+                width="1308"
+                height="480"
+                className="h-12 w-auto shrink-0 md:h-16 lg:h-[4.2rem] xl:h-[4.4rem]"
               />
-              <div className="min-w-0 leading-none">
-                <div className="font-logo text-[0.9rem] font-black leading-none tracking-[0.02em] uppercase text-[#051040] md:text-[1.18rem] lg:text-[1.1rem] xl:text-[1.47rem]">
-                  HIS CHURCH
-                </div>
-                <div className="font-logo text-[1.42rem] font-black leading-none tracking-[0.025em] uppercase text-[#051040] md:text-[1.88rem] lg:text-[1.85rem] xl:text-[2.3rem]">
-                  SCHOOL
-                </div>
-              </div>
             </Link>
 
             {/* Desktop nav */}
@@ -428,21 +423,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <Link
                   href={homeHref}
                   onClick={event => handleNavClick(event, homeHref)}
-                  className="flex min-h-[44px] min-w-0 items-center gap-3"
+                  className="flex min-h-[44px] min-w-0 items-center"
                 >
                   <img
-                    src={CREST_URL}
-                    alt="His Church School crest"
-                    className="h-10 w-auto shrink-0 sm:h-12"
+                    src={LOGO_LOCKUP_URL}
+                    alt="His Church School"
+                    width="1308"
+                    height="480"
+                    className="h-11 w-auto shrink-0 sm:h-12"
                   />
-                  <div className="min-w-0 leading-none">
-                    <div className="font-logo text-[0.82rem] leading-none tracking-normal uppercase text-[#051040] sm:text-[1.15rem]">
-                      HIS CHURCH
-                    </div>
-                    <div className="font-logo text-[1.28rem] leading-none tracking-normal uppercase text-[#051040] sm:text-[1.8rem]">
-                      SCHOOL
-                    </div>
-                  </div>
                 </Link>
                 <button
                   ref={mobileCloseRef}
