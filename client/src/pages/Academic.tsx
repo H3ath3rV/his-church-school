@@ -97,7 +97,7 @@ export default function Academic() {
                   <span className="block sm:inline">Curriculum</span>
                 </h2>
                 <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
-                <div className="mx-auto max-w-[44ch] space-y-4 text-center text-[#051040]/70 font-body leading-relaxed lg:mx-0 lg:max-w-none lg:text-left">
+                <div className="mx-auto max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed md:max-w-[52rem] lg:mx-0 lg:max-w-none">
                   <p>
                     At His&nbsp;Church&nbsp;School we follow the CAPS curriculum
                     from Grade 1 through to Grade 12.
@@ -116,7 +116,7 @@ export default function Academic() {
                     learners and external candidates.
                   </p>
                 </div>
-                <blockquote className="hcs-pullquote mx-auto max-w-[44ch] lg:mx-0 lg:max-w-none">
+                <blockquote className="hcs-pullquote mx-auto max-w-[44ch] md:max-w-[52rem] lg:mx-0 lg:max-w-none">
                   His&nbsp;Church&nbsp;School is accredited by Umalusi, Council
                   for Quality Assurance in General and Further Education and
                   Training, under accreditation number 19 SCH01 00763.

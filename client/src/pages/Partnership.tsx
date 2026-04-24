@@ -169,7 +169,7 @@ export default function Partnership() {
                   Sponsorship
                 </h2>
                 <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
-                <div className="mx-auto max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed lg:mx-0 lg:max-w-none">
+                <div className="mx-auto max-w-[44ch] space-y-4 text-center text-[#051040]/70 font-body leading-relaxed md:max-w-[52rem] lg:mx-0 lg:max-w-none lg:text-left">
                   <p>
                     We invite businesses, organisations, and individuals to
                     partner with His&nbsp;Church&nbsp;School through financial

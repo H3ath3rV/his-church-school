@@ -238,7 +238,7 @@ export default function SchoolLife() {
                   Sport at His&nbsp;Church&nbsp;School
                 </h2>
                 <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
-                <div className="mx-auto max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed lg:mx-0 lg:max-w-none">
+                <div className="mx-auto max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed md:max-w-[52rem] lg:mx-0 lg:max-w-none">
                   <p>
                     His&nbsp;Church&nbsp;School encourages all learners to
                     participate in school sports as it not only promotes
@@ -254,7 +254,7 @@ export default function SchoolLife() {
                     adopt Biblical values both on and off the sport field.
                   </p>
                 </div>
-                <blockquote className="hcs-pullquote">
+                <blockquote className="hcs-pullquote mx-auto max-w-[44ch] md:max-w-[52rem] lg:mx-0 lg:max-w-none">
                   <p>
                     SACSSA affiliated: South African Christian Schools Sports
                     Association.
