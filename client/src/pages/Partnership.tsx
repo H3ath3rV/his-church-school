@@ -191,10 +191,10 @@ export default function Partnership() {
                     relevant leadership team.
                   </p>
                 </div>
-                <div className="mt-8 flex flex-col items-stretch gap-3 fade-up sm:flex-row sm:items-center lg:justify-start">
+                <div className="mt-8 flex flex-col items-center gap-3 fade-up sm:flex-row sm:justify-center lg:justify-start">
                   <a
                     href="#sponsorship-form"
-                    className="hcs-btn-primary hcs-btn-enquire text-center"
+                    className="hcs-btn-primary min-w-[18rem] max-w-full text-center"
                   >
                     SPONSOR WITH US
                   </a>
@@ -216,7 +216,7 @@ export default function Partnership() {
 
         <section
           id="sponsorship-form"
-          className="scroll-mt-24 bg-[#f8f8f8] py-20"
+          className="scroll-mt-24 bg-[#f8f8f8] pt-20 pb-10"
         >
           <div className="mx-auto max-w-6xl hcs-shell">
             <HostedEnquiryForm
@@ -255,7 +255,7 @@ export default function Partnership() {
         </section>
 
         {/* ── Sponsorship tiers ── */}
-        <section className="py-20 bg-[#f8f8f8]">
+        <section className="bg-[#f8f8f8] pt-8 pb-20">
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="text-center mb-12">
               <h3 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">

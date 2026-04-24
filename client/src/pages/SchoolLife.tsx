@@ -327,7 +327,7 @@ export default function SchoolLife() {
                   Fixtures &amp; Sporting Events
                 </h2>
                 <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up hcs-divider" />
-                <p className="mx-auto mt-2 w-full max-w-[44ch] text-left font-body text-[0.98rem] leading-[1.72] text-white/72 fade-up sm:text-[1rem] md:max-w-none md:text-center">
+                <p className="mx-auto mt-2 w-full max-w-[44ch] text-center font-body text-[0.98rem] leading-[1.72] text-white/72 fade-up sm:text-[1rem] md:max-w-none">
                   Key 2026 sporting dates supplied by the school are listed
                   below. Final logistics and venue updates are shared with
                   families through the school office as each event approaches.
