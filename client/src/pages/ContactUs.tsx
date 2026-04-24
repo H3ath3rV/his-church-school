@@ -63,25 +63,14 @@ const faqs = [
   },
 ];
 
-type PolicyDownload = { label: string; file: string; fileMeta: string };
-
 const policyDownloads = [
+  { label: "Language Policy", pdfFile: "downloads/policies/Language-Policy.pdf" },
   {
-    label: "Language Policy",
-    file: "downloads/policies/Language-Policy.docx",
-    fileMeta: "DOCX · 13 KB",
+    label: "Admissions Policy",
+    pdfFile: "downloads/policies/Admissions-Policy.pdf",
   },
-  {
-    label: "Admission Policy",
-    file: "downloads/policies/Admission-Policy.docx",
-    fileMeta: "DOCX · 15 KB",
-  },
-  {
-    label: "Code of Conduct",
-    file: "downloads/policies/Code-of-Conduct.docx",
-    fileMeta: "DOCX · 4 KB",
-  },
-] satisfies PolicyDownload[];
+  { label: "Code of Conduct", pdfFile: "downloads/policies/Code-of-Conduct.pdf" },
+];
 
 const cardSurfaceClass =
   "bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden";
@@ -249,10 +238,10 @@ export default function ContactUs() {
                 enquiryType="General Enquiry"
                 fields={contactFields}
                 formId="contact"
-                intro="Complete this form and your enquiry will be sent directly to the school office."
+                intro="Complete this form and your enquiry will be sent to the school office for follow-up."
                 page="Contact Us"
                 submitLabel="SEND ENQUIRY"
-                successBody="Your enquiry has been sent directly to the school office. We'll reply using the email address you provided as soon as possible."
+                successBody="Your enquiry has been sent to the school office. We'll reply using the email address you provided as soon as possible."
                 successIcon={
                   <Mail
                     size={24}
@@ -275,7 +264,7 @@ export default function ContactUs() {
                 Frequently Asked Questions
               </h2>
               <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up hcs-divider" />
-              <p className="font-body text-[0.98rem] text-[#051040]/60 fade-up sm:text-[1rem]">
+              <p className="font-body text-[0.98rem] text-[#051040]/68 fade-up sm:text-[1rem]">
                 Everything you need to know about His&nbsp;Church&nbsp;School
               </p>
             </div>
@@ -294,57 +283,51 @@ export default function ContactUs() {
         </section>
 
         {/* ── Documents & Policies ── */}
-        <section id="policies" className="py-20 bg-white scroll-mt-20">
+        <section id="policies" className="bg-white py-20 scroll-mt-20 sm:py-24">
           <div className="max-w-7xl mx-auto hcs-shell">
-            <div className="max-w-4xl mx-auto text-center mb-10">
-              <p className="font-label text-xs font-semibold text-[#051040]/62 tracking-[0.12em] uppercase mb-3 fade-up">
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <p className="font-label text-[0.82rem] font-semibold text-[#8D93A8] tracking-[0.16em] uppercase mb-4 fade-up">
                 Downloads
               </p>
-              <h2 className="font-display text-3xl font-black text-[#051040] fade-up">
+              <h2 className="font-display text-4xl font-black text-[#051040] fade-up md:text-[2.65rem]">
                 School Documents &amp; Policies
               </h2>
-              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 fade-up hcs-divider" />
+              <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-6 fade-up hcs-divider" />
             </div>
             <div className="mx-auto grid max-w-[42rem] grid-cols-1 gap-5 fade-up md:max-w-[54rem] md:grid-cols-2 xl:max-w-none xl:grid-cols-3">
               {policyDownloads.map(doc => (
                 <a
                   key={doc.label}
-                  href={getPublicAssetHref(doc.file)}
+                  href={getPublicAssetHref(doc.pdfFile)}
                   download
-                  className="group flex min-h-[112px] items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#051040] hover:bg-[#051040] hover:text-white hover:shadow-md"
-                  aria-label={`Download ${doc.label} (${doc.fileMeta})`}
+                  className="group flex min-h-[112px] items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-5 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#051040] hover:bg-[#051040] hover:text-white hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2"
+                  aria-label={`Download ${doc.label} as a PDF`}
                 >
-                  <div className="flex max-w-[18rem] items-center justify-center gap-3.5 text-center">
+                  <span className="flex max-w-[18rem] items-center justify-center gap-3.5">
                     <Download
                       size={20}
                       className="text-[#C9A84C] shrink-0 group-hover:text-[#C9A84C]"
                     />
-                    <span>
-                      <span className="block font-label text-[0.79rem] font-bold uppercase tracking-[0.1em] text-[#051040] group-hover:text-white">
-                        {doc.label}
-                      </span>
-                      <span className="mt-1 block font-body text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-[#051040]/48 group-hover:text-white/72">
-                        {doc.fileMeta}
-                      </span>
+                    <span className="font-label text-[0.79rem] font-bold uppercase tracking-[0.1em] text-[#051040] group-hover:text-white">
+                      {doc.label}
                     </span>
-                  </div>
+                  </span>
                 </a>
               ))}
             </div>
-            <p className="mx-auto mt-6 max-w-3xl text-center font-body text-[0.98rem] leading-[1.7] text-[#051040]/62 fade-up sm:text-[1rem]">
-              Application forms and current fee schedules are issued directly by
-              the school office to make sure families receive the latest
-              admissions pack.
+            <p className="mx-auto mt-9 max-w-4xl text-center font-body text-[1rem] leading-[1.72] text-[#051040]/72 fade-up sm:text-[1.04rem]">
+              Need an application form or fee structure? Contact the school
+              office and we'll send it through.
             </p>
           </div>
         </section>
 
         {/* ── Find Us ── */}
-        <section className="relative overflow-hidden bg-[#051040] py-20 fade-up sm:py-24 lg:min-h-[34rem] lg:py-16">
-          <div
-            className="absolute inset-0 opacity-30 blur-[1px]"
-            aria-hidden="true"
-          >
+        <section
+          id="find-us"
+          className="relative overflow-hidden bg-[#051040] py-20 fade-up scroll-mt-20 sm:py-24 lg:min-h-[34rem] lg:py-16"
+        >
+          <div className="absolute inset-0 opacity-12" aria-hidden="true">
             <picture className="block h-full w-full">
               <img
                 src={CONTACT_MAP_URL}
@@ -366,7 +349,7 @@ export default function ContactUs() {
               className="absolute left-1/2 top-[14%] h-[4.5rem] w-auto -translate-x-1/2"
             />
           </div>
-          <div className="absolute inset-0 bg-[#051040]/74" />
+          <div className="absolute inset-0 bg-[#051040]/18" />
 
           <div className="relative mx-auto max-w-7xl hcs-shell lg:flex lg:min-h-[calc(34rem-8rem)] lg:flex-col lg:justify-center">
             <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-12 lg:mb-10">
@@ -377,7 +360,7 @@ export default function ContactUs() {
                 Find Us
               </h2>
               <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mb-5 fade-up hcs-divider" />
-              <p className="mx-auto max-w-[34rem] font-body text-[1rem] leading-[1.72] text-white/68 fade-up sm:max-w-[38rem] sm:text-[1.04rem] xl:max-w-[42rem]">
+              <p className="mx-auto max-w-[34rem] font-body text-[1rem] leading-[1.72] text-white/72 fade-up sm:max-w-[38rem] sm:text-[1.04rem] xl:max-w-[42rem]">
                 Contact the school office, speak to our team, or plan a visit to
                 campus.
               </p>

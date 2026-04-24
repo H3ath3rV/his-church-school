@@ -64,11 +64,11 @@ const staffMembers: StaffMember[] = [
     name: "Mr. André Botha",
     role: "Deputy Principal",
     position:
-      "Head of Senior Phase (Gr 7–9) | Afrikaans, Social Sciences, Geography & History | SGB Deputy Chairperson",
+      "Head of Senior Phase (Grades 7–9) | Afrikaans, Social Sciences, Geography & History | SGB Deputy Chairperson",
     qualification:
       "HDE (4 years); FDE (2 years); Durbanse Onderwyskollege; 37 years teaching experience",
     funFacts:
-      "Served 18 years in the SANDF Reserve Force after military conscription; Loves taking young people into nature for survival training and bush craft; Facilitates Grief Share and helps oversee Grief Share and Divorce Care at church",
+      "Completed military conscription and served 18 years in the SANDF Reserve Force; Loves taking young people into nature for survival training and bush craft; Facilitates Grief Share and helps oversee Grief Share and Divorce Care at church",
     hobbies: "Camping; Woodwork; Researching survival techniques and skills",
     initials: "AB",
     photo: getPublicAssetHref("photos/staff/andre-botha.jpg"),
@@ -90,7 +90,7 @@ const staffMembers: StaffMember[] = [
     name: "Mrs. Brenda Govender",
     role: "Head of Foundation Phase",
     position:
-      "Hospitality Gr 10–12 | Life Orientation Gr 10–11 | Grade 3 Register Teacher | Management Member",
+      "Hospitality Grades 10–12 | Life Orientation Grades 10–11 | Grade 3 Register Teacher | Management Member",
     qualification:
       "Higher Diploma in Education; B.Ed Degree; Has taught at HCS from the start of her teaching career",
     funFacts:
@@ -104,7 +104,7 @@ const staffMembers: StaffMember[] = [
     name: "Mrs. Jo Dyson",
     role: "Head of Intermediate Phase",
     position:
-      "Educator: English Gr 8–12 | Intermediate Phase specialist in Mathematics & Social Studies",
+      "Educator: English Grades 8–12 | Intermediate Phase specialist in Mathematics & Social Studies",
     qualification: "HDE (Higher Diploma in Education)",
     funFacts:
       "My family is my everything; Friendships and laughter; Loves the beach, nature, and outdoors; Loves travelling and game reserves; Entertaining and braaing bring joy; Making a difference warms my soul; Loves socialising and talking; Avid Arsenal/Spurs supporter",
@@ -165,7 +165,7 @@ const staffMembers: StaffMember[] = [
     name: "Miss. Jade Banks",
     role: "Art, Drama & Life Orientation",
     position:
-      "Art & Drama Gr 1–9 | Life Orientation & Religious Studies | Register Teacher",
+      "Art & Drama Grades 1–9 | Life Orientation & Religious Studies | Register Teacher",
     qualification: "10 years teaching experience",
     funFacts:
       "Nickname: Miss Sparkles; Enjoys the beach, playing 30 Seconds, fashion, and beauty; Leopard print and flowers match my bubbly personality, and coffee adds to my sparkle; Loves young girls' and women's ministry",
@@ -178,9 +178,9 @@ const staffMembers: StaffMember[] = [
     name: "Mr. Lawrence Mda",
     role: "Physical Education",
     position:
-      "PE Gr 1–12 | Intermediate Phase Subject Specialist | Register Teacher",
+      "PE Grades 1–12 | Intermediate Phase Subject Specialist | Register Teacher",
     qualification:
-      "Started out as a teacher's assistant; currently enrolled in the school's Learnership Programme",
+      "Started out as a teacher's assistant; Currently enrolled in the school's Learnership Programme",
     funFacts:
       "I love food; Ballroom and Latin dancer; Have won numerous awards",
     hobbies: "Chess; Dancing, dancing, and dancing!",
@@ -189,7 +189,7 @@ const staffMembers: StaffMember[] = [
   },
   {
     name: "Mrs. Linda Murray",
-    role: "Gr 4 & 5 Educator",
+    role: "Grades 4 & 5 Educator",
     position: "Afrikaans, English, Sciences & Mathematics Specialist",
     qualification:
       "National Diploma in Clinical Pathology; National Diploma in Human Parasitology; National Diploma in Microbiology",
@@ -276,65 +276,79 @@ const seniorManagementGroups: OrganogramGroup[] = [
       "Parents",
       "Servants (Student Leaders)",
       "Female Staff",
+      "Hospitality Department",
     ],
   },
   {
-    title: "Vice-Principal",
+    title: "Vice-Principal / Senior Phase",
     leader: "A. Botha",
     items: [
       "Senior Phase Staff",
+      "Senior Phase Learners",
       "Disciplinary Team",
       "Maintenance Team",
       "LSEN-H.O.D.",
       "Male Staff",
       "Learnership Staff",
       "Badgers Leaders",
+      "Safety & Security",
+      "New Applicants' Interviews",
     ],
   },
   {
     title: "Administrator",
     leader: "B. Cawood",
-    items: ["Admin Staff", "Cleaning Staff", "Fundraising Team"],
+    items: [
+      "Admin Staff",
+      "Support Staff",
+      "Supply Ordering",
+      "Fundraising Team",
+      "Financial & Fundraising Oversight",
+    ],
   },
 ];
 const juniorManagementGroups: OrganogramGroup[] = [
   {
     title: "Foundation",
-    leader: "V. Govender",
-    items: ["Foundation Phase Staff", "Hospitality Staff", "Hospitality Team"],
+    leader: "B. Govender",
+    items: ["Foundation Phase Staff", "Hospitality", "Functions"],
+  },
+  {
+    title: "Secretary / Marketing",
+    leader: "T. Botha",
+    items: [
+      "Students' Rep. (SGB)",
+      "Community Outreach",
+      "Girls' Discipline",
+      "Counsellors",
+      "LSEN-Support",
+      "Marketing Team",
+      "Classroom Helpers",
+    ],
   },
   {
     title: "Intermediate",
     leader: "S. Green",
     items: [
       "Intermediate Staff",
+      "Intermediate Learners",
       "IT-Administrator",
       "Logistic Staff",
       "Media Team",
+      "POPI-Official",
+      "SACAI-Registrations",
     ],
   },
   {
     title: "FET",
     leader: "R. Geldenhuys",
     items: [
-      "Staff Rep.",
+      "Staff Rep. (SGB)",
       "FET-Staff",
       "FET-learners",
       "Boys' Discipline",
       "Sport Coaches",
       "Praise & Worship Team",
-    ],
-  },
-  {
-    title: "Secretary",
-    leader: "T. Botha",
-    items: [
-      "Students' Rep.",
-      "Girls' Discipline",
-      "Counsellors",
-      "LSEN-Support",
-      "Marketing Team",
-      "Classroom Helpers",
     ],
   },
 ];
@@ -560,7 +574,7 @@ function StaffBioModal({
     >
       <div
         ref={dialogRef}
-        className="flex max-h-[calc(100vh-2rem)] w-full max-w-3xl flex-col overflow-hidden rounded-[1.75rem] border border-gray-200 bg-white shadow-[0_28px_80px_rgba(5,16,64,0.22)] sm:max-h-[calc(100vh-3rem)]"
+        className="hcs-staff-modal-panel flex w-full max-w-3xl flex-col overflow-hidden rounded-[1.75rem] border border-gray-200 bg-white shadow-[0_28px_80px_rgba(5,16,64,0.22)]"
         onClick={event => event.stopPropagation()}
       >
         <div className="relative overflow-hidden border-b border-gray-200 bg-white px-5 pb-5 pt-6 text-[#051040] sm:px-7 sm:pb-6 sm:pt-7">
@@ -721,26 +735,32 @@ export default function AboutUs() {
         {/* History */}
         <section id="history" className="py-20 bg-white scroll-mt-20">
           <div className="max-w-7xl mx-auto hcs-shell">
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14 items-start">
-              <div className="fade-up">
+            <div className="grid grid-cols-1 gap-10 xl:grid-cols-2 xl:gap-14 items-start">
+              <div className="fade-up hcs-history-media-block">
                 <ResponsiveEditorialImage
                   className="hcs-editorial-image hcs-history-image"
                   desktopImageUrl={HISTORY_DESKTOP_URL}
                   mobileImageUrl={HISTORY_MOBILE_URL}
                   tabletImageUrl={HISTORY_TABLET_URL}
                   alt="Historic photo representing the beginnings of His Church School"
-                  imageClassName="object-[50%_18%] sm:object-[50%_14%] lg:object-center"
+                  imageClassName="object-[50%_18%] sm:object-[50%_14%] xl:object-center"
                 />
+                <blockquote className="mt-8 hcs-pullquote">
+                  "For I know the plans I have for you," declares the Lord,
+                  "plans to prosper you and not to harm you, plans for a hope
+                  and a future."
+                  <cite>Jeremiah 29:11 (NIV)</cite>
+                </blockquote>
               </div>
               <div className="fade-up hcs-split-copy">
-                <p className="mb-3 text-center font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/62 lg:text-left">
+                <p className="mb-3 text-center font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/62 xl:text-left">
                   Since 1994
                 </p>
-                <h2 className="mb-2 text-center font-display text-3xl font-black text-[#051040] md:text-4xl lg:text-left">
+                <h2 className="mb-2 text-center font-display text-3xl font-black text-[#051040] md:text-4xl xl:text-left">
                   History
                 </h2>
-                <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
-                <div className="mx-auto max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed lg:mx-0 lg:max-w-none">
+                <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] xl:mx-0" />
+                <div className="mx-auto max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed sm:max-w-[46rem] lg:max-w-[52rem] xl:mx-0 xl:max-w-none">
                   <p>
                     His&nbsp;Church&nbsp;School (formerly known as City of Life
                     Academy) was founded in 1994 by Fiona Desfontaine to provide
@@ -777,12 +797,6 @@ export default function AboutUs() {
                     entire school, Grades 1 to 12, uses the CAPS curriculum.
                   </p>
                 </div>
-                <blockquote className="hcs-pullquote">
-                  "For I know the plans I have for you," declares the Lord,
-                  "plans to prosper you and not to harm you, plans for a hope
-                  and a future."
-                  <cite>Jeremiah 29:11 (NIV)</cite>
-                </blockquote>
               </div>
             </div>
           </div>
@@ -919,7 +933,7 @@ export default function AboutUs() {
               </p>
             </div>
 
-            <div className="mx-auto w-full max-w-[42rem] space-y-5 md:hidden fade-up">
+            <div className="mx-auto w-full max-w-[42rem] space-y-5 xl:hidden fade-up">
               <div className="w-full rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm">
                 <p className="font-label text-[0.72rem] font-bold uppercase tracking-[0.12em] text-[#051040]/62">
                   Governance
@@ -1002,7 +1016,7 @@ export default function AboutUs() {
             </div>
 
             <div
-              className="hidden fade-up overflow-x-auto -mx-4 px-4 py-2 md:block"
+              className="hidden fade-up overflow-x-auto -mx-4 px-4 py-2 xl:block"
               tabIndex={0}
               aria-label="His Church School organogram"
             >
@@ -1055,6 +1069,7 @@ export default function AboutUs() {
                         "Parents",
                         "Servants (Student Leaders)",
                         "Female Staff",
+                        "Hospitality Department",
                       ]}
                     />
                   </div>
@@ -1063,16 +1078,19 @@ export default function AboutUs() {
                   <div className="flex h-full w-full flex-col items-center">
                     <div className="w-[3px] h-8 bg-[#C9A84C]" />
                     <OrganogramDesktopCard
-                      title="Vice-Principal"
+                      title="Vice-Principal / Senior Phase"
                       leader="A. Botha"
                       items={[
                         "Senior Phase Staff",
+                        "Senior Phase Learners",
                         "Disciplinary Team",
                         "Maintenance Team",
                         "LSEN-H.O.D.",
                         "Male Staff",
                         "Learnership Staff",
                         "Badgers Leaders",
+                        "Safety & Security",
+                        "New Applicants' Interviews",
                       ]}
                     />
                   </div>
@@ -1085,8 +1103,10 @@ export default function AboutUs() {
                       leader="B. Cawood"
                       items={[
                         "Admin Staff",
-                        "Cleaning Staff",
+                        "Support Staff",
+                        "Supply Ordering",
                         "Fundraising Team",
+                        "Financial & Fundraising Oversight",
                       ]}
                     />
                   </div>
@@ -1116,11 +1136,30 @@ export default function AboutUs() {
                     <OrganogramDesktopCard
                       compact
                       title="Foundation"
-                      leader="V. Govender"
+                      leader="B. Govender"
                       items={[
                         "Foundation Phase Staff",
-                        "Hospitality Staff",
-                        "Hospitality Team",
+                        "Hospitality",
+                        "Functions",
+                      ]}
+                    />
+                  </div>
+
+                  {/* Secretary / Marketing */}
+                  <div className="flex h-full w-full flex-col items-center">
+                    <div className="w-[3px] h-8 bg-[#C9A84C]" />
+                    <OrganogramDesktopCard
+                      compact
+                      title="Secretary / Marketing"
+                      leader="T. Botha"
+                      items={[
+                        "Students' Rep. (SGB)",
+                        "Community Outreach",
+                        "Girls' Discipline",
+                        "Counsellors",
+                        "LSEN-Support",
+                        "Marketing Team",
+                        "Classroom Helpers",
                       ]}
                     />
                   </div>
@@ -1134,9 +1173,12 @@ export default function AboutUs() {
                       leader="S. Green"
                       items={[
                         "Intermediate Staff",
+                        "Intermediate Learners",
                         "IT-Administrator",
                         "Logistic Staff",
                         "Media Team",
+                        "POPI-Official",
+                        "SACAI-Registrations",
                       ]}
                     />
                   </div>
@@ -1149,30 +1191,12 @@ export default function AboutUs() {
                       title="FET"
                       leader="R. Geldenhuys"
                       items={[
-                        "Staff Rep.",
+                        "Staff Rep. (SGB)",
                         "FET-Staff",
                         "FET-learners",
                         "Boys' Discipline",
                         "Sport Coaches",
                         "Praise & Worship Team",
-                      ]}
-                    />
-                  </div>
-
-                  {/* Secretary */}
-                  <div className="flex h-full w-full flex-col items-center">
-                    <div className="w-[3px] h-8 bg-[#C9A84C]" />
-                    <OrganogramDesktopCard
-                      compact
-                      title="Secretary"
-                      leader="T. Botha"
-                      items={[
-                        "Students' Rep.",
-                        "Girls' Discipline",
-                        "Counsellors",
-                        "LSEN-Support",
-                        "Marketing Team",
-                        "Classroom Helpers",
                       ]}
                     />
                   </div>

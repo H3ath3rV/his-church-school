@@ -45,6 +45,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
   const homeHref = getPageHref("home");
   const contactHref = getPageHref("contact");
+  const privacyHref = getPageHref("privacy");
+  const footerLinks = [
+    ...FOOTER_NAV_ITEMS,
+    { label: "PRIVACY NOTICE", href: privacyHref },
+  ] as const;
   const currentPagePath = normalizeRoutePath(
     location.split("#")[0] || location
   );
@@ -259,7 +264,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         className={`relative bg-white sticky top-0 z-40 transition-shadow ${scrolled ? "shadow-md" : "border-b border-gray-200"}`}
       >
         <div className="max-w-7xl mx-auto hcs-shell">
-          <div className="flex items-center justify-between gap-3 h-[4.25rem] md:h-[5rem] xl:h-20">
+          <div className="flex items-center justify-between gap-3 h-[4.25rem] md:h-[5rem] lg:h-[5.35rem] xl:h-20">
             <Link
               href={homeHref}
               onClick={event => handleNavClick(event, homeHref)}
@@ -268,13 +273,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <img
                 src={CREST_URL}
                 alt="His Church School crest"
-                className="h-10 w-auto shrink-0 md:h-14 xl:h-16"
+                className="h-10 w-auto shrink-0 md:h-14 lg:h-[3.65rem] xl:h-16"
               />
               <div className="min-w-0 leading-none">
-                <div className="font-logo text-[0.9rem] leading-none tracking-normal uppercase text-[#051040] md:text-[1.18rem] xl:text-[1.47rem]">
+                <div className="font-logo text-[0.9rem] font-black leading-none tracking-[0.02em] uppercase text-[#051040] md:text-[1.18rem] lg:text-[1.1rem] xl:text-[1.47rem]">
                   HIS CHURCH
                 </div>
-                <div className="font-logo text-[1.42rem] leading-none tracking-normal uppercase text-[#051040] md:text-[1.88rem] xl:text-[2.3rem]">
+                <div className="font-logo text-[1.42rem] font-black leading-none tracking-[0.025em] uppercase text-[#051040] md:text-[1.88rem] lg:text-[1.85rem] xl:text-[2.3rem]">
                   SCHOOL
                 </div>
               </div>
@@ -285,7 +290,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <Link
                 href={homeHref}
                 onClick={event => handleNavClick(event, homeHref)}
-                className="group relative inline-flex min-h-[44px] items-center justify-center px-3 py-2 text-[#051040] transition-colors"
+                className="group relative inline-flex min-h-[44px] items-center justify-center px-2.5 py-2 text-[#051040] transition-colors xl:px-3"
                 aria-label="Home"
                 aria-current={isHomeActive ? "page" : undefined}
               >
@@ -313,11 +318,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     }
                     onKeyDown={handleDesktopDropdownKeyDown}
                   >
-                    <div className="group relative inline-flex min-h-[44px] items-center whitespace-nowrap font-label text-[0.79rem] font-bold tracking-[0.1em] text-[#051040] transition-colors">
+                    <div className="group relative inline-flex min-h-[44px] items-center whitespace-nowrap font-label text-[0.71rem] font-bold tracking-[0.095em] text-[#051040] transition-colors xl:text-[0.79rem] xl:tracking-[0.1em]">
                       <Link
                         href={item.href}
                         onClick={event => handleNavClick(event, item.href)}
-                        className={`inline-flex min-h-[44px] items-center py-2 ${item.children ? "pl-4 pr-1" : "px-4"}`}
+                        className={`inline-flex min-h-[44px] items-center py-2 ${item.children ? "pl-3 pr-0.5 xl:pl-4 xl:pr-1" : "px-3 xl:px-4"}`}
                         aria-current={isItemActive ? "page" : undefined}
                       >
                         {item.label}
@@ -325,7 +330,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       {item.children && (
                         <button
                           type="button"
-                          className="inline-flex min-h-[44px] min-w-[34px] items-center justify-center pr-3 text-current transition-colors hover:text-[#C9A84C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C]/35"
+                          className="inline-flex min-h-[44px] min-w-[30px] items-center justify-center pr-2 text-current transition-colors hover:text-[#C9A84C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C]/35 xl:min-w-[34px] xl:pr-3"
                           onClick={() =>
                             setActiveDropdown(isItemOpen ? null : item.label)
                           }
@@ -342,7 +347,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       )}
                       <span
                         aria-hidden="true"
-                        className={`absolute bottom-0 left-4 right-4 h-0.5 rounded-full bg-[#C9A84C] origin-center transition-transform duration-200 ${showAccent ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}
+                        className={`absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-[#C9A84C] origin-center transition-transform duration-200 xl:left-4 xl:right-4 ${showAccent ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}
                       />
                     </div>
                     {idx < PRIMARY_NAV_ITEMS.length - 1 && (
@@ -375,9 +380,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <Link
                 href={contactHref}
                 onClick={event => handleNavClick(event, contactHref)}
-                className="hcs-btn-primary hcs-btn-enquire ml-5 whitespace-nowrap shadow-[0_12px_26px_rgba(5,16,64,0.16)]"
+                className="hcs-btn-primary hcs-btn-enquire ml-3 whitespace-nowrap px-5 text-[0.74rem] shadow-[0_12px_26px_rgba(5,16,64,0.16)] xl:ml-5 xl:px-6 xl:text-[0.78rem]"
               >
-                ENQUIRE NOW
+                CONTACT US
               </Link>
             </nav>
 
@@ -418,7 +423,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             aria-label="Site navigation"
             className="hcs-shell xl:hidden absolute inset-x-0 top-full z-40 -mt-px"
           >
-            <div className="mx-auto max-h-[calc(100vh-6rem)] overflow-y-auto overflow-x-hidden rounded-[1.25rem] border border-gray-200 bg-white shadow-[0_18px_50px_rgba(5,16,64,0.16)] sm:max-h-[calc(100vh-8rem)] sm:max-w-[42rem] md:max-w-[46rem] lg:max-w-[50rem]">
+            <div className="hcs-mobile-menu-panel mx-auto overflow-y-auto overflow-x-hidden rounded-[1.25rem] border border-gray-200 bg-white shadow-[0_18px_50px_rgba(5,16,64,0.16)] sm:max-w-[42rem] md:max-w-[46rem] lg:max-w-[50rem]">
               <div className="flex items-center justify-between gap-4 border-b border-gray-200 bg-[#F7F8FC] px-6 py-5">
                 <Link
                   href={homeHref}
@@ -539,7 +544,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   onClick={event => handleNavClick(event, contactHref)}
                   className="hcs-btn-primary mx-auto w-full max-w-[28rem] text-center sm:max-w-none"
                 >
-                  ENQUIRE NOW
+                  CONTACT US
                 </Link>
               </div>
               <div className="border-t border-gray-200 bg-[#FAFBFE] px-6 py-3.5">
@@ -620,11 +625,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <footer className="bg-[#051040] py-7 text-white sm:py-8">
         <div className="max-w-7xl mx-auto hcs-shell">
           <div className="xl:hidden">
-            <div className="mx-auto grid w-full max-w-[26rem] grid-cols-2 items-start justify-items-center gap-x-8 sm:max-w-[30rem] sm:gap-x-10 md:max-w-[34rem] md:gap-x-12">
-              {FOOTER_NAV_ITEMS.map((link, index) => (
-                <div
+            <nav className="mx-auto flex w-full max-w-[22rem] flex-wrap items-center justify-center gap-x-4 gap-y-1 sm:max-w-[32rem] sm:gap-x-5">
+              {footerLinks.map((link, i, arr) => (
+                <span
                   key={link.label}
-                  className="grid justify-items-center gap-y-4 sm:gap-y-5"
+                  className="flex items-center justify-center gap-4"
                 >
                   {link.href.startsWith("http") ? (
                     <a
@@ -644,29 +649,31 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       {link.label}
                     </Link>
                   )}
-
-                  {index === 0 ? (
-                    <Link
-                      href={homeHref}
-                      onClick={event => handleNavClick(event, homeHref)}
-                      className="flex h-[3.45rem] w-[3.45rem] items-center justify-center rounded-full transition-opacity hover:opacity-100 sm:h-[3.8rem] sm:w-[3.8rem] md:h-[3.9rem] md:w-[3.9rem]"
-                      aria-label="His Church School home"
-                    >
-                      <img
-                        src={CREST_URL}
-                        alt="His Church School crest"
-                        className="h-full w-auto opacity-55"
-                      />
-                    </Link>
-                  ) : (
-                    <img
-                      src={getPublicAssetHref("branding/hcs-30years-badge.png")}
-                      alt="His Church School 30 Years badge"
-                      className="h-[3.15rem] w-auto opacity-55 sm:h-[3.45rem] md:h-[3.55rem]"
-                    />
+                  {i < arr.length - 1 && (
+                    <span className="text-white/30">|</span>
                   )}
-                </div>
+                </span>
               ))}
+            </nav>
+
+            <div className="mx-auto mt-4 flex w-full items-start justify-center gap-x-10 sm:mt-5 sm:gap-x-12">
+              <Link
+                href={homeHref}
+                onClick={event => handleNavClick(event, homeHref)}
+                className="flex h-[3.45rem] w-[3.45rem] items-center justify-center rounded-full transition-opacity hover:opacity-100 sm:h-[3.8rem] sm:w-[3.8rem] md:h-[3.9rem] md:w-[3.9rem]"
+                aria-label="His Church School home"
+              >
+                <img
+                  src={CREST_URL}
+                  alt="His Church School crest"
+                  className="h-full w-auto opacity-55"
+                />
+              </Link>
+              <img
+                src={getPublicAssetHref("branding/hcs-30years-badge.png")}
+                alt="His Church School 30 Years badge"
+                className="h-[3.15rem] w-auto opacity-55 sm:h-[3.45rem] md:h-[3.55rem]"
+              />
             </div>
           </div>
 
@@ -687,7 +694,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
 
             <nav className="mx-auto flex w-auto max-w-none flex-nowrap items-center justify-self-center gap-x-4 gap-y-0 2xl:gap-x-5">
-              {FOOTER_NAV_ITEMS.map((link, i, arr) => (
+              {footerLinks.map((link, i, arr) => (
                 <span
                   key={link.label}
                   className="flex items-center justify-center gap-4"

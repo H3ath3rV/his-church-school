@@ -18,7 +18,7 @@ export default defineConfig({
   base: "./",
   plugins,
   define: {
-    __ASSET_VERSION__: JSON.stringify(assetVersion || "local"),
+    __ASSET_VERSION__: JSON.stringify(assetVersion || ""),
   },
   resolve: {
     alias: {

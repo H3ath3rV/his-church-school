@@ -29,6 +29,11 @@
     "description": "Find ways to partner with His Church School through sponsorship, bursary support, and community collaboration.",
     "robots": "index,follow"
   },
+  "privacy": {
+    "title": "Privacy Notice | His Church School",
+    "description": "Read how His Church School handles website enquiry information, hosted form submissions, and personal information shared through this website.",
+    "robots": "index,follow"
+  },
   "notFound": {
     "title": "Page Not Found | His Church School",
     "description": "The page you are looking for could not be found. Return to His Church School to continue browsing.",

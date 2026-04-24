@@ -81,7 +81,7 @@
   --font-heading: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-label: "Inter", system-ui, sans-serif;
-  --font-logo: "Inter", "Arial Black", sans-serif;
+  --font-logo: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -176,6 +176,15 @@
   a {
     text-decoration-skip-ink: auto;
   }
+
+  @supports not (overflow: clip) {
+    html,
+    body,
+    #root {
+      overflow-x: hidden;
+    }
+  }
+
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
   [type="button"]:not(:disabled),
@@ -232,6 +241,26 @@
     outline-offset: 3px;
   }
 
+  .hcs-mobile-menu-panel {
+    max-height: calc(100vh - 6rem);
+    max-height: calc(100svh - 6rem);
+  }
+
+  .hcs-staff-modal-panel {
+    max-height: calc(100vh - 2rem);
+    max-height: calc(100svh - 2rem);
+  }
+
+  @supports (height: 100dvh) {
+    .hcs-mobile-menu-panel {
+      max-height: calc(100dvh - 6rem);
+    }
+
+    .hcs-staff-modal-panel {
+      max-height: calc(100dvh - 2rem);
+    }
+  }
+
   @media (min-width: 640px) {
     .hcs-shell {
       padding-left: 2.25rem;
@@ -241,6 +270,26 @@
     .container {
       padding-left: 1.75rem;
       padding-right: 1.75rem;
+    }
+
+    .hcs-mobile-menu-panel {
+      max-height: calc(100vh - 8rem);
+      max-height: calc(100svh - 8rem);
+    }
+
+    .hcs-staff-modal-panel {
+      max-height: calc(100vh - 3rem);
+      max-height: calc(100svh - 3rem);
+    }
+
+    @supports (height: 100dvh) {
+      .hcs-mobile-menu-panel {
+        max-height: calc(100dvh - 8rem);
+      }
+
+      .hcs-staff-modal-panel {
+        max-height: calc(100dvh - 3rem);
+      }
     }
   }
 
@@ -326,7 +375,7 @@
   .hcs-pullquote cite {
     display: block;
     margin-top: 0.5rem;
-    color: rgb(5 16 64 / 0.45);
+    color: rgb(5 16 64 / 0.62);
     font-family: var(--font-sans);
     font-size: 0.75rem;
     font-style: normal;
@@ -339,6 +388,12 @@
     display: grid;
     gap: 1rem;
     text-align: left;
+  }
+
+  .hcs-history-media-block {
+    width: 100%;
+    max-width: 42rem;
+    margin-inline: auto;
   }
 
   .hcs-editorial-image {
@@ -486,7 +541,22 @@
     }
 
     .hcs-history-image {
+      height: 19rem;
+      max-width: 56rem;
+      margin-inline: auto;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .hcs-history-media-block {
+      max-width: none;
+      margin-inline: 0;
+    }
+
+    .hcs-history-image {
       height: 21.5rem;
+      max-width: none;
+      margin-inline: 0;
     }
   }
 

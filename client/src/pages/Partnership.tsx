@@ -137,7 +137,7 @@ export default function Partnership() {
                 Partner With Us
               </h2>
               <div className="w-12 h-0.5 bg-[#051040]/30 mx-auto mb-6 fade-up hcs-divider" />
-              <div className="mx-auto w-full max-w-[44ch] text-left text-[#051040]/70 font-body leading-relaxed fade-up md:max-w-none md:text-center">
+              <div className="mx-auto w-full max-w-[44ch] space-y-4 text-left text-[#051040]/70 font-body leading-relaxed fade-up md:max-w-[62rem] md:text-center">
                 <p>
                   His&nbsp;Church&nbsp;School values the support of the broader
                   community and business sector. By partnering with us, you
@@ -145,20 +145,13 @@ export default function Partnership() {
                   generation of young people grounded in faith, character, and
                   excellence.
                 </p>
-              </div>
-              <div className="mt-8 flex flex-col items-stretch justify-center gap-3 fade-up sm:flex-row sm:items-center">
-                <a
-                  href="#sponsorship-form"
-                  className="hcs-btn-primary text-center"
-                >
-                  SPONSOR WITH US
-                </a>
-                <a
-                  href="mailto:secretary@hcschool.co.za?subject=Sponsorship%20Enquiry"
-                  className="hcs-btn-gold text-center"
-                >
-                  EMAIL THE OFFICE
-                </a>
+                <p>
+                  Partnership can take many forms, from sponsorships and
+                  practical resources to skills, time, and community
+                  connections that strengthen school life. Every contribution
+                  helps create a richer environment where learners can grow in
+                  confidence, opportunity, and purpose.
+                </p>
               </div>
             </div>
           </div>
@@ -197,14 +190,14 @@ export default function Partnership() {
                     you through available options and connect you with the
                     relevant leadership team.
                   </p>
-                  <div className="flex flex-wrap justify-center gap-3 pt-2 lg:justify-start">
-                    <a
-                      href="#sponsorship-form"
-                      className="hcs-btn-primary px-7"
-                    >
-                      Enquire About Sponsorship
-                    </a>
-                  </div>
+                </div>
+                <div className="mt-8 flex flex-col items-stretch gap-3 fade-up sm:flex-row sm:items-center lg:justify-start">
+                  <a
+                    href="#sponsorship-form"
+                    className="hcs-btn-primary hcs-btn-enquire text-center"
+                  >
+                    SPONSOR WITH US
+                  </a>
                 </div>
               </div>
               <div className="fade-up order-1 lg:order-2">
@@ -244,10 +237,10 @@ export default function Partnership() {
               enquiryType="Sponsorship"
               fields={sponsorshipFields}
               formId="sponsorship"
-              intro="Complete this form and your sponsorship enquiry will be sent directly to the school office for follow-up."
+              intro="Complete this form and your sponsorship enquiry will be sent to the school office for follow-up."
               page="Partnership"
               submitLabel="SEND SPONSORSHIP ENQUIRY"
-              successBody="Your sponsorship enquiry has been sent directly to the school office. We'll follow up using the details you provided."
+              successBody="Your sponsorship enquiry has been sent to the school office. We'll follow up using the details you provided."
               successIcon={
                 <HandHeart
                   size={24}

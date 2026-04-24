@@ -1,4 +1,4 @@
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
 const projectRoot = process.cwd();
@@ -47,6 +47,10 @@ const routeFiles = {
   partnership: {
     filePath: path.join(docsDir, "partnership", "index.html"),
     routePath: "/partnership/",
+  },
+  privacy: {
+    filePath: path.join(docsDir, "privacy", "index.html"),
+    routePath: "/privacy/",
   },
   notFound: {
     filePath: path.join(docsDir, "404.html"),
@@ -202,14 +206,36 @@ for (const [routeKey, routeDefinition] of Object.entries(routeFiles)) {
   );
   assertMatches(
     html,
-    /<noscript id="static-page-fallback">[\s\S]*?<h1>[\s\S]*?<\/h1>[\s\S]*?<\/noscript>/,
+    /<noscript id="static-page-fallback">[\s\S]*?<main[\s\S]*?<\/main>[\s\S]*?<\/noscript>/,
     `${routeKey}: no-JavaScript fallback missing`
+  );
+  assertMatches(
+    html,
+    /^(?![\s\S]*<noscript id="static-page-fallback">[\s\S]*?<h1\b)/,
+    `${routeKey}: no-JavaScript fallback should not add a duplicate h1`
   );
   if (/fonts\.googleapis\.com|fonts\.gstatic\.com/.test(html)) {
     throw new Error(`${routeKey}: external Google Fonts reference found`);
   }
+  if (/\s(?:href|src|srcSet|srcset)="\/(?!\/)/.test(html)) {
+    throw new Error(`${routeKey}: root-relative local HTML reference found`);
+  }
+  if (/url\((['"]?)\/(?!\/)/.test(html)) {
+    throw new Error(`${routeKey}: root-relative local CSS url found in HTML`);
+  }
 
   await assertLocalReferenceExists(html, routeDefinition.filePath, routeKey);
+}
+
+const assetsDir = path.join(docsDir, "assets");
+const assetFiles = await readdir(assetsDir).catch(() => []);
+
+for (const assetFile of assetFiles.filter(file => file.endsWith(".css"))) {
+  const css = await readFile(path.join(assetsDir, assetFile), "utf8");
+
+  if (/url\((['"]?)\/(?!\/)/.test(css)) {
+    throw new Error(`${assetFile}: root-relative local CSS url found`);
+  }
 }
 
 console.log("Static export metadata validation passed.");

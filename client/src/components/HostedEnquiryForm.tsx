@@ -1,10 +1,12 @@
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
+import { Link } from "wouter";
 import { ChevronDown } from "lucide-react";
 import {
   HAS_ENQUIRY_FORM_ENDPOINT,
   HostedFormSubmissionError,
   submitHostedEnquiryForm,
 } from "@/lib/hostedForm";
+import { getPageHref } from "@/lib/sitePaths";
 
 export type HostedEnquiryField = {
   name: string;
@@ -86,6 +88,7 @@ export default function HostedEnquiryForm({
   title,
   buildSubmission,
 }: HostedEnquiryFormProps) {
+  const formRef = useRef<HTMLFormElement>(null);
   const initialValues = createInitialValues(fields);
   const [values, setValues] = useState<Record<string, string>>(initialValues);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -95,6 +98,7 @@ export default function HostedEnquiryForm({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const privacyHref = getPageHref("privacy");
 
   const updateFieldError = (
     field: HostedEnquiryField,
@@ -142,6 +146,24 @@ export default function HostedEnquiryForm({
     }, {});
   };
 
+  const focusField = (fieldName: string) => {
+    requestAnimationFrame(() => {
+      const fieldElement = document.getElementById(`${formId}-${fieldName}`);
+
+      if (fieldElement instanceof HTMLElement) {
+        fieldElement.focus();
+      }
+    });
+  };
+
+  const focusFirstInvalidField = (fieldErrors: Record<string, string>) => {
+    const firstInvalidField = fields.find(field => fieldErrors[field.name]);
+
+    if (firstInvalidField) {
+      focusField(firstInvalidField.name);
+    }
+  };
+
   const resetForm = () => {
     setValues(initialValues);
     setErrors({});
@@ -165,6 +187,7 @@ export default function HostedEnquiryForm({
           return nextTouchedFields;
         }, {})
       );
+      focusFirstInvalidField(nextErrors);
       return;
     }
 
@@ -210,6 +233,7 @@ export default function HostedEnquiryForm({
               {}
             ),
           }));
+          focusFirstInvalidField(error.fieldErrors);
         }
 
         setSubmitError(error.message);
@@ -267,9 +291,11 @@ export default function HostedEnquiryForm({
         </div>
       ) : (
         <form
+          ref={formRef}
           id={formId}
           onSubmit={handleSubmit}
           aria-busy={isSubmitting}
+          noValidate
           className="space-y-4 md:space-y-5"
         >
           <p className="rounded-2xl bg-[#EEF2FB] px-4 py-4 font-body text-[0.98rem] leading-[1.72] text-[#051040]/70 md:px-5 sm:text-[1rem]">
@@ -394,6 +420,18 @@ export default function HostedEnquiryForm({
           </div>
 
           <div className="pt-1">
+            <p className="mb-4 rounded-2xl border border-[#051040]/10 bg-[#FAFBFE] px-4 py-4 font-body text-[0.92rem] leading-[1.7] text-[#051040]/72 sm:text-[0.96rem]">
+              By submitting this form, you consent to His Church School and its
+              hosted enquiry service using the information you provide to reply
+              to your request. Read our{" "}
+              <Link
+                href={privacyHref}
+                className="font-semibold text-[#051040] underline decoration-[#C9A84C] decoration-2 underline-offset-3 transition-colors hover:text-[#0A1B66]"
+              >
+                Privacy Notice
+              </Link>
+              .
+            </p>
             <button
               type="submit"
               disabled={isSubmitting || !HAS_ENQUIRY_FORM_ENDPOINT}

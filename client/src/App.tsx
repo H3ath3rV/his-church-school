@@ -22,6 +22,7 @@ import Academic from "./pages/Academic";
 import SchoolLife from "./pages/SchoolLife";
 import ContactUs from "./pages/ContactUs";
 import Partnership from "./pages/Partnership";
+import Privacy from "./pages/Privacy";
 
 type RouteMetadata = {
   title: string;
@@ -43,6 +44,7 @@ const ROUTE_COMPONENTS: Record<SitePage, ComponentType> = {
   schoolLife: SchoolLife,
   contact: ContactUs,
   partnership: Partnership,
+  privacy: Privacy,
   notFound: NotFound,
 };
 
@@ -53,13 +55,22 @@ const ROUTE_ORDER: SitePage[] = [
   "schoolLife",
   "contact",
   "partnership",
+  "privacy",
   "notFound",
 ];
 
 const PAGE_METADATA = routeMetadata as Record<SitePage, RouteMetadata>;
 
 const ROUTE_METADATA_BY_PATH = (
-  ["home", "about", "academic", "schoolLife", "contact", "partnership"] as const
+  [
+    "home",
+    "about",
+    "academic",
+    "schoolLife",
+    "contact",
+    "partnership",
+    "privacy",
+  ] as const
 ).reduce<Record<string, RouteMetadata>>(
   (metadata, page) => {
     metadata[normalizeRoutePath(getPageHref(page))] = PAGE_METADATA[page];
@@ -197,6 +208,84 @@ function RouteMetadataManager() {
   return null;
 }
 
+function preventTextWidows(root: ParentNode = document) {
+  const textTargets = root.querySelectorAll<HTMLElement>(
+    [
+      "main h1",
+      "main h2",
+      "main h3",
+      "main h4",
+      "main h5",
+      "main h6",
+      "main p",
+      "main li",
+      "main blockquote",
+      "main cite",
+    ].join(",")
+  );
+
+  textTargets.forEach(element => {
+    if (element.closest("[data-no-widow-fix]")) return;
+
+    const walker = document.createTreeWalker(
+      element,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode(node) {
+          return node.textContent?.trim()
+            ? NodeFilter.FILTER_ACCEPT
+            : NodeFilter.FILTER_REJECT;
+        },
+      }
+    );
+    let lastTextNode: Text | null = null;
+
+    while (walker.nextNode()) {
+      lastTextNode = walker.currentNode as Text;
+    }
+
+    if (!lastTextNode?.textContent) return;
+
+    const textWithWidowGuard = lastTextNode.textContent.replace(
+      /(\S+)\s+(\S+)(\s*)$/,
+      "$1\u00A0$2$3"
+    );
+
+    if (textWithWidowGuard !== lastTextNode.textContent) {
+      lastTextNode.textContent = textWithWidowGuard;
+    }
+  });
+}
+
+function TypographyManager() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+
+    const run = () => preventTextWidows();
+    const frameId = window.requestAnimationFrame(run);
+    const timeoutId = window.setTimeout(run, 250);
+    const main = document.querySelector("main");
+    const observer = new MutationObserver(run);
+
+    if (main) {
+      observer.observe(main, {
+        childList: true,
+        subtree: true,
+      });
+    }
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.clearTimeout(timeoutId);
+      observer.disconnect();
+    };
+  }, [location]);
+
+  return null;
+}
+
 function Router() {
   return (
     <Switch>
@@ -227,6 +316,7 @@ function App({ ssrPath }: AppProps = {}) {
       <WouterRouter base={routerBase} ssrPath={ssrPath}>
         <ScrollManager />
         <RouteMetadataManager />
+        <TypographyManager />
         <Router />
       </WouterRouter>
     </ErrorBoundary>

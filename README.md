@@ -76,20 +76,26 @@ Copy `.env.example` to `.env` if you need to override defaults.
 - `VITE_SITE_URL`: canonical production URL used for SEO metadata. Defaults to `https://hcschool.co.za`
 - `VITE_GA_MEASUREMENT_ID`: optional Google Analytics 4 measurement ID
 - `VITE_ENQUIRY_FORM_ENDPOINT`: hosted form endpoint for all website enquiries and sponsorship submissions, for example `https://formspree.io/f/your-form-id`
-- `VITE_ASSET_VERSION`: optional cache-busting version for public assets. If omitted, the build generates one automatically.
+- `VITE_ASSET_VERSION`: optional cache-busting version for public assets in local builds. In CI, set this to the deployment commit SHA so published assets get a stable version token.
 
 ## Deployment
 
 This project is currently set up to deploy as a static site.
 
 - `docs/` is the final output for GitHub Pages
+- preview URL: `https://h3ath3rv.github.io/his-church-school/`
+- canonical production domain: `https://hcschool.co.za/`
 - any other static host can deploy the contents of `docs/`
 - after content changes, always run `pnpm build` before publishing
+- the static export keeps SEO metadata pointed at the production domain while using relative local links so the GitHub Pages project preview can load assets and pages correctly
 
 ## Handover notes
 
 - Treat `client/src/` and `client/public/` as the source of truth.
 - Treat `docs/` as generated output only.
-- To enable live website submissions, connect a hosted form endpoint in `.env` as `VITE_ENQUIRY_FORM_ENDPOINT`.
+- Website submissions use Formspree through `VITE_ENQUIRY_FORM_ENDPOINT`.
+- For client handover, ask the school to create or approve the Formspree account, then replace the temporary endpoint with the school-owned endpoint in the hosting environment.
+- After changing the endpoint, send one test contact enquiry and one test sponsorship enquiry from the deployed site and confirm the school office receives both.
 - The contact and sponsorship flows both use the same live submission pattern and intentionally do not fall back to `mailto:`.
+- Keep the public policy PDFs in `client/public/downloads/policies/` so families can open them easily on any device.
 - Route paths and static-export behavior are centralised in `client/src/lib/sitePaths.ts`.

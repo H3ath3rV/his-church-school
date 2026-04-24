@@ -20,10 +20,6 @@ export const PRIMARY_NAV_ITEMS: NavigationItem[] = [
       { label: "Vision & Mission", href: getSectionHref("about", "vision") },
       { label: "Organogram", href: getSectionHref("about", "organogram") },
       { label: "Staff Biographies", href: getSectionHref("about", "staff") },
-      {
-        label: "Policies & Documents",
-        href: getSectionHref("contact", "policies"),
-      },
     ],
   },
   {
@@ -64,6 +60,10 @@ export const PRIMARY_NAV_ITEMS: NavigationItem[] = [
       },
     ],
   },
+  {
+    label: "PARTNERSHIP",
+    href: getPageHref("partnership"),
+  },
 ];
 
 export const FOOTER_NAV_ITEMS = [
@@ -71,5 +71,4 @@ export const FOOTER_NAV_ITEMS = [
     label: "GALLERY",
     href: "https://www.facebook.com/hischurchschool/photos",
   },
-  { label: "PARTNERSHIP", href: getPageHref("partnership") },
 ] as const;

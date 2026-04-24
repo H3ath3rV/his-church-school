@@ -5,6 +5,7 @@ const PAGE_PATHS = {
   schoolLife: "/school-life/",
   contact: "/contact/",
   partnership: "/partnership/",
+  privacy: "/privacy/",
   notFound: "/404/",
 } as const;
 
@@ -17,6 +18,7 @@ const FOLDER_ROUTE_KEYS: FolderRoutePage[] = [
   "schoolLife",
   "contact",
   "partnership",
+  "privacy",
 ];
 const STATIC_ROUTE_SUFFIXES = [
   ...FOLDER_ROUTE_KEYS.flatMap(page => {
@@ -70,8 +72,9 @@ export function getSiteBasePath(pathname?: string) {
 
   // Graceful fallback for GitHub Pages project sites where deep broken links
   // preserve the repository segment before the missing path.
-  const githubPagesProjectBase =
-    !import.meta.env.DEV ? getGithubPagesProjectBase(currentPath) : "";
+  const githubPagesProjectBase = !import.meta.env.DEV
+    ? getGithubPagesProjectBase(currentPath)
+    : "";
 
   if (githubPagesProjectBase) {
     return githubPagesProjectBase;

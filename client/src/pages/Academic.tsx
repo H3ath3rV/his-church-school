@@ -1,9 +1,8 @@
-import { Link } from "wouter";
 import Layout from "@/components/Layout";
 import PageHero from "@/components/PageHero";
 import ResponsiveEditorialImage from "@/components/ResponsiveEditorialImage";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { getPageHref, getPublicAssetHref } from "@/lib/sitePaths";
+import { getPublicAssetHref } from "@/lib/sitePaths";
 
 const HERO_URL = getPublicAssetHref(
   "photos/academic/academic-hero-mobile.webp"
@@ -352,29 +351,6 @@ export default function Academic() {
           </div>
         </section>
 
-        <section className="bg-[#F5EBDD] py-16">
-          <div className="mx-auto max-w-5xl hcs-shell text-center">
-            <p className="font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/62 fade-up">
-              Next Step
-            </p>
-            <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-black leading-tight text-[#051040] fade-up md:text-4xl">
-              Need help choosing the right academic pathway?
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl font-body text-[1rem] leading-[1.72] text-[#051040]/70 fade-up">
-              Speak to the school office about subject choices, NSC
-              registration, accreditation, or the admissions process for your
-              child.
-            </p>
-            <div className="mt-7 flex justify-center fade-up">
-              <Link
-                href={getPageHref("contact")}
-                className="hcs-btn-primary px-8"
-              >
-                Contact the School Office
-              </Link>
-            </div>
-          </div>
-        </section>
       </div>
     </Layout>
   );

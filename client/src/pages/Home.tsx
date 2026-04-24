@@ -195,6 +195,20 @@ export default function Home() {
         {/* ── Contact Strip ── */}
         <section className="bg-[#EEF2FB] py-10 sm:py-12 lg:py-14">
           <div className="max-w-7xl mx-auto hcs-shell">
+            <div className="mx-auto mb-8 max-w-3xl text-center fade-up sm:mb-10">
+              <p className="mb-3 font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/68">
+                Start the Conversation
+              </p>
+              <h2 className="font-display text-3xl font-black text-[#051040] md:text-4xl">
+                Speak to Our School Office
+              </h2>
+              <div className="mx-auto mt-4 mb-5 h-0.5 w-12 bg-[#C9A84C] hcs-divider" />
+              <p className="mx-auto max-w-2xl font-body text-[0.98rem] leading-[1.7] text-[#051040]/70 sm:text-[1rem]">
+                Whether you are planning a visit, asking about admissions, or
+                requesting school documents, our team can point you in the right
+                direction.
+              </p>
+            </div>
             <div className="mx-auto hidden min-[900px]:grid min-[900px]:max-w-[68rem] min-[900px]:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)_1px_minmax(0,1fr)] min-[900px]:items-stretch min-[900px]:justify-items-center min-[900px]:gap-x-5 lg:gap-x-8 xl:max-w-[76rem] xl:gap-x-10">
               {CONTACT_DETAILS.map((item, index) => {
                 return (
@@ -245,10 +259,10 @@ export default function Home() {
                 <div className="mx-auto mb-6 h-0.5 w-12 bg-[#C9A84C] lg:mx-0" />
                 <div className="space-y-4 text-center text-[#051040]/70 font-body leading-relaxed lg:text-left">
                   <p>
-                    At His&nbsp;Church&nbsp;School, faith is not just a subject; it is the
-                    foundation of everything we do. Daily devotions, praise and
-                    worship, and a Christ-centred community shape the spiritual
-                    lives of our learners.
+                    At His&nbsp;Church&nbsp;School, faith is not just a subject;
+                    it is the foundation of everything we do. Daily devotions,
+                    praise and worship, and a Christ-centred community shape the
+                    spiritual lives of our learners.
                   </p>
                   <p>
                     Our Praise and Worship Team, comprising both staff and
@@ -304,8 +318,8 @@ export default function Home() {
             <div className="w-[60px] h-[2px] bg-[#C9A84C] mx-auto my-6 fade-up hcs-divider" />
             <div className="mx-auto w-full max-w-none text-center text-[#051040]/70 font-body leading-relaxed fade-up">
               <p>
-                His&nbsp;Church&nbsp;School offers a seamless learning journey from
-                primary school through to high school, grounded in faith,
+                His&nbsp;Church&nbsp;School offers a seamless learning journey
+                from primary school through to high school, grounded in faith,
                 character, and academic growth. Within one nurturing community,
                 learners are known, valued, and guided through every stage of
                 their development.
@@ -333,9 +347,9 @@ export default function Home() {
             </h2>
             <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mb-6 fade-up hcs-divider" />
             <p className="text-white/65 font-body mb-8 leading-relaxed fade-up sm:mb-10">
-              Get a glimpse of life at His&nbsp;Church&nbsp;School through our facilities,
-              community, and the vibrant faith-filled environment where our
-              learners thrive.
+              Get a glimpse of life at His&nbsp;Church&nbsp;School through our
+              facilities, community, and the vibrant faith-filled environment
+              where our learners thrive.
             </p>
             <a
               href="https://www.facebook.com/hischurchschool/videos"

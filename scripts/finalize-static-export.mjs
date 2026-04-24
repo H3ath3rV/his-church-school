@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -23,7 +23,9 @@ const logoPath = "/branding/hcs-crest.png";
 const sharedRouteMetadata = JSON.parse(
   await readFile(routeMetadataPath, "utf8")
 );
-const sitemapLastmod = (process.env.SITEMAP_LASTMOD ?? "2026-04-23").trim();
+const sitemapLastmod = (
+  process.env.SITEMAP_LASTMOD ?? new Date().toISOString().slice(0, 10)
+).trim();
 
 if (!/^\d{4}-\d{2}-\d{2}$/.test(sitemapLastmod)) {
   throw new Error("SITEMAP_LASTMOD must use YYYY-MM-DD format.");
@@ -59,6 +61,11 @@ const routeDefinitions = {
     filePath: path.join(docsDir, "partnership", "index.html"),
     routePath: "/partnership/",
     ...sharedRouteMetadata.partnership,
+  },
+  privacy: {
+    filePath: path.join(docsDir, "privacy", "index.html"),
+    routePath: "/privacy/",
+    ...sharedRouteMetadata.privacy,
   },
   notFound: {
     filePath: path.join(docsDir, "404.html"),
@@ -98,6 +105,95 @@ function normalizeDocumentAssetLinks(html) {
     .replaceAll('href="./apple-touch-icon.png"', 'href="/apple-touch-icon.png"')
     .replaceAll('href="./site.webmanifest"', 'href="/site.webmanifest"')
     .replaceAll('href="./fonts/', 'href="/fonts/');
+}
+
+function isRouteReference(reference) {
+  return Object.values(routeDefinitions).some(
+    route => route.routePath === reference
+  );
+}
+
+function toRelativeReference(reference, htmlFilePath) {
+  if (!reference.startsWith("/") || reference.startsWith("//")) {
+    return reference;
+  }
+
+  const [pathAndQuery, hash = ""] = reference.split("#");
+  const [pathname, query = ""] = pathAndQuery.split("?");
+  const targetPath = isRouteReference(pathname)
+    ? path.join(docsDir, pathname)
+    : path.join(docsDir, pathname.replace(/^\/+/, ""));
+  let relativePath = path
+    .relative(path.dirname(htmlFilePath), targetPath)
+    .replaceAll(path.sep, "/");
+
+  if (!relativePath || relativePath === ".") {
+    relativePath = ".";
+  }
+
+  if (pathname.endsWith("/") && !relativePath.endsWith("/")) {
+    relativePath = `${relativePath}/`;
+  }
+
+  const queryString = query ? `?${query}` : "";
+  const hashString = hash ? `#${hash}` : "";
+
+  return `${relativePath}${queryString}${hashString}`;
+}
+
+function localizeRootRelativeReferences(html, htmlFilePath) {
+  return html
+    .replace(/\s(href|src)="(\/[^"]*)"/g, (match, attribute, reference) => {
+      return ` ${attribute}="${toRelativeReference(reference, htmlFilePath)}"`;
+    })
+    .replace(/\s(srcSet|srcset)="([^"]+)"/g, (match, attribute, sourceSet) => {
+      const localizedSourceSet = sourceSet
+        .split(",")
+        .map(source => {
+          const parts = source.trim().split(/\s+/);
+          const [reference, ...descriptor] = parts;
+          return [
+            toRelativeReference(reference, htmlFilePath),
+            ...descriptor,
+          ].join(" ");
+        })
+        .join(", ");
+
+      return ` ${attribute}="${localizedSourceSet}"`;
+    })
+    .replace(/url\((['"]?)(\/[^'")]+)\1\)/g, (match, quote, reference) => {
+      const localizedReference = toRelativeReference(reference, htmlFilePath);
+      return `url(${quote}${localizedReference}${quote})`;
+    });
+}
+
+async function localizeCssAssetUrls() {
+  const assetsDir = path.join(docsDir, "assets");
+  const assetFiles = await readdir(assetsDir).catch(() => []);
+
+  await Promise.all(
+    assetFiles
+      .filter(file => file.endsWith(".css"))
+      .map(async file => {
+        const cssPath = path.join(assetsDir, file);
+        const css = await readFile(cssPath, "utf8");
+        const localizedCss = css.replace(
+          /url\((['"]?)\/([^'")]+)\1\)/g,
+          (match, quote, reference) => {
+            const targetPath = path.join(docsDir, reference);
+            const localizedReference = path
+              .relative(path.dirname(cssPath), targetPath)
+              .replaceAll(path.sep, "/");
+
+            return `url(${quote}${localizedReference}${quote})`;
+          }
+        );
+
+        if (localizedCss !== css) {
+          await writeFile(cssPath, localizedCss);
+        }
+      })
+  );
 }
 
 function injectStaticRoot(html, metadata) {
@@ -148,7 +244,7 @@ function applyMetadata(html, metadata) {
     ],
   };
 
-  return normalizeDocumentAssetLinks(injectStaticRoot(html, metadata))
+  const pageHtml = normalizeDocumentAssetLinks(injectStaticRoot(html, metadata))
     .replace(
       /<title>[\s\S]*?<\/title>/,
       `<title>${escapeHtml(metadata.title)}</title>`
@@ -207,12 +303,16 @@ function applyMetadata(html, metadata) {
       /<noscript id="static-page-fallback">[\s\S]*?<\/noscript>/,
       buildNoScriptFallback(metadata)
     );
+
+  return localizeRootRelativeReferences(pageHtml, metadata.filePath);
 }
 
 function buildNoScriptFallback(metadata) {
   return `<noscript id="static-page-fallback">
       <main style="font-family: Georgia, serif; margin: 2rem auto; max-width: 48rem; padding: 0 1.25rem; color: #051040;">
-        <h1>${escapeHtml(metadata.title.replace(" | His Church School", ""))}</h1>
+        <p style="font-size: 1.85rem; font-weight: 700; line-height: 1.15; margin: 0 0 1rem;">${escapeHtml(
+          metadata.title.replace(" | His Church School", "")
+        )}</p>
         <p>${escapeHtml(metadata.description)}</p>
         <p>
           This website works best with JavaScript enabled. You can still contact
@@ -224,7 +324,8 @@ function buildNoScriptFallback(metadata) {
           <a href="/academic/">Academic</a> |
           <a href="/school-life/">School Life</a> |
           <a href="/contact/">Contact</a> |
-          <a href="/partnership/">Partnership</a>
+          <a href="/partnership/">Partnership</a> |
+          <a href="/privacy/">Privacy Notice</a>
         </nav>
       </main>
     </noscript>`;
@@ -238,6 +339,7 @@ const nestedRouteKeys = [
   "schoolLife",
   "contact",
   "partnership",
+  "privacy",
 ];
 
 for (const route of nestedRouteKeys) {
@@ -272,3 +374,4 @@ const robotsTxt = `User-agent: *\nAllow: /\n\nSitemap: ${resolvePageUrl(
 await writeFile(path.join(docsDir, ".nojekyll"), "");
 await writeFile(path.join(docsDir, "sitemap.xml"), sitemapXml);
 await writeFile(path.join(docsDir, "robots.txt"), robotsTxt);
+await localizeCssAssetUrls();
