@@ -393,8 +393,9 @@ export default function SchoolLife() {
               <p className="font-label text-xs font-semibold text-[#051040]/62 tracking-[0.12em] uppercase mb-3 fade-up">
                 Beyond The Classroom
               </p>
-              <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up">
-                Enrichment Programmes
+              <h2 className="font-display text-[2.45rem] leading-[1.08] sm:text-4xl font-black text-[#051040] fade-up">
+                <span className="block sm:inline">Enrichment</span>{" "}
+                <span className="block sm:inline">Programmes</span>
               </h2>
               <div className="w-12 h-0.5 bg-[#051040]/30 mx-auto mt-4 fade-up hcs-divider" />
             </div>

@@ -745,7 +745,7 @@ export default function AboutUs() {
                   alt="Historic photo representing the beginnings of His Church School"
                   imageClassName="object-[50%_18%] sm:object-[50%_14%] xl:object-center"
                 />
-                <blockquote className="mt-8 hcs-pullquote">
+                <blockquote className="mt-8 hidden hcs-pullquote xl:block">
                   "For I know the plans I have for you," declares the Lord,
                   "plans to prosper you and not to harm you, plans for a hope
                   and a future."
@@ -797,6 +797,12 @@ export default function AboutUs() {
                     entire school, Grades 1 to 12, uses the CAPS curriculum.
                   </p>
                 </div>
+                <blockquote className="mt-8 hcs-pullquote xl:hidden">
+                  "For I know the plans I have for you," declares the Lord,
+                  "plans to prosper you and not to harm you, plans for a hope
+                  and a future."
+                  <cite>Jeremiah 29:11 (NIV)</cite>
+                </blockquote>
               </div>
             </div>
           </div>

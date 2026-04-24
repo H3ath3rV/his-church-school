@@ -166,6 +166,7 @@
     @apply font-heading;
     line-height: 1.2;
     text-wrap: balance;
+    overflow-wrap: break-word;
   }
   p,
   blockquote,
