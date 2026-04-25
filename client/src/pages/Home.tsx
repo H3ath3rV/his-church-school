@@ -159,8 +159,8 @@ export default function Home() {
           />
           <div className="relative z-10 w-full">
             <div className="max-w-7xl mx-auto hcs-shell px-4 min-[390px]:px-5 sm:px-9 lg:px-12 xl:px-14 pb-12 sm:py-24 lg:py-28">
-              <div className="mx-auto w-full max-w-[24.5rem] translate-y-4 text-center sm:mx-0 sm:max-w-[25.5rem] sm:translate-y-3 sm:text-left md:max-w-[27rem] lg:max-w-[30rem] xl:max-w-[31.5rem]">
-                <h1 className="mx-auto mb-4 max-w-[18rem] font-display text-[1.9rem] font-black leading-[1.02] tracking-[-0.015em] text-white drop-shadow-[0_6px_18px_rgba(5,16,64,0.38)] fade-up visible min-[360px]:text-[2.1rem] sm:mx-0 sm:max-w-none sm:text-[2.85rem] sm:leading-[1.04] sm:text-left sm:drop-shadow-[0_8px_20px_rgba(5,16,64,0.22)] md:text-[3.2rem] lg:mb-6 lg:text-[4.65rem] lg:leading-[1.08] lg:drop-shadow-[0_10px_28px_rgba(5,16,64,0.34)]">
+              <div className="mx-auto w-full max-w-[24.5rem] translate-y-4 text-center min-[500px]:max-w-[30rem] sm:mx-0 sm:max-w-[25.5rem] sm:translate-y-3 sm:text-left md:max-w-[27rem] lg:max-w-[30rem] xl:max-w-[31.5rem]">
+                <h1 className="mx-auto mb-4 max-w-[18rem] font-display text-[1.9rem] font-black leading-[1.02] tracking-[-0.015em] text-white drop-shadow-[0_6px_18px_rgba(5,16,64,0.38)] fade-up visible min-[360px]:text-[2.1rem] min-[500px]:max-w-[29rem] sm:mx-0 sm:max-w-none sm:text-[2.85rem] sm:leading-[1.04] sm:text-left sm:drop-shadow-[0_8px_20px_rgba(5,16,64,0.22)] md:text-[3.2rem] lg:mb-6 lg:text-[4.65rem] lg:leading-[1.08] lg:drop-shadow-[0_10px_28px_rgba(5,16,64,0.34)]">
                   <span className="block sm:whitespace-nowrap">
                     Confident learners
                   </span>
@@ -168,7 +168,7 @@ export default function Home() {
                     rooted in Christ.
                   </span>
                 </h1>
-                <p className="mx-auto mb-5 max-w-[19.5rem] font-body text-[1rem] leading-[1.5] text-white/92 drop-shadow-[0_4px_12px_rgba(5,16,64,0.34)] fade-up visible [text-wrap:balance] min-[360px]:text-[1.04rem] sm:mx-0 sm:mb-6 sm:max-w-[24rem] sm:text-[1rem] sm:leading-[1.65] sm:text-white/86 sm:drop-shadow-[0_6px_18px_rgba(5,16,64,0.18)] sm:[text-wrap:pretty] md:text-[1.05rem] md:leading-[1.7] lg:mb-8 lg:max-w-[26rem] lg:text-[1.125rem] lg:leading-[1.8]">
+                <p className="mx-auto mb-5 max-w-[19.5rem] font-body text-[1rem] leading-[1.5] text-white/92 drop-shadow-[0_4px_12px_rgba(5,16,64,0.34)] fade-up visible [text-wrap:balance] min-[360px]:text-[1.04rem] min-[500px]:max-w-[27rem] sm:mx-0 sm:mb-6 sm:max-w-[24rem] sm:text-[1rem] sm:leading-[1.65] sm:text-white/86 sm:drop-shadow-[0_6px_18px_rgba(5,16,64,0.18)] sm:[text-wrap:pretty] md:text-[1.05rem] md:leading-[1.7] lg:mb-8 lg:max-w-[26rem] lg:text-[1.125rem] lg:leading-[1.8]">
                   <span className="sm:hidden">
                     Faith-rooted education in Pinetown where every learner is
                     known, valued, and guided.

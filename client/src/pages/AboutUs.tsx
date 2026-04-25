@@ -932,7 +932,8 @@ export default function AboutUs() {
           <div className="max-w-7xl mx-auto hcs-shell">
             <div className="text-center mb-14">
               <h2 className="font-display text-3xl md:text-4xl font-black text-[#051040] fade-up gold-rule-center">
-                His&nbsp;Church&nbsp;School Organogram
+                <span className="block sm:inline">His&nbsp;Church&nbsp;School</span>{" "}
+                <span className="block sm:inline">Organogram</span>
               </h2>
               <p className="mx-auto mt-4 max-w-2xl font-body text-[0.98rem] leading-[1.68] text-[#051040]/60 fade-up sm:text-[1rem]">
                 Excellence Through Teamwork
