@@ -324,7 +324,8 @@ export default function SchoolLife() {
                   2026 Planner
                 </p>
                 <h2 className="font-display text-3xl md:text-4xl font-black text-white fade-up">
-                  Fixtures &amp; Sporting Events
+                  <span className="block sm:inline">Fixtures &amp;</span>{" "}
+                  <span className="block sm:inline">Sporting Events</span>
                 </h2>
                 <div className="w-12 h-0.5 bg-[#C9A84C] mx-auto mt-4 mb-6 fade-up hcs-divider" />
                 <p className="mx-auto mt-2 w-full max-w-[44ch] text-center font-body text-[0.98rem] leading-[1.72] text-white/72 fade-up sm:text-[1rem] md:max-w-none">

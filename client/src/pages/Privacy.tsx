@@ -35,7 +35,7 @@ export default function Privacy() {
             <p className="mb-3 font-label text-xs font-semibold uppercase tracking-[0.12em] text-[#051040]/68 fade-up">
               Legal
             </p>
-            <h1 className="font-display text-4xl font-black text-[#051040] fade-up md:text-5xl">
+            <h1 className="font-display text-3xl font-black text-[#051040] fade-up md:text-4xl">
               Privacy Notice
             </h1>
             <div className="mx-auto mt-4 mb-6 h-0.5 w-12 bg-[#C9A84C] fade-up hcs-divider" />

@@ -200,7 +200,8 @@ export default function Home() {
                 Start the Conversation
               </p>
               <h2 className="font-display text-3xl font-black text-[#051040] md:text-4xl">
-                Speak to Our School Office
+                <span className="block sm:inline">Speak to</span>{" "}
+                <span className="block sm:inline">Our School Office</span>
               </h2>
               <div className="mx-auto mt-4 mb-5 h-0.5 w-12 bg-[#C9A84C] hcs-divider" />
               <p className="mx-auto max-w-2xl font-body text-[0.98rem] leading-[1.7] text-[#051040]/70 sm:text-[1rem]">
