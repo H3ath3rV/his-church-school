@@ -797,7 +797,7 @@ export default function AboutUs() {
                     entire school, Grades 1 to 12, uses the CAPS curriculum.
                   </p>
                 </div>
-                <blockquote className="mt-8 hcs-pullquote xl:hidden">
+                <blockquote className="mx-auto mt-8 max-w-[44ch] hcs-pullquote sm:max-w-[46rem] lg:max-w-[52rem] xl:hidden">
                   "For I know the plans I have for you," declares the Lord,
                   "plans to prosper you and not to harm you, plans for a hope
                   and a future."
