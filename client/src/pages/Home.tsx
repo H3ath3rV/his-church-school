@@ -224,7 +224,7 @@ export default function Home() {
                 );
               })}
             </div>
-            <div className="mx-auto grid max-w-[40rem] grid-cols-1 justify-items-center gap-8 min-[900px]:hidden">
+            <div className="mx-auto grid max-w-[40rem] grid-cols-1 justify-items-center gap-5 sm:gap-8 min-[900px]:hidden">
               {CONTACT_DETAILS.map(item => (
                 <ContactDetailCard
                   key={item.label}
